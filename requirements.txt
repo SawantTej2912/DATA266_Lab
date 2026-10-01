@@ -1,0 +1,18 @@
+# DATA266 Lab 1 — install with: pip install -r requirements.txt
+# Exact versions used for each run are frozen into reproducibility/manifests/<task>/<member>/requirements_frozen.txt
+torch>=2.2
+torchvision>=0.17
+numpy>=1.24
+pandas>=2.0
+scipy>=1.10,<1.18      # TA evaluation script uses sqrtm(disp=...), removed in SciPy 1.18
+scikit-learn>=1.3
+statsmodels>=0.14
+matplotlib>=3.7
+nltk>=3.8
+datasets>=2.18
+pyarrow>=14
+lpips>=0.1.4
+pillow>=10
+tqdm
+jupyter
+nbconvert
