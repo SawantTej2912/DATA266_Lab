@@ -1,0 +1,4 @@
+,gpu,gpu_mem_gb,cuda,cpu,cpu_count,torch,platform
+baseline,NVIDIA GeForce RTX 4090,25.76,12.6,AMD Ryzen 9 7950X 16-Core Processor,32,2.14.1+cu126,Windows-11-10.0.26200-SP0
+exp1,NVIDIA GeForce RTX 4090,25.76,12.6,AMD Ryzen 9 7950X 16-Core Processor,32,2.14.1+cu126,Windows-11-10.0.26200-SP0
+exp2,NVIDIA GeForce RTX 4090,25.76,12.6,AMD Ryzen 9 7950X 16-Core Processor,32,2.14.1+cu126,Windows-11-10.0.26200-SP0

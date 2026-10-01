@@ -1,0 +1,3 @@
+model,"b: baseline right, exp wrong","c: baseline wrong, exp right",statistic,p_value,accuracy_gain_vs_baseline,significant (α=0.05)
+exp1,766.0,911.0,12.364937388193201,4.375e-04,0.0038,True
+exp2,561.0,1358.0,330.1803022407504,8.780e-74,0.021,True

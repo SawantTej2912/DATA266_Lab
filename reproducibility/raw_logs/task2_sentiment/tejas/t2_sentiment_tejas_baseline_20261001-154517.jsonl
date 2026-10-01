@@ -1,0 +1,58 @@
+{"event": "start", "model": "baseline", "cfg": {"arch": "ngram_bag", "emb_dim": 64, "lr": 0.002, "batch_size": 256, "epochs": 5, "dropout": 0.2, "n_buckets": 200000}, "n_params": 15732417, "hardware": {"platform": "Windows-11-10.0.26200-SP0", "python": "3.12.10", "torch": "2.14.1+cu126", "device": "cuda", "cpu": "AMD Ryzen 9 7950X 16-Core Processor", "cpu_count": 32, "gpu": "NVIDIA GeForce RTX 4090", "gpu_mem_gb": 25.76, "cuda": "12.6"}, "wall_time": 1790894717.3057716}
+{"step": 200, "epoch": 0, "train_loss": 0.4348863363265991, "grad_norm": 0.05962834507226944, "peak_mem_mb": 316.6962890625, "wall_time": 1790894718.2590022}
+{"step": 400, "epoch": 0, "train_loss": 0.3112146854400635, "grad_norm": 0.07234052568674088, "peak_mem_mb": 316.6962890625, "wall_time": 1790894718.9519506}
+{"step": 600, "epoch": 0, "train_loss": 0.24829068779945374, "grad_norm": 0.03614133223891258, "peak_mem_mb": 316.6962890625, "wall_time": 1790894719.5896254}
+{"step": 800, "epoch": 0, "train_loss": 0.2639533281326294, "grad_norm": 0.02253923937678337, "peak_mem_mb": 316.6962890625, "wall_time": 1790894720.3167775}
+{"step": 1000, "epoch": 0, "train_loss": 0.17265906929969788, "grad_norm": 0.02278761938214302, "peak_mem_mb": 316.6962890625, "wall_time": 1790894720.9357035}
+{"step": 1200, "epoch": 0, "train_loss": 0.2238532304763794, "grad_norm": 0.024000942707061768, "peak_mem_mb": 316.6962890625, "wall_time": 1790894721.5419805}
+{"step": 1400, "epoch": 0, "train_loss": 0.2708052396774292, "grad_norm": 0.04476037994027138, "peak_mem_mb": 316.6962890625, "wall_time": 1790894722.1258771}
+{"step": 1600, "epoch": 0, "train_loss": 0.18517038226127625, "grad_norm": 0.03662380948662758, "peak_mem_mb": 316.6962890625, "wall_time": 1790894722.7133794}
+{"step": 1800, "epoch": 0, "train_loss": 0.1562621295452118, "grad_norm": 0.021672438830137253, "peak_mem_mb": 316.6962890625, "wall_time": 1790894723.2938578}
+{"step": 2000, "epoch": 0, "train_loss": 0.2178487479686737, "grad_norm": 0.023635713383555412, "peak_mem_mb": 316.6962890625, "wall_time": 1790894723.8744285}
+{"event": "epoch", "epoch": 0, "val_macro_f1": 0.9272857009300267, "epoch_time_s": 6.815226078033447, "ex_per_sec": 78055.81119526131, "peak_mem_mb": 354.7431640625, "wall_time": 1790894724.2971036}
+{"step": 2200, "epoch": 1, "train_loss": 0.1710699498653412, "grad_norm": 0.026194065809249878, "peak_mem_mb": 354.7431640625, "wall_time": 1790894724.7860932}
+{"step": 2400, "epoch": 1, "train_loss": 0.2161693274974823, "grad_norm": 0.03594381734728813, "peak_mem_mb": 354.7431640625, "wall_time": 1790894725.3767822}
+{"step": 2600, "epoch": 1, "train_loss": 0.1920621395111084, "grad_norm": 0.0265421774238348, "peak_mem_mb": 354.7431640625, "wall_time": 1790894725.9588237}
+{"step": 2800, "epoch": 1, "train_loss": 0.15826977789402008, "grad_norm": 0.023385891690850258, "peak_mem_mb": 354.7431640625, "wall_time": 1790894726.5369017}
+{"step": 3000, "epoch": 1, "train_loss": 0.15773510932922363, "grad_norm": 0.02348344773054123, "peak_mem_mb": 354.7431640625, "wall_time": 1790894727.1159744}
+{"step": 3200, "epoch": 1, "train_loss": 0.2359902709722519, "grad_norm": 0.04254874959588051, "peak_mem_mb": 354.7431640625, "wall_time": 1790894727.6937356}
+{"step": 3400, "epoch": 1, "train_loss": 0.23074974119663239, "grad_norm": 0.04036646708846092, "peak_mem_mb": 354.7431640625, "wall_time": 1790894728.2732732}
+{"step": 3600, "epoch": 1, "train_loss": 0.20120590925216675, "grad_norm": 0.022586079314351082, "peak_mem_mb": 354.7431640625, "wall_time": 1790894728.8496592}
+{"step": 3800, "epoch": 1, "train_loss": 0.15517041087150574, "grad_norm": 0.01933060958981514, "peak_mem_mb": 354.7431640625, "wall_time": 1790894729.4301157}
+{"step": 4000, "epoch": 1, "train_loss": 0.2063399851322174, "grad_norm": 0.03986065089702606, "peak_mem_mb": 354.7431640625, "wall_time": 1790894730.007794}
+{"event": "epoch", "epoch": 1, "val_macro_f1": 0.9306428514810491, "epoch_time_s": 6.121516942977905, "ex_per_sec": 86901.33588705157, "peak_mem_mb": 354.7431640625, "wall_time": 1790894730.6710246}
+{"step": 4200, "epoch": 2, "train_loss": 0.18279749155044556, "grad_norm": 0.023935431614518166, "peak_mem_mb": 354.7431640625, "wall_time": 1790894730.9127114}
+{"step": 4400, "epoch": 2, "train_loss": 0.1299569010734558, "grad_norm": 0.021098602563142776, "peak_mem_mb": 354.7431640625, "wall_time": 1790894731.4976647}
+{"step": 4600, "epoch": 2, "train_loss": 0.12554827332496643, "grad_norm": 0.02030591480433941, "peak_mem_mb": 354.7431640625, "wall_time": 1790894732.5903342}
+{"step": 4800, "epoch": 2, "train_loss": 0.26798146963119507, "grad_norm": 0.03873005509376526, "peak_mem_mb": 354.7431640625, "wall_time": 1790894733.1721282}
+{"step": 5000, "epoch": 2, "train_loss": 0.26077038049697876, "grad_norm": 0.03978411853313446, "peak_mem_mb": 354.7431640625, "wall_time": 1790894733.7657316}
+{"step": 5200, "epoch": 2, "train_loss": 0.1396341472864151, "grad_norm": 0.022842420265078545, "peak_mem_mb": 354.7431640625, "wall_time": 1790894734.3552139}
+{"step": 5400, "epoch": 2, "train_loss": 0.13276377320289612, "grad_norm": 0.026680033653974533, "peak_mem_mb": 354.7431640625, "wall_time": 1790894734.930653}
+{"step": 5600, "epoch": 2, "train_loss": 0.11658577620983124, "grad_norm": 0.023214612156152725, "peak_mem_mb": 354.7431640625, "wall_time": 1790894735.5091558}
+{"step": 5800, "epoch": 2, "train_loss": 0.22910015285015106, "grad_norm": 0.03606810420751572, "peak_mem_mb": 354.7431640625, "wall_time": 1790894736.0908697}
+{"step": 6000, "epoch": 2, "train_loss": 0.2143370807170868, "grad_norm": 0.029589524492621422, "peak_mem_mb": 354.7431640625, "wall_time": 1790894736.6737046}
+{"step": 6200, "epoch": 2, "train_loss": 0.21945643424987793, "grad_norm": 0.03619274124503136, "peak_mem_mb": 354.7431640625, "wall_time": 1790894737.252483}
+{"event": "epoch", "epoch": 2, "val_macro_f1": 0.9312493664243271, "epoch_time_s": 6.6346917152404785, "ex_per_sec": 80179.76159736587, "peak_mem_mb": 354.7431640625, "wall_time": 1790894737.561824}
+{"step": 6400, "epoch": 3, "train_loss": 0.13569337129592896, "grad_norm": 0.02140227146446705, "peak_mem_mb": 354.7431640625, "wall_time": 1790894738.1695673}
+{"step": 6600, "epoch": 3, "train_loss": 0.10303976386785507, "grad_norm": 0.021355513483285904, "peak_mem_mb": 354.7431640625, "wall_time": 1790894738.7504146}
+{"step": 6800, "epoch": 3, "train_loss": 0.09084296226501465, "grad_norm": 0.018416741862893105, "peak_mem_mb": 354.7431640625, "wall_time": 1790894739.3303256}
+{"step": 7000, "epoch": 3, "train_loss": 0.1796949952840805, "grad_norm": 0.03641996160149574, "peak_mem_mb": 354.7431640625, "wall_time": 1790894739.909411}
+{"step": 7200, "epoch": 3, "train_loss": 0.14741504192352295, "grad_norm": 0.038608368486166, "peak_mem_mb": 354.7431640625, "wall_time": 1790894740.493196}
+{"step": 7400, "epoch": 3, "train_loss": 0.15084300935268402, "grad_norm": 0.023879365995526314, "peak_mem_mb": 354.7431640625, "wall_time": 1790894741.095887}
+{"step": 7600, "epoch": 3, "train_loss": 0.13209420442581177, "grad_norm": 0.024076402187347412, "peak_mem_mb": 354.7431640625, "wall_time": 1790894741.6940262}
+{"step": 7800, "epoch": 3, "train_loss": 0.11507344245910645, "grad_norm": 0.02744310162961483, "peak_mem_mb": 354.7431640625, "wall_time": 1790894742.2965682}
+{"step": 8000, "epoch": 3, "train_loss": 0.19209200143814087, "grad_norm": 0.028272595256567, "peak_mem_mb": 354.7431640625, "wall_time": 1790894742.883315}
+{"step": 8200, "epoch": 3, "train_loss": 0.12693294882774353, "grad_norm": 0.020555689930915833, "peak_mem_mb": 354.7431640625, "wall_time": 1790894743.5637095}
+{"event": "epoch", "epoch": 3, "val_macro_f1": 0.9298927819385582, "epoch_time_s": 6.286588907241821, "ex_per_sec": 84619.4984035302, "peak_mem_mb": 354.7431640625, "wall_time": 1790894744.1330376}
+{"step": 8400, "epoch": 4, "train_loss": 0.15383681654930115, "grad_norm": 0.02160847932100296, "peak_mem_mb": 354.7431640625, "wall_time": 1790894744.478862}
+{"step": 8600, "epoch": 4, "train_loss": 0.17931869626045227, "grad_norm": 0.030155733227729797, "peak_mem_mb": 354.7431640625, "wall_time": 1790894745.0692134}
+{"step": 8800, "epoch": 4, "train_loss": 0.14946401119232178, "grad_norm": 0.028942294418811798, "peak_mem_mb": 354.7431640625, "wall_time": 1790894745.6917353}
+{"step": 9000, "epoch": 4, "train_loss": 0.1449134647846222, "grad_norm": 0.02152436226606369, "peak_mem_mb": 354.7431640625, "wall_time": 1790894746.3205237}
+{"step": 9200, "epoch": 4, "train_loss": 0.11306611448526382, "grad_norm": 0.020699379965662956, "peak_mem_mb": 354.7431640625, "wall_time": 1790894746.9360433}
+{"step": 9400, "epoch": 4, "train_loss": 0.11897151917219162, "grad_norm": 0.023621510714292526, "peak_mem_mb": 354.7431640625, "wall_time": 1790894747.60378}
+{"step": 9600, "epoch": 4, "train_loss": 0.1625044345855713, "grad_norm": 0.025001224130392075, "peak_mem_mb": 354.7431640625, "wall_time": 1790894748.2183285}
+{"step": 9800, "epoch": 4, "train_loss": 0.12324655801057816, "grad_norm": 0.017281943932175636, "peak_mem_mb": 354.7431640625, "wall_time": 1790894748.914208}
+{"step": 10000, "epoch": 4, "train_loss": 0.11939449608325958, "grad_norm": 0.02636912278831005, "peak_mem_mb": 354.7431640625, "wall_time": 1790894749.5654767}
+{"step": 10200, "epoch": 4, "train_loss": 0.10387749969959259, "grad_norm": 0.017609266564249992, "peak_mem_mb": 354.7431640625, "wall_time": 1790894750.68449}
+{"event": "epoch", "epoch": 4, "val_macro_f1": 0.9292499890806744, "epoch_time_s": 7.222380876541138, "ex_per_sec": 73655.4896637858, "peak_mem_mb": 354.7431640625, "wall_time": 1790894751.5563993}
+{"event": "done", "name": "baseline", "param_count": 15732417, "train_time_s": 33.08040452003479, "ex_per_sec": 80405.30454786599, "peak_mem_mb": 354.7431640625, "hardware": {"platform": "Windows-11-10.0.26200-SP0", "python": "3.12.10", "torch": "2.14.1+cu126", "device": "cuda", "cpu": "AMD Ryzen 9 7950X 16-Core Processor", "cpu_count": 32, "gpu": "NVIDIA GeForce RTX 4090", "gpu_mem_gb": 25.76, "cuda": "12.6"}, "best_val_macro_f1": 0.9312493664243271, "log_path": "C:\\Users\\tejas\\Desktop\\Data266_Lab\\reproducibility\\raw_logs\\task2_sentiment\\tejas\\t2_sentiment_tejas_baseline_20261001-154517.jsonl", "wall_time": 1790894751.7986295}

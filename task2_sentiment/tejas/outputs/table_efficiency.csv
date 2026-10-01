@@ -1,0 +1,4 @@
+model,arch,emb_dim,lr,batch_size,dropout,param_count,train_time_min,examples_per_sec,peak_memory_mb,epochs_run,best_val_macro_f1
+baseline,ngram_bag,64,0.002,256,0.2,15732417,0.55,80405.3,354.74,5,0.9312
+exp1,transformer,128,0.0005,128,0.1,6154113,2.97,14949.53,946.88,5,0.9348
+exp2,bigru,128,0.001,128,0.3,6063362,11.99,3698.26,439.63,5,0.9527
