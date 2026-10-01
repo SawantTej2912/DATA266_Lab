@@ -1,0 +1,82 @@
+[
+  {
+    "decoding": "greedy",
+    "prompt": "One day, Tom",
+    "repeated_4gram_rate": 0.213,
+    "possible_nonwords": [
+      "cl"
+    ],
+    "snippet": " wanted to play with his toys and run around outside. He saw a big tree with many leaves. Tom wanted to climb the tree, but he was too small. He tried to climb the tree, but he could not. Tom was sad.\n\nTom saw a big tree"
+  },
+  {
+    "decoding": "greedy",
+    "prompt": "Lily was sad because",
+    "repeated_4gram_rate": 0.172,
+    "possible_nonwords": [
+      "ang"
+    ],
+    "snippet": " she loved her mommy and daddy. She wanted to help her mommy and daddy. She asked her mommy if she could help her mommy and daddy. Her mommy and daddy said yes, but they had to be careful and not touch the books. They sa"
+  },
+  {
+    "decoding": "greedy",
+    "prompt": "Once upon a time",
+    "repeated_4gram_rate": 0.017,
+    "possible_nonwords": [],
+    "snippet": ", there was a little girl named Lily. She loved to play outside in the sunshine. One day, she saw a big box in the garden. She wanted to open it, but it was too hard. She asked her mommy if she could open it, but her mom"
+  },
+  {
+    "decoding": "greedy",
+    "prompt": "The little dog",
+    "repeated_4gram_rate": 0.0,
+    "possible_nonwords": [
+      "op"
+    ],
+    "snippet": " was so happy to have a new friend. They played together all day long. The end.\n\nOnce upon a time, there was a little girl named Lily. She loved to play outside in the sunshine. One day, she saw a big box in the garden. "
+  },
+  {
+    "decoding": "T=0.8",
+    "prompt": "One day, Tom",
+    "repeated_4gram_rate": 0.0,
+    "possible_nonwords": [
+      "forg"
+    ],
+    "snippet": " and Sue find a new toy in the shade. It is a big dinosaur. The dinosaur is black and looks like a ball. They put the dinosaur in the box.\n\nTom and Sue touch the dinosaur's head. They look at the new toy and smile. They "
+  },
+  {
+    "decoding": "T=0.8",
+    "prompt": "In the forest",
+    "repeated_4gram_rate": 0.0,
+    "possible_nonwords": [
+      "wh"
+    ],
+    "snippet": " was a bright, sunny barn. The barn was full of lots of animals, flowers and flowers.\n\nAt night, the barn went for many long walks in the meadow. But then, something bad happened. A man came to say he had a spell. The ma"
+  },
+  {
+    "decoding": "greedy",
+    "prompt": "In the forest",
+    "repeated_4gram_rate": 0.0,
+    "possible_nonwords": [],
+    "snippet": ", they saw a big tree with many leaves. They wanted to climb the tree and see what was on the other side.\n\n\"Let's go up the tree,\" Tom said. \"Maybe we can find a safe place to hide.\"\n\n\"OK,\" Lily said. \"But we have to be "
+  },
+  {
+    "decoding": "T=0.8",
+    "prompt": "Once upon a time",
+    "repeated_4gram_rate": 0.0,
+    "possible_nonwords": [],
+    "snippet": ", there was a big truck. The truck had many lots of firemen. The truck was big and had a lot of water. The truck driver was very naughty. He said he did not take medicine. \n\nOne day, the truck got too hurt, and it was ve"
+  },
+  {
+    "decoding": "T=0.8",
+    "prompt": "The little dog",
+    "repeated_4gram_rate": 0.0,
+    "possible_nonwords": [],
+    "snippet": " was scared and ran away quickly. The wise old owl was safe and happy, and the farmer thanked the owl. From that day on, the owl and the little dog were the best of friends.\n\nOnce upon a time, there were two friends, Bob"
+  },
+  {
+    "decoding": "T=0.8",
+    "prompt": "Lily was sad because",
+    "repeated_4gram_rate": 0.0,
+    "possible_nonwords": [],
+    "snippet": " she lost her ball and didn't know how to find it. But then, her friend came over to play. They had a great time playing together in the park. Lily wanted to make her friend happy, so she reached for the ball and grabbed"
+  }
+]

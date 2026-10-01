@@ -1,0 +1,74 @@
+{
+  "run_name": "t1_gpt_tejas",
+  "seed": 1446,
+  "smoke": false,
+  "config": {
+    "run_name": "t1_gpt_tejas",
+    "n_train_stories": 100000,
+    "n_val_stories": 10000,
+    "rare_char_min_count": 50,
+    "story_sep": "\n\n",
+    "block_size": 256,
+    "n_layer": 6,
+    "n_head": 6,
+    "n_embd": 384,
+    "dropout": 0.1,
+    "tie_weights": true,
+    "batch_size": 64,
+    "lr": 0.0006,
+    "min_lr_ratio": 0.1,
+    "warmup_frac": 0.03,
+    "weight_decay": 0.1,
+    "betas": [
+      0.9,
+      0.95
+    ],
+    "grad_clip": 1.0,
+    "epochs": 10,
+    "use_amp": true,
+    "log_every": 50,
+    "ckpt_every": 500,
+    "train_eval_batches": 200,
+    "eval_batches": null,
+    "spike_factor": 1.5,
+    "gen_prompts": [
+      "Once upon a time",
+      "The little dog",
+      "Lily was sad because",
+      "One day, Tom",
+      "In the forest"
+    ],
+    "gen_max_new": 300,
+    "gen_temperature": 0.8,
+    "gen_top_k": null,
+    "div_prompts": [
+      "Once upon a time",
+      "One day,",
+      "There was a little",
+      "The sun was"
+    ],
+    "div_samples_per_prompt": 10,
+    "cache_full_dataset": true,
+    "num_workers": 0
+  },
+  "hardware": {
+    "platform": "Windows-11-10.0.26200-SP0",
+    "python": "3.12.10",
+    "torch": "2.14.1+cu126",
+    "device": "cuda",
+    "cpu": "AMD Ryzen 9 7950X 16-Core Processor",
+    "cpu_count": 32,
+    "gpu": "NVIDIA GeForce RTX 4090",
+    "gpu_mem_gb": 25.76,
+    "cuda": "12.6"
+  },
+  "created": "2026-10-01 15:30:08",
+  "checkpoint_to_result": {
+    "checkpoints/best.pt": "best epoch 10 (weights only): metrics_report.csv, outputs/generations.json, outputs/diversity_samples.json",
+    "checkpoints/last.pt": "final epoch + optimizer state (resume point)"
+  },
+  "n_params": 10775424,
+  "raw_logs": [
+    "C:\\Users\\tejas\\Desktop\\Data266_Lab\\reproducibility\\raw_logs\\task1_llm\\tejas\\t1_gpt_tejas_20261001-144225.jsonl"
+  ]
+}

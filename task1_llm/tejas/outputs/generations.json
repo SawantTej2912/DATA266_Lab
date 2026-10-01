@@ -1,0 +1,62 @@
+[
+  {
+    "decoding": "greedy",
+    "prompt": "Once upon a time",
+    "continuation": ", there was a little girl named Lily. She loved to play outside in the sunshine. One day, she saw a big box in the garden. She wanted to open it, but it was too hard. She asked her mommy if she could open it, but her mommy said no.\n\nLily was sad because she couldn't open the box. She asked her mommy",
+    "text": "Once upon a time, there was a little girl named Lily. She loved to play outside in the sunshine. One day, she saw a big box in the garden. She wanted to open it, but it was too hard. She asked her mommy if she could open it, but her mommy said no.\n\nLily was sad because she couldn't open the box. She asked her mommy"
+  },
+  {
+    "decoding": "greedy",
+    "prompt": "The little dog",
+    "continuation": " was so happy to have a new friend. They played together all day long. The end.\n\nOnce upon a time, there was a little girl named Lily. She loved to play outside in the sunshine. One day, she saw a big box in the garden. She wanted to open it, but it was too heavy. She asked her mommy if she could op",
+    "text": "The little dog was so happy to have a new friend. They played together all day long. The end.\n\nOnce upon a time, there was a little girl named Lily. She loved to play outside in the sunshine. One day, she saw a big box in the garden. She wanted to open it, but it was too heavy. She asked her mommy if she could op"
+  },
+  {
+    "decoding": "greedy",
+    "prompt": "Lily was sad because",
+    "continuation": " she loved her mommy and daddy. She wanted to help her mommy and daddy. She asked her mommy if she could help her mommy and daddy. Her mommy and daddy said yes, but they had to be careful and not touch the books. They said they had to be careful and not touch the books anymore.\n\nLily was sad and ang",
+    "text": "Lily was sad because she loved her mommy and daddy. She wanted to help her mommy and daddy. She asked her mommy if she could help her mommy and daddy. Her mommy and daddy said yes, but they had to be careful and not touch the books. They said they had to be careful and not touch the books anymore.\n\nLily was sad and ang"
+  },
+  {
+    "decoding": "greedy",
+    "prompt": "One day, Tom",
+    "continuation": " wanted to play with his toys and run around outside. He saw a big tree with many leaves. Tom wanted to climb the tree, but he was too small. He tried to climb the tree, but he could not. Tom was sad.\n\nTom saw a big tree with many leaves. He wanted to climb the tree, but he could not. He tried to cl",
+    "text": "One day, Tom wanted to play with his toys and run around outside. He saw a big tree with many leaves. Tom wanted to climb the tree, but he was too small. He tried to climb the tree, but he could not. Tom was sad.\n\nTom saw a big tree with many leaves. He wanted to climb the tree, but he could not. He tried to cl"
+  },
+  {
+    "decoding": "greedy",
+    "prompt": "In the forest",
+    "continuation": ", they saw a big tree with many leaves. They wanted to climb the tree and see what was on the other side.\n\n\"Let's go up the tree,\" Tom said. \"Maybe we can find a safe place to hide.\"\n\n\"OK,\" Lily said. \"But we have to be careful. The tree is hidden behind the tree.\"\n\nThey walked up the tree and saw a",
+    "text": "In the forest, they saw a big tree with many leaves. They wanted to climb the tree and see what was on the other side.\n\n\"Let's go up the tree,\" Tom said. \"Maybe we can find a safe place to hide.\"\n\n\"OK,\" Lily said. \"But we have to be careful. The tree is hidden behind the tree.\"\n\nThey walked up the tree and saw a"
+  },
+  {
+    "decoding": "T=0.8",
+    "prompt": "Once upon a time",
+    "continuation": ", there was a big truck. The truck had many lots of firemen. The truck was big and had a lot of water. The truck driver was very naughty. He said he did not take medicine. \n\nOne day, the truck got too hurt, and it was very scared. It needed a bath. The truck driver took the bath and started to cry. ",
+    "text": "Once upon a time, there was a big truck. The truck had many lots of firemen. The truck was big and had a lot of water. The truck driver was very naughty. He said he did not take medicine. \n\nOne day, the truck got too hurt, and it was very scared. It needed a bath. The truck driver took the bath and started to cry. "
+  },
+  {
+    "decoding": "T=0.8",
+    "prompt": "The little dog",
+    "continuation": " was scared and ran away quickly. The wise old owl was safe and happy, and the farmer thanked the owl. From that day on, the owl and the little dog were the best of friends.\n\nOnce upon a time, there were two friends, Bob and Sally. They wanted to do something nice for Bob. So, they went to the shop ",
+    "text": "The little dog was scared and ran away quickly. The wise old owl was safe and happy, and the farmer thanked the owl. From that day on, the owl and the little dog were the best of friends.\n\nOnce upon a time, there were two friends, Bob and Sally. They wanted to do something nice for Bob. So, they went to the shop "
+  },
+  {
+    "decoding": "T=0.8",
+    "prompt": "Lily was sad because",
+    "continuation": " she lost her ball and didn't know how to find it. But then, her friend came over to play. They had a great time playing together in the park. Lily wanted to make her friend happy, so she reached for the ball and grabbed it.\n\nLily's friend was so sad that she started to cry and said, \"Oh, I see it! ",
+    "text": "Lily was sad because she lost her ball and didn't know how to find it. But then, her friend came over to play. They had a great time playing together in the park. Lily wanted to make her friend happy, so she reached for the ball and grabbed it.\n\nLily's friend was so sad that she started to cry and said, \"Oh, I see it! "
+  },
+  {
+    "decoding": "T=0.8",
+    "prompt": "One day, Tom",
+    "continuation": " and Sue find a new toy in the shade. It is a big dinosaur. The dinosaur is black and looks like a ball. They put the dinosaur in the box.\n\nTom and Sue touch the dinosaur's head. They look at the new toy and smile. They think he is very cute. They play with the dinosaur toy. They have fun. They forg",
+    "text": "One day, Tom and Sue find a new toy in the shade. It is a big dinosaur. The dinosaur is black and looks like a ball. They put the dinosaur in the box.\n\nTom and Sue touch the dinosaur's head. They look at the new toy and smile. They think he is very cute. They play with the dinosaur toy. They have fun. They forg"
+  },
+  {
+    "decoding": "T=0.8",
+    "prompt": "In the forest",
+    "continuation": " was a bright, sunny barn. The barn was full of lots of animals, flowers and flowers.\n\nAt night, the barn went for many long walks in the meadow. But then, something bad happened. A man came to say he had a spell. The man was very good at selling marshmallows. He said he had to say them no matter wh",
+    "text": "In the forest was a bright, sunny barn. The barn was full of lots of animals, flowers and flowers.\n\nAt night, the barn went for many long walks in the meadow. But then, something bad happened. A man came to say he had a spell. The man was very good at selling marshmallows. He said he had to say them no matter wh"
+  }
+]
