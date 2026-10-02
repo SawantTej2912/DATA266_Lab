@@ -482,20 +482,28 @@ is worth more than the extra FID.
 
 **Still open — worth one email to the ISAs:**
 
-1. **Task 1 split unit.** Does "training (100K) and validation (10K)" count characters,
-   sequences, or stories? We have both read it as **sequences** and documented that
-   reading; if the intent was characters, both of our runs need re-scoping. Low risk,
-   but cheap to confirm.
+1. **Task 1 split unit — and we did not read it the same way.** Does "training (100K)
+   and validation (10K)" count characters, sequences, or stories? This protocol
+   previously said we had both read it as sequences. That is wrong, and the difference
+   is visible in the committed metrics. Shriram has 100,000 training and 10,000
+   validation *windows* cut from a 20,000-story corpus; Tejas has 100,000 training and
+   10,000 validation *stories*, which is five times the text. Both readings are
+   defensible -- the instruction follows "create fixed-length input-target sequences",
+   which favours the window reading -- but they are not the same experiment, and the
+   gap between a val cross-entropy of 0.7441 and 0.5586 is partly just corpus size.
+   Worth one email, because if the intent was stories then one of the two runs is
+   under-scoped against a 5-mark preprocessing section.
 2. **Kaggle `ID` column.** The spec says `ID` must be numeric and there is one result
    row. Is `ID` a per-member identifier (so Shriram = 1, Tejas = 2), a submission
    counter, or arbitrary? This matters because both of us must submit individually
    under one team.
-3. **Where is the "provided evaluation script"?** The announcement says our reported
-   FID/MiFID must match it, but nothing is attached to the competition. We have
-   reproduced the competition's own reference statistics to a self-FID of 0.069, so our
-   scorer is almost certainly the right one — but if a script is posted on Canvas we
-   should re-score against it before the final submission, since the leaderboard is
-   self-reported and a mismatch would look like a misreport rather than a bug.
+3. ~~**Where is the "provided evaluation script"?**~~ **Found, and it changed the
+   numbers.** It is kept in this repo at `task3_gan/Part3_Evaluation_Script.ipynb`.
+   Both of us now score with it and both reported FIDs are on its scale. The
+   self-FID-0.069 result was correct about how `real_stats.npz` was built and still
+   irrelevant to the grade, because the course script does not read that file -- it
+   recomputes its reference from the image folders under ImageNet normalisation at
+   n = 300. See the corrected evaluation-script section above.
 
 ## Run `scripts/verify_submission.py` before you push anything
 
