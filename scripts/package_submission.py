@@ -186,10 +186,12 @@ def build_zip(name: str, items: list[tuple[Path, str]]) -> Path:
 def build_datasets() -> Path:
     """The Drive bundle the announcement of 28 Sep asks for: datasets only.
 
-    Deliberately excludes the Part 3 checkpoints. They are 91 MB for the generators and
-    340 MB apiece with optimizer state, which would take the bundle past 1.9 GB — and
-    almost all of that is Adam state needed only to *resume* training, not to reproduce
-    a result. `--checkpoints` builds that separately for anyone who wants it.
+    Deliberately excludes the Part 3 checkpoint. It is 1.3 GB on its own — most of that
+    Adam state needed only to *resume* training, not to reproduce a result — and it
+    would more than triple a bundle whose job is to restore the datasets.
+    `--checkpoints` builds that separately, which matters more for Part 3 than for the
+    others: a 217.6 MB fp32 generator cannot go in git at all, so the zip is the only
+    way the Part 3 weights travel.
     """
     groups = {
         "task1_llm/data": REPO_ROOT / "task1_llm/data",
@@ -226,10 +228,24 @@ def build_checkpoints() -> Path:
             for p in sorted((REPO_ROOT / task).rglob("checkpoints/*.pt")):
                 z.write(p, f"{task}/{p.name}")
                 n += 1
+        # Part 3 is written as the two generators rather than as the raw checkpoint.
+        # The file on disk is 1.3 GB, roughly two thirds of it Adam moments for four
+        # networks, which this bundle exists specifically not to carry. The generators
+        # are kept in fp32: casting to fp16 would halve them and stop reproducing the
+        # reported FID, which would make the bundle disagree with metrics_report.csv.
+        import torch
         ckpt_dir = REPO_ROOT / "task3_gan/shriram_dundigalla/checkpoints"
-        for gen in sorted(ckpt_dir.glob("*.pt")) + sorted(ckpt_dir.glob("*.pth")):
-            z.write(gen, f"task3_gan/{gen.name}")
-            n += 1
+        for ck_path in sorted(ckpt_dir.glob("*.pt")) + sorted(ckpt_dir.glob("*.pth")):
+            ck = torch.load(ck_path, map_location="cpu", weights_only=False)
+            stem = ck_path.stem
+            for key in ("G_M2P", "G_P2M", "G_AB", "G_BA"):
+                if key not in ck:
+                    continue
+                tmp = REPO_ROOT / f".{stem}_{key}.pt"
+                torch.save(ck[key], tmp)
+                z.write(tmp, f"task3_gan/{stem}_{key}.pt")
+                tmp.unlink()
+                n += 1
     print(f"  {n} checkpoints")
     return out
 

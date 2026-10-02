@@ -51,6 +51,32 @@ The repository is 4.6 GB. Almost all of that is of no use on a lab PC:
 Nothing excluded is needed to train, evaluate or score any part. The generated
 images and the full-state checkpoints are *outputs* of a run, not inputs to one.
 
+## The two bundles that travel beside the repository
+
+Build either with `python scripts/package_submission.py --datasets` or `--checkpoints`.
+Both unzip at the repository root and need no renaming. Neither is committed.
+
+| Bundle | Size | Files | Contents |
+|---|---|---|---|
+| `Lab1_datasets_Team_33.zip` | 450 MB | 7,343 | `task1_llm/data/`, `task2_sentiment/data/`, `task3_gan/data/` |
+| `Lab1_checkpoints_Team_33.zip` | 459 MB | 6 | every weight behind a reported number |
+
+The datasets bundle is what the 28 September announcement asks for, and its link belongs
+in the top-level `README.md`.
+
+The weights bundle exists for a narrower reason. Part 1 and Part 2 checkpoints are
+15–27 MB and live in the repository; Part 3's cannot. One fp32 generator is 217.6 MB
+against GitHub's 100 MB per-file limit, and fp16 is 108.8 MB — still over, and it would
+no longer reproduce the reported FID of 101.44, which would leave the weights disagreeing
+with `metrics_report.csv`. So the bundle carries `G_M2P` and `G_P2M` extracted from
+`ckpt_epoch060.pth` in fp32, verified tensor-by-tensor as bitwise identical to the
+checkpoint. It deliberately omits the optimizer state, which is roughly two thirds of
+the 1.3 GB file and is needed only to *resume* training.
+
+**No reported number depends on this bundle.** `evaluate_local.py` scores the committed
+images under `outputs/pred_A2B/` and `outputs/pred_B2A/`, never the checkpoint. The
+weights are required only to generate images that do not already exist.
+
 ## Checking all of this on the lab PC
 
 ```bash
