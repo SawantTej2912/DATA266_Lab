@@ -1,4 +1,4 @@
-# DATA266 Lab 1 — Team [Team Number]
+# DATA266 Lab 1 — Team 33
 
 **Members:** Tejas (`tejas/`), [Teammate] (`[teammate]/`)
 
