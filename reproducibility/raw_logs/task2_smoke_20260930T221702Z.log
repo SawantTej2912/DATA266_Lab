@@ -1,0 +1,27 @@
+[2026-09-30T22:17:02+00:00] device=mps hardware=Apple M4 integrated GPU via Apple MPS torch=2.14.0
+[2026-09-30T22:17:03+00:00] scrub: train 560000 -> 560000, test 38000 -> 38000
+[2026-09-30T22:17:03+00:00] vocab size 8058 (cap 30000, min_freq 2)
+[2026-09-30T22:17:04+00:00] stats={"n_train": 4000, "n_val": 1000, "n_test": 10000, "vocab_size": 8058, "max_len": 250, "train_class_counts": {"0": 1996, "1": 2004}, "test_class_counts": {"0": 5000, "1": 5000}, "token_length_mean": 68.3545, "token_length_median": 50.0, "token_length_p90": 146.0, "token_length_max": 640, "length_quantiles_33_66": [33.0, 72.0], "test_oov_token_rate": 0.04191793568706047, "test_truncation_rate_sample": 0.022, "stopwords_removed": 179, "negations_retained": true}
+[2026-09-30T22:17:04+00:00] preprocessing took 1.8s
+[2026-09-30T22:17:04+00:00] runtime device=mps (Apple MPS (arm)) class=Apple MPS
+[2026-09-30T22:17:04+00:00] runtime torch=2.14.0 cuda_available=False cuda=None cudnn=None gpus=0 capability=None
+[2026-09-30T22:17:04+00:00] runtime gpu_memory total=n/a (unified) allocated=0.0 MB reserved=None MB
+[2026-09-30T22:17:04+00:00] runtime precision=fp32 seed=9015 batch_size={'baseline_bow': 256, 'exp1_bilstm': 128, 'exp2_textcnn': 256} num_workers=0
+[2026-09-30T22:17:04+00:00] runtime datasets={"train": 4000, "val": 1000, "test": 10000, "vocab_size": 8058}
+[2026-09-30T22:17:04+00:00] runtime python=3.11.9 platform=macOS-26.7-arm64-arm-64bit source=git:a6af2b346fe5 DIRTY
+[2026-09-30T22:17:04+00:00] data_manifest fingerprint=fd0c5c1ada24d59e train=4000 (pos 0.5010) val=1000 test=10000 (pos 0.5000) vocab=8058
+[2026-09-30T22:17:04+00:00] --- baseline_bow: mean-pooled embeddings (dim 128) -> MLP [256] -> 1 logit; dropout 0.3; 1,064,705 params
+[2026-09-30T22:17:05+00:00] baseline_bow epoch=1 step=0/16 loss=0.6964
+[2026-09-30T22:17:05+00:00] baseline_bow EPOCH 1 train_loss=0.6914 val_loss=0.6852 val_macro_f1=0.8420
+[2026-09-30T22:17:05+00:00] --- exp1_bilstm: embeddings (dim 200) -> biLSTM hidden 192 x1 -> [mean; max] pool -> 1 logit; dropout 0.4; 2,217,553 params
+[2026-09-30T22:17:06+00:00] exp1_bilstm epoch=1 step=0/32 loss=0.6948
+[2026-09-30T22:17:24+00:00] exp1_bilstm EPOCH 1 train_loss=0.6422 val_loss=0.4449 val_macro_f1=0.8062
+[2026-09-30T22:17:30+00:00] --- exp2_textcnn: embeddings (dim 160) -> Conv1d kernels [2, 3, 4, 5] x128 filters -> global max pool -> 1 logit; dropout 0.5; 1,577,025 params
+[2026-09-30T22:17:30+00:00] exp2_textcnn epoch=1 step=0/16 loss=0.6954
+[2026-09-30T22:17:31+00:00] exp2_textcnn EPOCH 1 train_loss=0.6695 val_loss=0.6232 val_macro_f1=0.6162
+[2026-09-30T22:17:33+00:00] baseline_bow: acc=0.8076 macroF1=0.8076 ROC-AUC=0.8833 PR-AUC=0.8763 MCC=0.6155 Brier=0.2462 ECEconf=0.3028 ECEpos=0.0008
+[2026-09-30T22:17:33+00:00] exp1_bilstm: acc=0.7878 macroF1=0.7867 ROC-AUC=0.8502 PR-AUC=0.8171 MCC=0.5818 Brier=0.1568 ECEconf=0.0313 ECEpos=0.0582
+[2026-09-30T22:17:33+00:00] exp2_textcnn: acc=0.6561 macroF1=0.6189 ROC-AUC=0.8365 PR-AUC=0.8321 MCC=0.3999 Brier=0.2193 ECEconf=0.1133 ECEpos=0.1985
+[2026-09-30T22:17:33+00:00] McNemar baseline_bow vs exp1_bilstm: only_a=1029 only_b=831 chi-square (continuity corrected) p=4.928e-06
+[2026-09-30T22:17:33+00:00] McNemar baseline_bow vs exp2_textcnn: only_a=2309 only_b=794 chi-square (continuity corrected) p=1.148e-162
+[2026-09-30T22:17:33+00:00] wrote task2_sentiment/shriram_dundigalla/outputs/smoke/metrics_report.csv

@@ -1,0 +1,27 @@
+{
+  "n_train": 100000,
+  "n_val": 10000,
+  "n_test": 38000,
+  "vocab_size": 30000,
+  "max_len": 250,
+  "train_class_counts": {
+    "0": 50056,
+    "1": 49944
+  },
+  "test_class_counts": {
+    "0": 19000,
+    "1": 19000
+  },
+  "token_length_mean": 68.98162,
+  "token_length_median": 50.0,
+  "token_length_p90": 145.0,
+  "token_length_max": 662,
+  "length_quantiles_33_66": [
+    34.0,
+    72.0
+  ],
+  "test_oov_token_rate": 0.008529895980414863,
+  "test_truncation_rate_sample": 0.014,
+  "stopwords_removed": 179,
+  "negations_retained": true
+}

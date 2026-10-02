@@ -1,0 +1,624 @@
+
+===== TRAINING START (epochs 0 -> 100) =====
+  e000 s0000 | G 15.125 D 1.742 cyc 0.876 adv 2.056 gradG 31.23
+  e000 s0200 | G 5.155 D 0.568 cyc 0.322 adv 0.738 gradG 17.22
+  e000 s0400 | G 4.600 D 0.642 cyc 0.272 adv 0.752 gradG 16.15
+  e000 s0600 | G 3.925 D 0.539 cyc 0.217 adv 0.853 gradG 13.30
+  e000 s0800 | G 3.657 D 0.383 cyc 0.195 adv 0.798 gradG 14.61
+EPOCH 000 DONE | G 5.061 | D 0.587 | cycle 0.297 | id 0.259 | 76s | LR 0.000200 | NaN 0
+   saved samples: /content/drive/MyDrive/cyclegan_task3/samples/epoch_000.png
+  e001 s0000 | G 3.124 D 0.655 cyc 0.178 adv 0.611 gradG 13.64
+  e001 s0200 | G 2.808 D 0.696 cyc 0.155 adv 0.619 gradG 19.57
+  e001 s0400 | G 3.494 D 0.278 cyc 0.181 adv 0.992 gradG 16.23
+  e001 s0600 | G 2.523 D 0.919 cyc 0.114 adv 0.941 gradG 13.57
+  e001 s0800 | G 2.210 D 0.755 cyc 0.134 adv 0.317 gradG 16.22
+EPOCH 001 DONE | G 2.856 | D 0.503 | cycle 0.142 | id 0.118 | 78s | LR 0.000200 | NaN 0
+  e002 s0000 | G 2.237 D 0.670 cyc 0.114 adv 0.576 gradG 9.01
+  e002 s0200 | G 2.121 D 0.734 cyc 0.110 adv 0.586 gradG 16.61
+  e002 s0400 | G 3.024 D 0.635 cyc 0.136 adv 1.099 gradG 9.29
+  e002 s0600 | G 2.088 D 0.319 cyc 0.079 adv 0.975 gradG 13.05
+  e002 s0800 | G 2.347 D 0.613 cyc 0.102 adv 0.804 gradG 15.25
+EPOCH 002 DONE | G 2.553 | D 0.491 | cycle 0.122 | id 0.102 | 102s | LR 0.000200 | NaN 0
+  e003 s0000 | G 1.710 D 0.533 cyc 0.081 adv 0.494 gradG 13.51
+  e003 s0200 | G 1.969 D 0.449 cyc 0.111 adv 0.341 gradG 17.38
+  e003 s0400 | G 2.942 D 1.247 cyc 0.123 adv 1.130 gradG 14.27
+  e003 s0600 | G 2.158 D 0.482 cyc 0.112 adv 0.582 gradG 12.22
+  e003 s0800 | G 2.560 D 0.434 cyc 0.124 adv 0.802 gradG 23.93
+EPOCH 003 DONE | G 2.418 | D 0.487 | cycle 0.111 | id 0.092 | 101s | LR 0.000200 | NaN 0
+  e004 s0000 | G 1.942 D 0.450 cyc 0.088 adv 0.754 gradG 15.05
+  e004 s0200 | G 2.965 D 1.119 cyc 0.112 adv 1.391 gradG 10.50
+  e004 s0400 | G 2.228 D 0.483 cyc 0.117 adv 0.597 gradG 13.16
+  e004 s0600 | G 2.461 D 0.473 cyc 0.102 adv 0.969 gradG 12.20
+  e004 s0800 | G 2.188 D 0.211 cyc 0.075 adv 1.084 gradG 16.27
+EPOCH 004 DONE | G 2.361 | D 0.471 | cycle 0.104 | id 0.088 | 100s | LR 0.000200 | NaN 0
+  e005 s0000 | G 3.616 D 0.518 cyc 0.172 adv 1.144 gradG 20.71
+  e005 s0200 | G 1.862 D 0.610 cyc 0.090 adv 0.563 gradG 14.34
+  e005 s0400 | G 2.428 D 0.262 cyc 0.060 adv 1.594 gradG 13.90
+  e005 s0600 | G 2.271 D 0.219 cyc 0.098 adv 0.904 gradG 11.76
+  e005 s0800 | G 1.807 D 0.294 cyc 0.084 adv 0.586 gradG 15.76
+EPOCH 005 DONE | G 2.333 | D 0.467 | cycle 0.102 | id 0.086 | 101s | LR 0.000200 | NaN 0
+   saved samples: /content/drive/MyDrive/cyclegan_task3/samples/epoch_005.png
+  e006 s0000 | G 2.149 D 0.557 cyc 0.090 adv 0.803 gradG 15.01
+  e006 s0200 | G 2.797 D 0.591 cyc 0.123 adv 1.019 gradG 20.86
+  e006 s0400 | G 2.198 D 0.576 cyc 0.101 adv 0.792 gradG 11.66
+  e006 s0600 | G 2.503 D 0.348 cyc 0.103 adv 1.099 gradG 16.73
+  e006 s0800 | G 1.984 D 0.407 cyc 0.078 adv 0.856 gradG 13.24
+EPOCH 006 DONE | G 2.275 | D 0.468 | cycle 0.100 | id 0.084 | 101s | LR 0.000200 | NaN 0
+  e007 s0000 | G 2.240 D 0.460 cyc 0.100 adv 0.786 gradG 20.04
+  e007 s0200 | G 2.347 D 0.309 cyc 0.122 adv 0.746 gradG 14.94
+  e007 s0400 | G 1.975 D 0.592 cyc 0.096 adv 0.607 gradG 15.95
+  e007 s0600 | G 1.944 D 0.853 cyc 0.086 adv 0.689 gradG 16.13
+  e007 s0800 | G 2.703 D 0.183 cyc 0.085 adv 1.588 gradG 11.53
+EPOCH 007 DONE | G 2.266 | D 0.461 | cycle 0.099 | id 0.082 | 101s | LR 0.000200 | NaN 0
+  e008 s0000 | G 3.018 D 0.670 cyc 0.102 adv 1.572 gradG 8.42
+  e008 s0200 | G 2.557 D 0.282 cyc 0.124 adv 0.904 gradG 24.07
+  e008 s0400 | G 2.066 D 1.125 cyc 0.127 adv 0.261 gradG 17.91
+  e008 s0600 | G 2.657 D 0.263 cyc 0.099 adv 1.208 gradG 11.23
+  e008 s0800 | G 2.477 D 0.731 cyc 0.109 adv 0.864 gradG 17.27
+EPOCH 008 DONE | G 2.292 | D 0.452 | cycle 0.099 | id 0.081 | 101s | LR 0.000200 | NaN 0
+  e009 s0000 | G 2.303 D 0.547 cyc 0.087 adv 1.063 gradG 11.50
+  e009 s0200 | G 2.090 D 0.380 cyc 0.083 adv 0.952 gradG 10.25
+  e009 s0400 | G 2.107 D 0.253 cyc 0.093 adv 0.888 gradG 8.37
+  e009 s0600 | G 2.774 D 0.266 cyc 0.111 adv 1.234 gradG 10.43
+  e009 s0800 | G 3.462 D 0.375 cyc 0.151 adv 1.434 gradG 12.85
+EPOCH 009 DONE | G 2.238 | D 0.450 | cycle 0.099 | id 0.079 | 100s | LR 0.000200 | NaN 0
+  e010 s0000 | G 1.535 D 0.488 cyc 0.088 adv 0.303 gradG 8.36
+  e010 s0200 | G 2.805 D 0.285 cyc 0.097 adv 1.422 gradG 11.81
+  e010 s0400 | G 2.586 D 0.821 cyc 0.135 adv 0.653 gradG 10.62
+  e010 s0600 | G 1.654 D 0.428 cyc 0.090 adv 0.378 gradG 8.08
+  e010 s0800 | G 1.821 D 0.877 cyc 0.086 adv 0.668 gradG 10.62
+EPOCH 010 DONE | G 2.219 | D 0.445 | cycle 0.096 | id 0.077 | 100s | LR 0.000200 | NaN 0
+   saved samples: /content/drive/MyDrive/cyclegan_task3/samples/epoch_010.png
+  e011 s0000 | G 2.009 D 0.623 cyc 0.078 adv 0.789 gradG 13.38
+  e011 s0200 | G 1.794 D 0.604 cyc 0.108 adv 0.331 gradG 22.82
+  e011 s0400 | G 2.655 D 0.526 cyc 0.135 adv 0.810 gradG 17.98
+  e011 s0600 | G 2.470 D 0.216 cyc 0.099 adv 1.164 gradG 12.44
+  e011 s0800 | G 2.743 D 0.239 cyc 0.132 adv 1.071 gradG 22.98
+EPOCH 011 DONE | G 2.209 | D 0.444 | cycle 0.096 | id 0.076 | 95s | LR 0.000200 | NaN 0
+  e012 s0000 | G 1.955 D 0.583 cyc 0.070 adv 0.911 gradG 6.96
+  e012 s0200 | G 1.562 D 0.578 cyc 0.081 adv 0.387 gradG 19.62
+  e012 s0400 | G 2.229 D 0.382 cyc 0.089 adv 1.069 gradG 14.33
+  e012 s0600 | G 2.077 D 0.298 cyc 0.109 adv 0.588 gradG 14.18
+  e012 s0800 | G 2.012 D 0.539 cyc 0.087 adv 0.772 gradG 7.75
+EPOCH 012 DONE | G 2.186 | D 0.441 | cycle 0.095 | id 0.075 | 100s | LR 0.000200 | NaN 0
+  e013 s0000 | G 2.539 D 0.448 cyc 0.121 adv 0.864 gradG 22.35
+  e013 s0200 | G 2.317 D 0.362 cyc 0.081 adv 1.201 gradG 11.93
+  e013 s0400 | G 2.518 D 0.364 cyc 0.101 adv 1.149 gradG 11.90
+  e013 s0600 | G 2.129 D 0.257 cyc 0.108 adv 0.558 gradG 11.79
+  e013 s0800 | G 2.203 D 0.235 cyc 0.108 adv 0.704 gradG 13.70
+EPOCH 013 DONE | G 2.196 | D 0.444 | cycle 0.097 | id 0.076 | 102s | LR 0.000200 | NaN 0
+  e014 s0000 | G 2.010 D 0.381 cyc 0.109 adv 0.548 gradG 18.96
+  e014 s0200 | G 2.444 D 0.461 cyc 0.088 adv 1.179 gradG 7.55
+  e014 s0400 | G 2.235 D 0.358 cyc 0.112 adv 0.780 gradG 16.64
+  e014 s0600 | G 2.052 D 0.421 cyc 0.075 adv 0.960 gradG 14.43
+  e014 s0800 | G 2.608 D 0.368 cyc 0.112 adv 1.106 gradG 21.22
+EPOCH 014 DONE | G 2.199 | D 0.431 | cycle 0.096 | id 0.074 | 100s | LR 0.000200 | NaN 0
+  e015 s0000 | G 2.116 D 0.592 cyc 0.090 adv 0.780 gradG 15.93
+  e015 s0200 | G 2.548 D 0.364 cyc 0.089 adv 1.327 gradG 16.13
+  e015 s0400 | G 2.796 D 0.407 cyc 0.126 adv 1.107 gradG 19.11
+  e015 s0600 | G 1.547 D 0.445 cyc 0.067 adv 0.535 gradG 11.01
+  e015 s0800 | G 1.822 D 0.410 cyc 0.086 adv 0.664 gradG 12.76
+EPOCH 015 DONE | G 2.218 | D 0.437 | cycle 0.099 | id 0.076 | 101s | LR 0.000200 | NaN 0
+   saved samples: /content/drive/MyDrive/cyclegan_task3/samples/epoch_015.png
+  e016 s0000 | G 2.173 D 0.435 cyc 0.081 adv 1.045 gradG 14.72
+  e016 s0200 | G 2.231 D 0.243 cyc 0.102 adv 0.834 gradG 10.27
+  e016 s0400 | G 2.775 D 0.570 cyc 0.082 adv 1.608 gradG 11.53
+  e016 s0600 | G 2.041 D 0.417 cyc 0.076 adv 0.895 gradG 14.45
+  e016 s0800 | G 2.722 D 0.550 cyc 0.105 adv 1.372 gradG 25.97
+EPOCH 016 DONE | G 2.183 | D 0.437 | cycle 0.098 | id 0.073 | 100s | LR 0.000200 | NaN 0
+  e017 s0000 | G 1.642 D 0.154 cyc 0.074 adv 0.639 gradG 10.49
+  e017 s0200 | G 2.161 D 0.272 cyc 0.090 adv 0.943 gradG 9.13
+  e017 s0400 | G 1.956 D 0.404 cyc 0.085 adv 0.830 gradG 11.55
+  e017 s0600 | G 1.866 D 0.379 cyc 0.098 adv 0.594 gradG 18.45
+  e017 s0800 | G 2.079 D 0.369 cyc 0.087 adv 0.824 gradG 15.05
+EPOCH 017 DONE | G 2.154 | D 0.431 | cycle 0.097 | id 0.072 | 101s | LR 0.000200 | NaN 0
+  e018 s0000 | G 2.180 D 0.242 cyc 0.072 adv 1.170 gradG 15.68
+  e018 s0200 | G 1.911 D 0.603 cyc 0.090 adv 0.631 gradG 10.25
+  e018 s0400 | G 1.946 D 0.363 cyc 0.103 adv 0.463 gradG 13.03
+  e018 s0600 | G 1.601 D 0.542 cyc 0.073 adv 0.534 gradG 9.90
+  e018 s0800 | G 1.807 D 0.302 cyc 0.062 adv 0.952 gradG 9.75
+EPOCH 018 DONE | G 2.153 | D 0.435 | cycle 0.096 | id 0.071 | 101s | LR 0.000200 | NaN 0
+  e019 s0000 | G 2.276 D 0.599 cyc 0.129 adv 0.688 gradG 25.06
+  e019 s0200 | G 2.872 D 0.332 cyc 0.147 adv 0.902 gradG 10.66
+  e019 s0400 | G 2.242 D 0.330 cyc 0.134 adv 0.507 gradG 25.01
+  e019 s0600 | G 1.924 D 0.755 cyc 0.088 adv 0.622 gradG 5.55
+  e019 s0800 | G 1.446 D 0.287 cyc 0.085 adv 0.299 gradG 14.82
+EPOCH 019 DONE | G 2.213 | D 0.426 | cycle 0.101 | id 0.072 | 102s | LR 0.000200 | NaN 0
+  e020 s0000 | G 2.053 D 0.335 cyc 0.087 adv 0.898 gradG 7.53
+  e020 s0200 | G 2.510 D 0.399 cyc 0.098 adv 1.206 gradG 16.89
+  e020 s0400 | G 1.688 D 0.400 cyc 0.090 adv 0.450 gradG 9.50
+  e020 s0600 | G 2.027 D 0.746 cyc 0.066 adv 1.077 gradG 14.55
+  e020 s0800 | G 2.600 D 0.709 cyc 0.111 adv 1.091 gradG 14.42
+EPOCH 020 DONE | G 2.164 | D 0.424 | cycle 0.097 | id 0.072 | 100s | LR 0.000200 | NaN 0
+   saved samples: /content/drive/MyDrive/cyclegan_task3/samples/epoch_020.png
+  e021 s0000 | G 2.830 D 0.510 cyc 0.143 adv 0.869 gradG 11.21
+  e021 s0200 | G 2.135 D 0.547 cyc 0.112 adv 0.693 gradG 27.33
+  e021 s0400 | G 1.879 D 0.477 cyc 0.100 adv 0.644 gradG 11.17
+  e021 s0600 | G 1.907 D 0.423 cyc 0.088 adv 0.664 gradG 13.68
+  e021 s0800 | G 3.624 D 0.225 cyc 0.164 adv 1.511 gradG 88.23
+EPOCH 021 DONE | G 2.166 | D 0.426 | cycle 0.097 | id 0.070 | 95s | LR 0.000200 | NaN 0
+  e022 s0000 | G 1.855 D 0.541 cyc 0.085 adv 0.636 gradG 16.06
+  e022 s0200 | G 1.945 D 0.556 cyc 0.095 adv 0.653 gradG 11.36
+  e022 s0400 | G 2.581 D 0.202 cyc 0.086 adv 1.468 gradG 13.47
+  e022 s0600 | G 2.739 D 0.493 cyc 0.087 adv 1.641 gradG 11.70
+  e022 s0800 | G 2.514 D 0.333 cyc 0.103 adv 1.081 gradG 12.95
+EPOCH 022 DONE | G 2.147 | D 0.431 | cycle 0.098 | id 0.069 | 100s | LR 0.000200 | NaN 0
+  e023 s0000 | G 2.537 D 0.098 cyc 0.088 adv 1.372 gradG 11.51
+  e023 s0200 | G 1.742 D 0.775 cyc 0.073 adv 0.679 gradG 10.78
+  e023 s0400 | G 1.723 D 0.424 cyc 0.096 adv 0.410 gradG 9.86
+  e023 s0600 | G 2.897 D 0.914 cyc 0.121 adv 0.308 gradG 54.63
+  e023 s0800 | G 2.985 D 0.236 cyc 0.123 adv 1.493 gradG 22.07
+EPOCH 023 DONE | G 2.148 | D 0.424 | cycle 0.099 | id 0.070 | 100s | LR 0.000200 | NaN 0
+  e024 s0000 | G 2.285 D 0.452 cyc 0.107 adv 0.947 gradG 14.20
+  e024 s0200 | G 1.478 D 0.597 cyc 0.095 adv 0.318 gradG 14.15
+  e024 s0400 | G 1.776 D 0.361 cyc 0.095 adv 0.586 gradG 26.29
+  e024 s0600 | G 2.413 D 0.385 cyc 0.123 adv 0.883 gradG 13.33
+  e024 s0800 | G 1.763 D 0.520 cyc 0.104 adv 0.366 gradG 13.90
+EPOCH 024 DONE | G 2.177 | D 0.420 | cycle 0.098 | id 0.069 | 100s | LR 0.000200 | NaN 0
+  e025 s0000 | G 2.148 D 0.818 cyc 0.086 adv 0.987 gradG 15.91
+  e025 s0200 | G 1.860 D 0.540 cyc 0.074 adv 0.838 gradG 8.81
+  e025 s0400 | G 2.006 D 0.397 cyc 0.086 adv 0.862 gradG 25.17
+  e025 s0600 | G 1.743 D 0.490 cyc 0.081 adv 0.613 gradG 21.21
+  e025 s0800 | G 2.460 D 0.423 cyc 0.082 adv 1.307 gradG 15.24
+EPOCH 025 DONE | G 2.109 | D 0.425 | cycle 0.096 | id 0.067 | 100s | LR 0.000200 | NaN 0
+   saved samples: /content/drive/MyDrive/cyclegan_task3/samples/epoch_025.png
+  e026 s0000 | G 2.360 D 0.331 cyc 0.129 adv 0.644 gradG 69.02
+  e026 s0200 | G 1.933 D 0.630 cyc 0.100 adv 0.594 gradG 16.39
+  e026 s0400 | G 1.687 D 0.368 cyc 0.102 adv 0.346 gradG 13.60
+  e026 s0600 | G 2.027 D 0.275 cyc 0.092 adv 0.795 gradG 12.69
+  e026 s0800 | G 2.117 D 0.483 cyc 0.116 adv 0.495 gradG 11.63
+EPOCH 026 DONE | G 2.135 | D 0.427 | cycle 0.097 | id 0.070 | 99s | LR 0.000200 | NaN 0
+  e027 s0000 | G 2.101 D 0.417 cyc 0.074 adv 1.065 gradG 14.58
+  e027 s0200 | G 1.941 D 0.436 cyc 0.105 adv 0.583 gradG 10.26
+  e027 s0400 | G 1.515 D 0.451 cyc 0.075 adv 0.422 gradG 13.41
+  e027 s0600 | G 2.203 D 0.699 cyc 0.072 adv 1.199 gradG 17.56
+  e027 s0800 | G 2.058 D 0.510 cyc 0.102 adv 0.714 gradG 17.35
+EPOCH 027 DONE | G 2.143 | D 0.424 | cycle 0.098 | id 0.070 | 100s | LR 0.000200 | NaN 0
+  e028 s0000 | G 1.750 D 0.252 cyc 0.091 adv 0.618 gradG 10.75
+  e028 s0200 | G 2.162 D 0.290 cyc 0.112 adv 0.739 gradG 13.17
+  e028 s0400 | G 1.653 D 0.449 cyc 0.076 adv 0.603 gradG 11.82
+  e028 s0600 | G 2.368 D 0.484 cyc 0.087 adv 1.172 gradG 13.05
+  e028 s0800 | G 1.939 D 0.287 cyc 0.094 adv 0.685 gradG 18.88
+EPOCH 028 DONE | G 2.082 | D 0.430 | cycle 0.094 | id 0.068 | 99s | LR 0.000200 | NaN 0
+  e029 s0000 | G 2.074 D 0.446 cyc 0.107 adv 0.493 gradG 16.04
+  e029 s0200 | G 2.208 D 0.265 cyc 0.102 adv 0.860 gradG 24.20
+  e029 s0400 | G 1.983 D 0.474 cyc 0.076 adv 0.940 gradG 12.14
+  e029 s0600 | G 1.855 D 0.362 cyc 0.094 adv 0.667 gradG 18.69
+  e029 s0800 | G 2.120 D 0.584 cyc 0.100 adv 0.799 gradG 15.62
+EPOCH 029 DONE | G 2.113 | D 0.426 | cycle 0.096 | id 0.068 | 98s | LR 0.000200 | NaN 0
+  e030 s0000 | G 2.249 D 0.390 cyc 0.081 adv 1.182 gradG 10.20
+  e030 s0200 | G 1.900 D 0.295 cyc 0.111 adv 0.523 gradG 19.10
+  e030 s0400 | G 1.834 D 0.308 cyc 0.084 adv 0.664 gradG 9.91
+  e030 s0600 | G 1.615 D 0.341 cyc 0.076 adv 0.533 gradG 10.49
+  e030 s0800 | G 2.239 D 0.373 cyc 0.116 adv 0.697 gradG 14.67
+EPOCH 030 DONE | G 2.121 | D 0.417 | cycle 0.096 | id 0.068 | 99s | LR 0.000200 | NaN 0
+   saved samples: /content/drive/MyDrive/cyclegan_task3/samples/epoch_030.png
+  e031 s0000 | G 1.406 D 0.330 cyc 0.090 adv 0.244 gradG 7.73
+  e031 s0200 | G 2.403 D 0.470 cyc 0.120 adv 0.778 gradG 7.76
+  e031 s0400 | G 2.232 D 0.477 cyc 0.103 adv 0.764 gradG 15.26
+  e031 s0600 | G 2.208 D 0.476 cyc 0.077 adv 1.141 gradG 19.95
+  e031 s0800 | G 2.024 D 0.540 cyc 0.098 adv 0.673 gradG 12.98
+EPOCH 031 DONE | G 2.140 | D 0.411 | cycle 0.096 | id 0.066 | 93s | LR 0.000200 | NaN 0
+  e032 s0000 | G 1.646 D 0.413 cyc 0.071 adv 0.672 gradG 16.00
+  e032 s0200 | G 2.915 D 0.509 cyc 0.080 adv 1.709 gradG 12.66
+  e032 s0400 | G 2.343 D 0.411 cyc 0.103 adv 1.000 gradG 52.97
+  e032 s0600 | G 2.125 D 0.739 cyc 0.086 adv 0.946 gradG 12.64
+  e032 s0800 | G 2.240 D 0.504 cyc 0.089 adv 1.042 gradG 12.08
+EPOCH 032 DONE | G 2.177 | D 0.408 | cycle 0.097 | id 0.071 | 100s | LR 0.000200 | NaN 0
+  e033 s0000 | G 1.971 D 0.415 cyc 0.092 adv 0.820 gradG 18.06
+  e033 s0200 | G 1.801 D 0.365 cyc 0.076 adv 0.748 gradG 12.97
+  e033 s0400 | G 2.177 D 0.369 cyc 0.098 adv 0.857 gradG 16.63
+  e033 s0600 | G 1.884 D 0.351 cyc 0.081 adv 0.763 gradG 10.04
+  e033 s0800 | G 1.439 D 0.490 cyc 0.082 adv 0.386 gradG 10.21
+EPOCH 033 DONE | G 2.092 | D 0.419 | cycle 0.094 | id 0.066 | 100s | LR 0.000200 | NaN 0
+  e034 s0000 | G 3.042 D 0.364 cyc 0.131 adv 1.423 gradG 39.23
+  e034 s0200 | G 2.030 D 0.437 cyc 0.092 adv 0.826 gradG 12.26
+  e034 s0400 | G 1.678 D 0.626 cyc 0.076 adv 0.591 gradG 12.90
+  e034 s0600 | G 2.337 D 0.238 cyc 0.113 adv 0.727 gradG 10.86
+  e034 s0800 | G 2.027 D 0.616 cyc 0.092 adv 0.802 gradG 10.23
+EPOCH 034 DONE | G 2.127 | D 0.412 | cycle 0.095 | id 0.067 | 101s | LR 0.000200 | NaN 0
+  e035 s0000 | G 1.705 D 0.552 cyc 0.097 adv 0.479 gradG 14.22
+  e035 s0200 | G 2.195 D 0.133 cyc 0.089 adv 1.024 gradG 15.14
+  e035 s0400 | G 1.555 D 0.428 cyc 0.080 adv 0.468 gradG 8.80
+  e035 s0600 | G 2.034 D 0.387 cyc 0.104 adv 0.627 gradG 10.37
+  e035 s0800 | G 2.239 D 0.501 cyc 0.098 adv 0.976 gradG 21.48
+EPOCH 035 DONE | G 2.076 | D 0.420 | cycle 0.095 | id 0.066 | 99s | LR 0.000200 | NaN 0
+   saved samples: /content/drive/MyDrive/cyclegan_task3/samples/epoch_035.png
+  e036 s0000 | G 2.207 D 0.256 cyc 0.080 adv 1.135 gradG 13.56
+  e036 s0200 | G 1.875 D 0.404 cyc 0.104 adv 0.567 gradG 12.30
+  e036 s0400 | G 2.186 D 0.878 cyc 0.098 adv 0.854 gradG 12.60
+  e036 s0600 | G 3.906 D 0.235 cyc 0.154 adv 1.790 gradG 16.75
+  e036 s0800 | G 2.070 D 0.257 cyc 0.076 adv 1.034 gradG 17.51
+EPOCH 036 DONE | G 2.135 | D 0.406 | cycle 0.096 | id 0.067 | 100s | LR 0.000200 | NaN 0
+  e037 s0000 | G 1.751 D 0.307 cyc 0.082 adv 0.666 gradG 11.90
+  e037 s0200 | G 1.579 D 0.353 cyc 0.095 adv 0.361 gradG 17.48
+  e037 s0400 | G 1.877 D 0.372 cyc 0.083 adv 0.785 gradG 15.44
+  e037 s0600 | G 2.800 D 0.476 cyc 0.077 adv 1.758 gradG 14.88
+  e037 s0800 | G 2.204 D 0.450 cyc 0.104 adv 0.890 gradG 16.70
+EPOCH 037 DONE | G 2.077 | D 0.419 | cycle 0.095 | id 0.063 | 99s | LR 0.000200 | NaN 0
+  e038 s0000 | G 1.703 D 0.233 cyc 0.087 adv 0.551 gradG 10.13
+  e038 s0200 | G 2.741 D 0.263 cyc 0.082 adv 1.574 gradG 14.15
+  e038 s0400 | G 2.391 D 0.400 cyc 0.076 adv 1.271 gradG 13.25
+  e038 s0600 | G 2.253 D 0.480 cyc 0.118 adv 0.588 gradG 13.36
+  e038 s0800 | G 1.692 D 0.784 cyc 0.084 adv 0.544 gradG 11.64
+EPOCH 038 DONE | G 2.076 | D 0.416 | cycle 0.094 | id 0.065 | 100s | LR 0.000200 | NaN 0
+  e039 s0000 | G 1.974 D 0.295 cyc 0.098 adv 0.717 gradG 16.08
+  e039 s0200 | G 1.934 D 0.236 cyc 0.110 adv 0.557 gradG 13.14
+  e039 s0400 | G 2.270 D 0.350 cyc 0.094 adv 1.012 gradG 9.73
+  e039 s0600 | G 2.340 D 0.302 cyc 0.103 adv 0.975 gradG 15.04
+  e039 s0800 | G 1.733 D 0.276 cyc 0.070 adv 0.815 gradG 10.61
+EPOCH 039 DONE | G 2.110 | D 0.411 | cycle 0.095 | id 0.067 | 99s | LR 0.000200 | NaN 0
+  e040 s0000 | G 1.639 D 0.503 cyc 0.098 adv 0.363 gradG 21.78
+  e040 s0200 | G 2.939 D 0.482 cyc 0.129 adv 0.475 gradG 28.76
+  e040 s0400 | G 2.655 D 0.249 cyc 0.111 adv 1.018 gradG 19.77
+  e040 s0600 | G 1.676 D 0.204 cyc 0.103 adv 0.352 gradG 12.01
+  e040 s0800 | G 1.607 D 0.180 cyc 0.085 adv 0.524 gradG 10.76
+EPOCH 040 DONE | G 2.047 | D 0.412 | cycle 0.092 | id 0.061 | 100s | LR 0.000200 | NaN 0
+   saved samples: /content/drive/MyDrive/cyclegan_task3/samples/epoch_040.png
+  e041 s0000 | G 1.846 D 0.625 cyc 0.087 adv 0.706 gradG 15.27
+  e041 s0200 | G 2.799 D 0.233 cyc 0.081 adv 1.682 gradG 32.06
+  e041 s0400 | G 1.657 D 0.436 cyc 0.074 adv 0.697 gradG 13.61
+  e041 s0600 | G 2.336 D 0.243 cyc 0.104 adv 0.975 gradG 19.41
+  e041 s0800 | G 2.062 D 0.274 cyc 0.074 adv 1.067 gradG 9.91
+EPOCH 041 DONE | G 2.109 | D 0.400 | cycle 0.094 | id 0.063 | 95s | LR 0.000200 | NaN 0
+  e042 s0000 | G 4.110 D 0.307 cyc 0.181 adv 1.066 gradG 156.47
+  e042 s0200 | G 1.526 D 0.421 cyc 0.066 adv 0.572 gradG 9.72
+  e042 s0400 | G 2.461 D 0.424 cyc 0.092 adv 1.235 gradG 16.58
+  e042 s0600 | G 2.236 D 0.324 cyc 0.071 adv 1.277 gradG 12.63
+  e042 s0800 | G 2.481 D 0.372 cyc 0.087 adv 1.270 gradG 11.50
+EPOCH 042 DONE | G 2.100 | D 0.403 | cycle 0.094 | id 0.065 | 100s | LR 0.000200 | NaN 0
+  e043 s0000 | G 1.369 D 0.663 cyc 0.095 adv 0.153 gradG 13.28
+  e043 s0200 | G 2.357 D 0.246 cyc 0.115 adv 0.917 gradG 18.64
+  e043 s0400 | G 1.661 D 0.400 cyc 0.082 adv 0.638 gradG 10.67
+  e043 s0600 | G 1.623 D 0.502 cyc 0.081 adv 0.481 gradG 58.30
+  e043 s0800 | G 2.458 D 0.290 cyc 0.106 adv 1.109 gradG 14.00
+EPOCH 043 DONE | G 2.097 | D 0.404 | cycle 0.094 | id 0.065 | 100s | LR 0.000200 | NaN 0
+  e044 s0000 | G 2.635 D 0.263 cyc 0.090 adv 1.382 gradG 18.58
+  e044 s0200 | G 2.144 D 0.283 cyc 0.092 adv 0.958 gradG 18.92
+  e044 s0400 | G 1.602 D 0.447 cyc 0.075 adv 0.632 gradG 10.91
+  e044 s0600 | G 1.917 D 0.414 cyc 0.103 adv 0.636 gradG 13.37
+  e044 s0800 | G 1.583 D 0.486 cyc 0.095 adv 0.360 gradG 23.81
+EPOCH 044 DONE | G 2.113 | D 0.404 | cycle 0.095 | id 0.065 | 99s | LR 0.000200 | NaN 0
+  e045 s0000 | G 3.030 D 0.225 cyc 0.115 adv 1.614 gradG 24.17
+  e045 s0200 | G 2.353 D 0.722 cyc 0.075 adv 1.348 gradG 14.64
+  e045 s0400 | G 1.807 D 0.350 cyc 0.092 adv 0.582 gradG 9.90
+  e045 s0600 | G 1.540 D 0.165 cyc 0.089 adv 0.370 gradG 19.06
+  e045 s0800 | G 2.591 D 0.302 cyc 0.090 adv 1.382 gradG 11.92
+EPOCH 045 DONE | G 2.096 | D 0.396 | cycle 0.094 | id 0.060 | 101s | LR 0.000200 | NaN 0
+   saved samples: /content/drive/MyDrive/cyclegan_task3/samples/epoch_045.png
+  e046 s0000 | G 2.153 D 0.415 cyc 0.109 adv 0.750 gradG 17.13
+  e046 s0200 | G 1.480 D 0.470 cyc 0.084 adv 0.358 gradG 9.83
+  e046 s0400 | G 1.678 D 0.458 cyc 0.089 adv 0.532 gradG 19.33
+  e046 s0600 | G 1.554 D 0.520 cyc 0.082 adv 0.470 gradG 8.69
+  e046 s0800 | G 1.929 D 0.438 cyc 0.101 adv 0.623 gradG 11.05
+EPOCH 046 DONE | G 2.112 | D 0.399 | cycle 0.094 | id 0.065 | 99s | LR 0.000200 | NaN 0
+  e047 s0000 | G 2.379 D 0.710 cyc 0.091 adv 1.113 gradG 14.46
+  e047 s0200 | G 2.957 D 0.576 cyc 0.196 adv 0.608 gradG 65.68
+  e047 s0400 | G 2.126 D 0.371 cyc 0.094 adv 0.882 gradG 17.62
+  e047 s0600 | G 1.773 D 0.392 cyc 0.085 adv 0.695 gradG 13.20
+  e047 s0800 | G 1.720 D 0.267 cyc 0.063 adv 0.854 gradG 14.07
+EPOCH 047 DONE | G 2.116 | D 0.400 | cycle 0.095 | id 0.064 | 100s | LR 0.000200 | NaN 0
+  e048 s0000 | G 1.829 D 0.260 cyc 0.089 adv 0.721 gradG 8.16
+  e048 s0200 | G 2.975 D 0.284 cyc 0.073 adv 1.884 gradG 17.24
+  e048 s0400 | G 2.022 D 0.281 cyc 0.087 adv 0.888 gradG 13.07
+  e048 s0600 | G 2.063 D 0.258 cyc 0.109 adv 0.676 gradG 14.78
+  e048 s0800 | G 2.481 D 0.264 cyc 0.082 adv 1.370 gradG 13.66
+EPOCH 048 DONE | G 2.085 | D 0.396 | cycle 0.093 | id 0.061 | 102s | LR 0.000200 | NaN 0
+  e049 s0000 | G 2.878 D 0.212 cyc 0.097 adv 1.468 gradG 19.71
+  e049 s0200 | G 1.933 D 0.426 cyc 0.095 adv 0.764 gradG 9.57
+  e049 s0400 | G 2.275 D 0.348 cyc 0.120 adv 0.744 gradG 15.59
+  e049 s0600 | G 2.093 D 0.418 cyc 0.104 adv 0.765 gradG 17.34
+  e049 s0800 | G 1.400 D 0.540 cyc 0.078 adv 0.379 gradG 11.29
+EPOCH 049 DONE | G 2.088 | D 0.394 | cycle 0.093 | id 0.061 | 101s | LR 0.000200 | NaN 0
+  e050 s0000 | G 1.947 D 0.288 cyc 0.085 adv 0.789 gradG 13.49
+  e050 s0200 | G 2.688 D 0.243 cyc 0.127 adv 1.003 gradG 15.93
+  e050 s0400 | G 1.504 D 0.467 cyc 0.089 adv 0.265 gradG 13.17
+  e050 s0600 | G 1.466 D 0.497 cyc 0.083 adv 0.188 gradG 14.02
+  e050 s0800 | G 2.034 D 0.311 cyc 0.077 adv 1.029 gradG 17.27
+EPOCH 050 DONE | G 2.099 | D 0.391 | cycle 0.092 | id 0.061 | 101s | LR 0.000196 | NaN 0
+   saved samples: /content/drive/MyDrive/cyclegan_task3/samples/epoch_050.png
+  e051 s0000 | G 2.790 D 0.189 cyc 0.104 adv 1.384 gradG 10.47
+  e051 s0200 | G 2.286 D 0.171 cyc 0.087 adv 1.174 gradG 14.55
+  e051 s0400 | G 2.072 D 0.518 cyc 0.069 adv 1.142 gradG 16.53
+  e051 s0600 | G 1.848 D 0.220 cyc 0.112 adv 0.410 gradG 19.24
+  e051 s0800 | G 1.404 D 0.559 cyc 0.066 adv 0.548 gradG 21.80
+EPOCH 051 DONE | G 2.085 | D 0.394 | cycle 0.093 | id 0.063 | 94s | LR 0.000192 | NaN 0
+  e052 s0000 | G 2.081 D 0.207 cyc 0.082 adv 1.042 gradG 14.27
+  e052 s0200 | G 1.893 D 0.281 cyc 0.090 adv 0.700 gradG 15.52
+  e052 s0400 | G 1.865 D 0.605 cyc 0.099 adv 0.561 gradG 15.07
+  e052 s0600 | G 2.195 D 0.651 cyc 0.101 adv 0.959 gradG 15.82
+  e052 s0800 | G 2.156 D 0.437 cyc 0.100 adv 0.805 gradG 21.65
+EPOCH 052 DONE | G 2.077 | D 0.382 | cycle 0.091 | id 0.060 | 101s | LR 0.000188 | NaN 0
+  e053 s0000 | G 1.885 D 0.181 cyc 0.085 adv 0.751 gradG 18.42
+  e053 s0200 | G 2.597 D 0.360 cyc 0.126 adv 1.034 gradG 24.60
+  e053 s0400 | G 2.490 D 0.185 cyc 0.115 adv 1.017 gradG 19.59
+  e053 s0600 | G 1.559 D 0.384 cyc 0.077 adv 0.586 gradG 13.28
+  e053 s0800 | G 1.624 D 0.468 cyc 0.083 adv 0.529 gradG 35.74
+EPOCH 053 DONE | G 2.083 | D 0.376 | cycle 0.090 | id 0.059 | 101s | LR 0.000184 | NaN 0
+  e054 s0000 | G 2.581 D 0.210 cyc 0.092 adv 1.374 gradG 22.38
+  e054 s0200 | G 2.152 D 0.323 cyc 0.123 adv 0.620 gradG 17.63
+  e054 s0400 | G 2.123 D 0.172 cyc 0.083 adv 1.027 gradG 41.53
+  e054 s0600 | G 2.677 D 0.308 cyc 0.093 adv 1.414 gradG 103.11
+  e054 s0800 | G 1.831 D 0.262 cyc 0.104 adv 0.518 gradG 47.37
+EPOCH 054 DONE | G 2.114 | D 0.360 | cycle 0.088 | id 0.059 | 102s | LR 0.000180 | NaN 0
+  e055 s0000 | G 1.868 D 0.296 cyc 0.082 adv 0.869 gradG 37.94
+  e055 s0200 | G 1.382 D 0.346 cyc 0.084 adv 0.318 gradG 42.58
+  e055 s0400 | G 2.187 D 0.447 cyc 0.082 adv 1.154 gradG 61.75
+  e055 s0600 | G 2.331 D 0.660 cyc 0.076 adv 1.376 gradG 184.96
+  e055 s0800 | G 2.218 D 0.385 cyc 0.094 adv 0.922 gradG 24.80
+EPOCH 055 DONE | G 2.151 | D 0.345 | cycle 0.089 | id 0.060 | 100s | LR 0.000176 | NaN 0
+   saved samples: /content/drive/MyDrive/cyclegan_task3/samples/epoch_055.png
+  e056 s0000 | G 2.246 D 0.376 cyc 0.110 adv 0.831 gradG 91.07
+  e056 s0200 | G 1.747 D 0.223 cyc 0.084 adv 0.700 gradG 57.02
+  e056 s0400 | G 1.965 D 0.456 cyc 0.096 adv 0.710 gradG 48.46
+  e056 s0600 | G 2.132 D 0.361 cyc 0.092 adv 0.885 gradG 59.57
+  e056 s0800 | G 2.578 D 0.230 cyc 0.114 adv 1.108 gradG 55.54
+EPOCH 056 DONE | G 2.168 | D 0.337 | cycle 0.090 | id 0.057 | 100s | LR 0.000172 | NaN 0
+  e057 s0000 | G 2.236 D 0.320 cyc 0.085 adv 1.125 gradG 28.96
+  e057 s0200 | G 2.544 D 0.167 cyc 0.103 adv 1.193 gradG 29.72
+  e057 s0400 | G 1.908 D 0.399 cyc 0.073 adv 0.841 gradG 25.58
+  e057 s0600 | G 2.045 D 0.182 cyc 0.096 adv 0.827 gradG 43.92
+  e057 s0800 | G 2.420 D 0.192 cyc 0.096 adv 1.178 gradG 115.41
+EPOCH 057 DONE | G 2.219 | D 0.334 | cycle 0.092 | id 0.060 | 99s | LR 0.000168 | NaN 0
+  e058 s0000 | G 3.175 D 0.320 cyc 0.140 adv 1.360 gradG 33.84
+  e058 s0200 | G 2.503 D 0.310 cyc 0.113 adv 0.967 gradG 44.67
+  e058 s0400 | G 2.068 D 0.325 cyc 0.082 adv 0.940 gradG 17.02
+  e058 s0600 | G 2.540 D 0.419 cyc 0.118 adv 1.060 gradG 32.69
+  e058 s0800 | G 2.257 D 0.564 cyc 0.092 adv 0.775 gradG 47.05
+EPOCH 058 DONE | G 2.217 | D 0.341 | cycle 0.094 | id 0.063 | 101s | LR 0.000164 | NaN 0
+  e059 s0000 | G 2.225 D 0.271 cyc 0.104 adv 0.828 gradG 24.88
+  e059 s0200 | G 2.526 D 0.200 cyc 0.095 adv 1.317 gradG 70.89
+  e059 s0400 | G 1.716 D 0.483 cyc 0.083 adv 0.664 gradG 26.25
+  e059 s0600 | G 1.443 D 0.390 cyc 0.081 adv 0.425 gradG 38.02
+  e059 s0800 | G 2.167 D 0.435 cyc 0.100 adv 0.873 gradG 55.35
+EPOCH 059 DONE | G 2.194 | D 0.340 | cycle 0.093 | id 0.061 | 100s | LR 0.000160 | NaN 0
+  e060 s0000 | G 1.889 D 0.429 cyc 0.106 adv 0.472 gradG 50.50
+  e060 s0200 | G 1.591 D 0.576 cyc 0.061 adv 0.720 gradG 61.83
+  e060 s0400 | G 2.321 D 0.390 cyc 0.087 adv 1.203 gradG 82.50
+  e060 s0600 | G 1.732 D 0.627 cyc 0.080 adv 0.706 gradG 55.68
+  e060 s0800 | G 2.219 D 0.212 cyc 0.099 adv 0.915 gradG 38.84
+EPOCH 060 DONE | G 2.210 | D 0.333 | cycle 0.093 | id 0.060 | 101s | LR 0.000156 | NaN 0
+   saved samples: /content/drive/MyDrive/cyclegan_task3/samples/epoch_060.png
+  e061 s0000 | G 3.096 D 0.351 cyc 0.077 adv 1.977 gradG 78.60
+  e061 s0200 | G 2.277 D 0.261 cyc 0.106 adv 0.839 gradG 17.47
+  e061 s0400 | G 2.363 D 0.543 cyc 0.089 adv 1.189 gradG 69.78
+  e061 s0600 | G 1.661 D 0.308 cyc 0.087 adv 0.465 gradG 13.43
+  e061 s0800 | G 1.928 D 0.312 cyc 0.093 adv 0.577 gradG 22.55
+EPOCH 061 DONE | G 2.208 | D 0.334 | cycle 0.093 | id 0.058 | 99s | LR 0.000152 | NaN 0
+  e062 s0000 | G 1.738 D 0.404 cyc 0.101 adv 0.415 gradG 19.52
+  e062 s0200 | G 1.940 D 0.521 cyc 0.094 adv 0.761 gradG 27.22
+  e062 s0400 | G 2.904 D 0.229 cyc 0.117 adv 1.229 gradG 56.72
+  e062 s0600 | G 2.356 D 0.459 cyc 0.105 adv 1.003 gradG 36.72
+  e062 s0800 | G 5.228 D 0.501 cyc 0.275 adv 1.104 gradG 39.76
+EPOCH 062 DONE | G 2.214 | D 0.331 | cycle 0.093 | id 0.061 | 99s | LR 0.000148 | NaN 0
+  e063 s0000 | G 2.061 D 0.561 cyc 0.111 adv 0.637 gradG 25.17
+  e063 s0200 | G 2.084 D 0.263 cyc 0.088 adv 0.893 gradG 41.39
+  e063 s0400 | G 1.963 D 0.452 cyc 0.088 adv 0.772 gradG 38.41
+  e063 s0600 | G 2.239 D 0.204 cyc 0.087 adv 1.128 gradG 25.61
+  e063 s0800 | G 3.711 D 0.358 cyc 0.147 adv 1.625 gradG 49.36
+EPOCH 063 DONE | G 2.186 | D 0.330 | cycle 0.092 | id 0.058 | 101s | LR 0.000144 | NaN 0
+  e064 s0000 | G 2.182 D 0.160 cyc 0.080 adv 1.142 gradG 61.82
+  e064 s0200 | G 1.381 D 0.180 cyc 0.085 adv 0.304 gradG 29.86
+  e064 s0400 | G 2.370 D 0.192 cyc 0.111 adv 0.914 gradG 25.33
+  e064 s0600 | G 1.856 D 0.233 cyc 0.079 adv 0.882 gradG 29.75
+  e064 s0800 | G 2.420 D 0.327 cyc 0.097 adv 1.192 gradG 86.84
+EPOCH 064 DONE | G 2.199 | D 0.325 | cycle 0.092 | id 0.056 | 102s | LR 0.000140 | NaN 0
+  e065 s0000 | G 2.139 D 0.530 cyc 0.076 adv 1.134 gradG 35.65
+  e065 s0200 | G 2.325 D 0.644 cyc 0.124 adv 0.729 gradG 11.66
+  e065 s0400 | G 2.130 D 0.211 cyc 0.062 adv 1.297 gradG 28.09
+  e065 s0600 | G 1.559 D 0.632 cyc 0.091 adv 0.427 gradG 14.43
+  e065 s0800 | G 2.613 D 0.222 cyc 0.104 adv 1.086 gradG 55.98
+EPOCH 065 DONE | G 2.207 | D 0.326 | cycle 0.093 | id 0.058 | 101s | LR 0.000136 | NaN 0
+   saved samples: /content/drive/MyDrive/cyclegan_task3/samples/epoch_065.png
+  e066 s0000 | G 2.513 D 0.172 cyc 0.083 adv 1.418 gradG 25.75
+  e066 s0200 | G 2.408 D 0.110 cyc 0.086 adv 1.270 gradG 35.90
+  e066 s0400 | G 2.123 D 0.223 cyc 0.095 adv 0.813 gradG 40.18
+  e066 s0600 | G 1.949 D 0.370 cyc 0.065 adv 1.025 gradG 66.22
+  e066 s0800 | G 2.681 D 0.264 cyc 0.117 adv 1.130 gradG 22.71
+EPOCH 066 DONE | G 2.198 | D 0.321 | cycle 0.093 | id 0.058 | 100s | LR 0.000132 | NaN 0
+  e067 s0000 | G 1.955 D 0.298 cyc 0.080 adv 0.925 gradG 35.15
+  e067 s0200 | G 2.310 D 0.274 cyc 0.074 adv 1.338 gradG 21.36
+  e067 s0400 | G 1.928 D 0.434 cyc 0.083 adv 0.871 gradG 136.50
+  e067 s0600 | G 2.085 D 0.305 cyc 0.058 adv 1.276 gradG 65.68
+  e067 s0800 | G 2.063 D 0.347 cyc 0.090 adv 0.904 gradG 47.96
+EPOCH 067 DONE | G 2.239 | D 0.305 | cycle 0.091 | id 0.056 | 101s | LR 0.000128 | NaN 0
+  e068 s0000 | G 1.643 D 0.613 cyc 0.084 adv 0.537 gradG 39.21
+  e068 s0200 | G 2.179 D 0.541 cyc 0.091 adv 0.948 gradG 19.81
+  e068 s0400 | G 2.099 D 0.537 cyc 0.094 adv 0.909 gradG 27.45
+  e068 s0600 | G 1.954 D 0.299 cyc 0.092 adv 0.763 gradG 18.27
+  e068 s0800 | G 2.609 D 0.175 cyc 0.111 adv 1.245 gradG 60.47
+EPOCH 068 DONE | G 2.212 | D 0.314 | cycle 0.093 | id 0.057 | 101s | LR 0.000124 | NaN 0
+  e069 s0000 | G 1.959 D 0.236 cyc 0.086 adv 0.861 gradG 29.00
+  e069 s0200 | G 2.483 D 0.206 cyc 0.096 adv 1.224 gradG 74.69
+  e069 s0400 | G 2.442 D 0.275 cyc 0.082 adv 1.425 gradG 90.61
+  e069 s0600 | G 1.897 D 0.247 cyc 0.086 adv 0.824 gradG 50.87
+  e069 s0800 | G 2.088 D 0.489 cyc 0.122 adv 0.562 gradG 34.42
+EPOCH 069 DONE | G 2.201 | D 0.315 | cycle 0.092 | id 0.056 | 101s | LR 0.000120 | NaN 0
+  e070 s0000 | G 2.230 D 0.283 cyc 0.093 adv 1.017 gradG 41.33
+  e070 s0200 | G 1.689 D 0.313 cyc 0.078 adv 0.721 gradG 38.72
+  e070 s0400 | G 2.943 D 0.333 cyc 0.068 adv 2.050 gradG 82.74
+  e070 s0600 | G 1.854 D 0.524 cyc 0.084 adv 0.801 gradG 16.35
+  e070 s0800 | G 2.083 D 0.159 cyc 0.080 adv 1.030 gradG 26.83
+EPOCH 070 DONE | G 2.208 | D 0.307 | cycle 0.091 | id 0.055 | 101s | LR 0.000116 | NaN 0
+   saved samples: /content/drive/MyDrive/cyclegan_task3/samples/epoch_070.png
+  e071 s0000 | G 2.284 D 0.414 cyc 0.099 adv 0.982 gradG 22.50
+  e071 s0200 | G 2.189 D 0.322 cyc 0.095 adv 1.043 gradG 47.84
+  e071 s0400 | G 2.304 D 0.370 cyc 0.085 adv 1.252 gradG 55.49
+  e071 s0600 | G 2.858 D 0.293 cyc 0.121 adv 1.165 gradG 61.16
+  e071 s0800 | G 2.632 D 0.130 cyc 0.096 adv 1.408 gradG 65.31
+EPOCH 071 DONE | G 2.254 | D 0.302 | cycle 0.093 | id 0.056 | 95s | LR 0.000112 | NaN 0
+  e072 s0000 | G 2.408 D 0.244 cyc 0.098 adv 1.198 gradG 25.38
+  e072 s0200 | G 2.410 D 0.174 cyc 0.070 adv 1.479 gradG 59.53
+  e072 s0400 | G 2.439 D 0.177 cyc 0.079 adv 1.403 gradG 41.64
+  e072 s0600 | G 1.768 D 0.406 cyc 0.095 adv 0.568 gradG 37.80
+  e072 s0800 | G 1.381 D 0.639 cyc 0.089 adv 0.244 gradG 39.39
+EPOCH 072 DONE | G 2.234 | D 0.302 | cycle 0.092 | id 0.055 | 101s | LR 0.000108 | NaN 0
+  e073 s0000 | G 1.752 D 0.477 cyc 0.099 adv 0.496 gradG 13.14
+  e073 s0200 | G 1.739 D 0.238 cyc 0.088 adv 0.652 gradG 24.90
+  e073 s0400 | G 2.529 D 0.267 cyc 0.096 adv 1.263 gradG 26.39
+  e073 s0600 | G 2.123 D 0.167 cyc 0.078 adv 1.133 gradG 69.10
+  e073 s0800 | G 1.965 D 0.387 cyc 0.090 adv 0.837 gradG 39.38
+EPOCH 073 DONE | G 2.226 | D 0.304 | cycle 0.092 | id 0.056 | 101s | LR 0.000104 | NaN 0
+  e074 s0000 | G 2.226 D 0.168 cyc 0.095 adv 1.036 gradG 23.73
+  e074 s0200 | G 1.790 D 0.149 cyc 0.093 adv 0.521 gradG 36.80
+  e074 s0400 | G 2.201 D 0.239 cyc 0.094 adv 1.001 gradG 47.95
+  e074 s0600 | G 1.740 D 0.266 cyc 0.087 adv 0.618 gradG 60.16
+  e074 s0800 | G 1.986 D 0.332 cyc 0.108 adv 0.620 gradG 18.40
+EPOCH 074 DONE | G 2.208 | D 0.301 | cycle 0.091 | id 0.054 | 99s | LR 0.000100 | NaN 0
+  e075 s0000 | G 1.909 D 0.340 cyc 0.100 adv 0.691 gradG 36.87
+  e075 s0200 | G 1.974 D 0.344 cyc 0.096 adv 0.747 gradG 36.11
+  e075 s0400 | G 2.264 D 0.323 cyc 0.096 adv 0.913 gradG 47.17
+  e075 s0600 | G 3.364 D 0.393 cyc 0.136 adv 1.643 gradG 45.76
+  e075 s0800 | G 2.085 D 0.367 cyc 0.071 adv 1.152 gradG 112.36
+EPOCH 075 DONE | G 2.233 | D 0.292 | cycle 0.091 | id 0.053 | 101s | LR 0.000096 | NaN 0
+   saved samples: /content/drive/MyDrive/cyclegan_task3/samples/epoch_075.png
+  e076 s0000 | G 2.801 D 0.083 cyc 0.114 adv 1.181 gradG 33.89
+  e076 s0200 | G 2.430 D 0.282 cyc 0.072 adv 1.473 gradG 40.24
+  e076 s0400 | G 2.917 D 0.215 cyc 0.105 adv 1.576 gradG 21.13
+  e076 s0600 | G 2.212 D 0.213 cyc 0.097 adv 0.989 gradG 65.04
+  e076 s0800 | G 1.996 D 0.347 cyc 0.084 adv 0.896 gradG 82.92
+EPOCH 076 DONE | G 2.246 | D 0.290 | cycle 0.093 | id 0.053 | 100s | LR 0.000092 | NaN 0
+  e077 s0000 | G 2.101 D 0.189 cyc 0.092 adv 0.941 gradG 45.55
+  e077 s0200 | G 2.691 D 0.204 cyc 0.105 adv 1.323 gradG 59.07
+  e077 s0400 | G 2.171 D 0.268 cyc 0.101 adv 0.948 gradG 32.05
+  e077 s0600 | G 2.034 D 0.252 cyc 0.096 adv 0.853 gradG 74.62
+  e077 s0800 | G 2.392 D 0.153 cyc 0.087 adv 1.230 gradG 70.82
+EPOCH 077 DONE | G 2.254 | D 0.287 | cycle 0.092 | id 0.053 | 101s | LR 0.000088 | NaN 0
+  e078 s0000 | G 2.600 D 0.289 cyc 0.087 adv 1.487 gradG 64.46
+  e078 s0200 | G 2.500 D 0.194 cyc 0.095 adv 1.272 gradG 22.16
+  e078 s0400 | G 1.661 D 0.444 cyc 0.082 adv 0.611 gradG 16.36
+  e078 s0600 | G 2.182 D 0.268 cyc 0.104 adv 0.888 gradG 49.51
+  e078 s0800 | G 2.429 D 0.305 cyc 0.096 adv 1.196 gradG 42.06
+EPOCH 078 DONE | G 2.272 | D 0.288 | cycle 0.094 | id 0.053 | 100s | LR 0.000084 | NaN 0
+  e079 s0000 | G 2.397 D 0.376 cyc 0.087 adv 1.299 gradG 43.70
+  e079 s0200 | G 2.114 D 0.289 cyc 0.106 adv 0.747 gradG 32.29
+  e079 s0400 | G 2.708 D 0.305 cyc 0.099 adv 1.348 gradG 79.79
+  e079 s0600 | G 2.250 D 0.268 cyc 0.079 adv 1.255 gradG 58.71
+  e079 s0800 | G 2.269 D 0.231 cyc 0.095 adv 0.951 gradG 39.77
+EPOCH 079 DONE | G 2.275 | D 0.286 | cycle 0.093 | id 0.052 | 101s | LR 0.000080 | NaN 0
+  e080 s0000 | G 2.280 D 0.231 cyc 0.087 adv 1.159 gradG 74.64
+  e080 s0200 | G 1.788 D 0.265 cyc 0.074 adv 0.872 gradG 58.97
+  e080 s0400 | G 2.338 D 0.132 cyc 0.092 adv 1.144 gradG 21.84
+  e080 s0600 | G 2.176 D 0.188 cyc 0.082 adv 1.129 gradG inf
+  e080 s0800 | G 2.549 D 0.184 cyc 0.091 adv 1.378 gradG 29.11
+EPOCH 080 DONE | G 2.270 | D 0.284 | cycle 0.094 | id 0.052 | 102s | LR 0.000076 | NaN 0
+   saved samples: /content/drive/MyDrive/cyclegan_task3/samples/epoch_080.png
+  e081 s0000 | G 2.211 D 0.382 cyc 0.076 adv 1.228 gradG 20.61
+  e081 s0200 | G 1.614 D 0.376 cyc 0.091 adv 0.498 gradG 23.34
+  e081 s0400 | G 2.711 D 0.161 cyc 0.097 adv 1.529 gradG 55.05
+  e081 s0600 | G 1.975 D 0.316 cyc 0.099 adv 0.694 gradG 28.24
+  e081 s0800 | G 1.662 D 0.314 cyc 0.085 adv 0.624 gradG 37.58
+EPOCH 081 DONE | G 2.296 | D 0.277 | cycle 0.094 | id 0.053 | 96s | LR 0.000072 | NaN 0
+  e082 s0000 | G 2.669 D 0.355 cyc 0.096 adv 1.449 gradG 55.02
+  e082 s0200 | G 2.951 D 0.148 cyc 0.091 adv 1.796 gradG 106.82
+  e082 s0400 | G 2.554 D 0.138 cyc 0.079 adv 1.521 gradG 88.49
+  e082 s0600 | G 2.167 D 0.161 cyc 0.086 adv 1.105 gradG 42.63
+  e082 s0800 | G 2.270 D 0.290 cyc 0.094 adv 1.102 gradG 84.10
+EPOCH 082 DONE | G 2.280 | D 0.285 | cycle 0.093 | id 0.052 | 101s | LR 0.000068 | NaN 0
+  e083 s0000 | G 2.233 D 0.182 cyc 0.078 adv 1.208 gradG 58.26
+  e083 s0200 | G 2.253 D 0.189 cyc 0.089 adv 1.128 gradG 89.62
+  e083 s0400 | G 2.167 D 0.300 cyc 0.107 adv 0.821 gradG 50.46
+  e083 s0600 | G 2.156 D 0.213 cyc 0.099 adv 0.882 gradG 39.28
+  e083 s0800 | G 3.156 D 0.156 cyc 0.088 adv 1.922 gradG 47.80
+EPOCH 083 DONE | G 2.293 | D 0.274 | cycle 0.094 | id 0.052 | 101s | LR 0.000064 | NaN 0
+  e084 s0000 | G 1.777 D 0.623 cyc 0.097 adv 0.577 gradG 37.67
+  e084 s0200 | G 2.341 D 0.377 cyc 0.079 adv 1.327 gradG 71.25
+  e084 s0400 | G 2.346 D 0.217 cyc 0.100 adv 1.110 gradG 64.64
+  e084 s0600 | G 2.322 D 0.363 cyc 0.101 adv 1.085 gradG 58.72
+  e084 s0800 | G 2.241 D 0.297 cyc 0.088 adv 1.149 gradG 51.12
+EPOCH 084 DONE | G 2.312 | D 0.278 | cycle 0.095 | id 0.052 | 101s | LR 0.000060 | NaN 0
+  e085 s0000 | G 2.430 D 0.265 cyc 0.098 adv 1.207 gradG 38.93
+  e085 s0200 | G 1.715 D 0.338 cyc 0.088 adv 0.617 gradG 31.82
+  e085 s0400 | G 2.074 D 0.314 cyc 0.093 adv 0.943 gradG 18.60
+  e085 s0600 | G 2.713 D 0.357 cyc 0.089 adv 1.587 gradG 31.18
+  e085 s0800 | G 2.222 D 0.322 cyc 0.104 adv 0.894 gradG 43.48
+EPOCH 085 DONE | G 2.277 | D 0.279 | cycle 0.094 | id 0.051 | 101s | LR 0.000056 | NaN 0
+   saved samples: /content/drive/MyDrive/cyclegan_task3/samples/epoch_085.png
+  e086 s0000 | G 2.084 D 0.168 cyc 0.090 adv 0.962 gradG 41.69
+  e086 s0200 | G 3.364 D 0.260 cyc 0.116 adv 1.860 gradG 40.21
+  e086 s0400 | G 1.800 D 0.359 cyc 0.089 adv 0.704 gradG 38.30
+  e086 s0600 | G 1.998 D 0.275 cyc 0.095 adv 0.854 gradG 47.94
+  e086 s0800 | G 2.722 D 0.371 cyc 0.108 adv 1.395 gradG 82.47
+EPOCH 086 DONE | G 2.276 | D 0.281 | cycle 0.093 | id 0.051 | 100s | LR 0.000052 | NaN 0
+  e087 s0000 | G 2.102 D 0.314 cyc 0.074 adv 1.082 gradG 113.67
+  e087 s0200 | G 1.737 D 0.265 cyc 0.074 adv 0.831 gradG 63.98
+  e087 s0400 | G 2.399 D 0.201 cyc 0.103 adv 1.094 gradG 22.56
+  e087 s0600 | G 1.915 D 0.215 cyc 0.089 adv 0.758 gradG 30.87
+  e087 s0800 | G 2.780 D 0.246 cyc 0.112 adv 1.331 gradG 50.45
+EPOCH 087 DONE | G 2.280 | D 0.277 | cycle 0.094 | id 0.050 | 101s | LR 0.000048 | NaN 0
+  e088 s0000 | G 2.338 D 0.255 cyc 0.082 adv 1.302 gradG 71.48
+  e088 s0200 | G 2.304 D 0.367 cyc 0.081 adv 1.214 gradG 57.63
+  e088 s0400 | G 2.164 D 0.500 cyc 0.091 adv 0.954 gradG 24.59
+  e088 s0600 | G 2.410 D 0.171 cyc 0.089 adv 1.341 gradG 66.80
+  e088 s0800 | G 2.174 D 0.342 cyc 0.101 adv 0.883 gradG 47.97
+EPOCH 088 DONE | G 2.311 | D 0.272 | cycle 0.094 | id 0.052 | 101s | LR 0.000044 | NaN 0
+  e089 s0000 | G 2.492 D 0.244 cyc 0.103 adv 1.161 gradG 48.98
+  e089 s0200 | G 2.050 D 0.375 cyc 0.121 adv 0.426 gradG 17.96
+  e089 s0400 | G 2.397 D 0.270 cyc 0.102 adv 1.098 gradG 22.65
+  e089 s0600 | G 2.102 D 0.202 cyc 0.083 adv 1.015 gradG 31.38
+  e089 s0800 | G 2.331 D 0.290 cyc 0.085 adv 1.292 gradG 29.66
+EPOCH 089 DONE | G 2.277 | D 0.276 | cycle 0.093 | id 0.050 | 101s | LR 0.000040 | NaN 0
+  e090 s0000 | G 2.009 D 0.202 cyc 0.083 adv 0.923 gradG 319.08
+  e090 s0200 | G 1.765 D 0.352 cyc 0.083 adv 0.735 gradG 122.59
+  e090 s0400 | G 2.128 D 0.234 cyc 0.108 adv 0.805 gradG 38.38
+  e090 s0600 | G 2.819 D 0.287 cyc 0.079 adv 1.741 gradG 56.47
+  e090 s0800 | G 2.888 D 0.186 cyc 0.090 adv 1.754 gradG 35.97
+EPOCH 090 DONE | G 2.309 | D 0.269 | cycle 0.094 | id 0.049 | 102s | LR 0.000036 | NaN 0
+   saved samples: /content/drive/MyDrive/cyclegan_task3/samples/epoch_090.png
+  e091 s0000 | G 1.744 D 0.364 cyc 0.088 adv 0.637 gradG 20.42
+  e091 s0200 | G 2.218 D 0.243 cyc 0.088 adv 1.113 gradG 24.28
+  e091 s0400 | G 1.954 D 0.502 cyc 0.098 adv 0.694 gradG 16.33
+  e091 s0600 | G 2.308 D 0.379 cyc 0.089 adv 1.200 gradG 28.44
+  e091 s0800 | G 1.784 D 0.470 cyc 0.073 adv 0.885 gradG 25.59
+EPOCH 091 DONE | G 2.309 | D 0.274 | cycle 0.094 | id 0.050 | 98s | LR 0.000032 | NaN 0
+  e092 s0000 | G 2.086 D 0.342 cyc 0.106 adv 0.780 gradG 34.31
+  e092 s0200 | G 2.371 D 0.396 cyc 0.093 adv 1.213 gradG 29.52
+  e092 s0400 | G 2.039 D 0.334 cyc 0.090 adv 0.917 gradG 27.11
+  e092 s0600 | G 2.291 D 0.295 cyc 0.082 adv 1.268 gradG 35.87
+  e092 s0800 | G 2.271 D 0.254 cyc 0.086 adv 1.186 gradG 28.56
+EPOCH 092 DONE | G 2.301 | D 0.275 | cycle 0.093 | id 0.050 | 100s | LR 0.000028 | NaN 0
+  e093 s0000 | G 2.475 D 0.307 cyc 0.083 adv 1.353 gradG 22.90
+  e093 s0200 | G 1.740 D 0.427 cyc 0.100 adv 0.514 gradG 25.88
+  e093 s0400 | G 2.122 D 0.233 cyc 0.097 adv 0.946 gradG 43.93
+  e093 s0600 | G 2.211 D 0.326 cyc 0.098 adv 0.965 gradG 16.66
+  e093 s0800 | G 1.924 D 0.296 cyc 0.078 adv 0.968 gradG 47.45
+EPOCH 093 DONE | G 2.333 | D 0.263 | cycle 0.095 | id 0.050 | 102s | LR 0.000024 | NaN 0
+  e094 s0000 | G 2.358 D 0.347 cyc 0.102 adv 1.044 gradG 96.45
+  e094 s0200 | G 2.806 D 0.565 cyc 0.154 adv 0.953 gradG 45.40
+  e094 s0400 | G 1.961 D 0.479 cyc 0.109 adv 0.597 gradG 34.61
+  e094 s0600 | G 2.982 D 0.144 cyc 0.111 adv 1.541 gradG 45.62
+  e094 s0800 | G 3.152 D 0.218 cyc 0.097 adv 1.911 gradG 31.88
+EPOCH 094 DONE | G 2.317 | D 0.272 | cycle 0.095 | id 0.049 | 101s | LR 0.000020 | NaN 0
+  e095 s0000 | G 2.315 D 0.142 cyc 0.100 adv 1.066 gradG 34.17
+  e095 s0200 | G 1.925 D 0.224 cyc 0.078 adv 0.937 gradG 31.87
+  e095 s0400 | G 2.043 D 0.355 cyc 0.085 adv 0.997 gradG 16.53
+  e095 s0600 | G 2.064 D 0.324 cyc 0.092 adv 0.888 gradG 14.95
+  e095 s0800 | G 2.475 D 0.334 cyc 0.104 adv 1.200 gradG 23.58
+EPOCH 095 DONE | G 2.305 | D 0.264 | cycle 0.094 | id 0.049 | 100s | LR 0.000016 | NaN 0
+   saved samples: /content/drive/MyDrive/cyclegan_task3/samples/epoch_095.png
+  e096 s0000 | G 1.635 D 0.497 cyc 0.110 adv 0.277 gradG 16.64
+  e096 s0200 | G 2.371 D 0.322 cyc 0.093 adv 1.193 gradG 23.66
+  e096 s0400 | G 2.226 D 0.248 cyc 0.095 adv 1.021 gradG 40.54
+  e096 s0600 | G 2.319 D 0.354 cyc 0.094 adv 1.110 gradG 31.30
+  e096 s0800 | G 2.169 D 0.326 cyc 0.095 adv 1.006 gradG 17.22
+EPOCH 096 DONE | G 2.309 | D 0.263 | cycle 0.094 | id 0.049 | 101s | LR 0.000012 | NaN 0
+  e097 s0000 | G 2.543 D 0.195 cyc 0.088 adv 1.435 gradG 22.01
+  e097 s0200 | G 2.002 D 0.231 cyc 0.093 adv 0.851 gradG 23.81
+  e097 s0400 | G 3.490 D 0.169 cyc 0.146 adv 1.126 gradG 44.03
+  e097 s0600 | G 1.833 D 0.256 cyc 0.071 adv 0.951 gradG 19.88
+  e097 s0800 | G 1.806 D 0.516 cyc 0.090 adv 0.686 gradG 22.55
+EPOCH 097 DONE | G 2.315 | D 0.261 | cycle 0.094 | id 0.048 | 98s | LR 0.000008 | NaN 0
+  e098 s0000 | G 2.535 D 0.174 cyc 0.088 adv 1.416 gradG 20.70
+  e098 s0200 | G 2.400 D 0.201 cyc 0.106 adv 1.056 gradG 34.98
+  e098 s0400 | G 2.262 D 0.224 cyc 0.095 adv 1.112 gradG 62.35
+  e098 s0600 | G 2.644 D 0.265 cyc 0.102 adv 1.348 gradG 16.95
+  e098 s0800 | G 1.721 D 0.615 cyc 0.088 adv 0.637 gradG 11.51
+EPOCH 098 DONE | G 2.294 | D 0.271 | cycle 0.094 | id 0.049 | 101s | LR 0.000004 | NaN 0
+  e099 s0000 | G 2.975 D 0.226 cyc 0.099 adv 1.669 gradG 19.17
+  e099 s0200 | G 1.798 D 0.224 cyc 0.068 adv 0.941 gradG 41.33
+  e099 s0400 | G 2.158 D 0.155 cyc 0.089 adv 1.059 gradG 24.94
+  e099 s0600 | G 2.320 D 0.149 cyc 0.086 adv 1.195 gradG 37.43
+  e099 s0800 | G 2.087 D 0.253 cyc 0.090 adv 0.945 gradG 31.61
+EPOCH 099 DONE | G 2.319 | D 0.261 | cycle 0.094 | id 0.049 | 101s | LR 0.000000 | NaN 0
+   saved samples: /content/drive/MyDrive/cyclegan_task3/samples/epoch_099.png
+===== TRAINING COMPLETE =====

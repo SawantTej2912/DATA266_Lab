@@ -1,0 +1,107 @@
+# Task 1, GPU-lab preset — the capacity arm. Differs from `config_gpu.yaml` in the
+# `model:` block and the run name, and in nothing else.
+#
+#   python task1_llm/shriram_dundigalla/src/train.py \
+#       --config task1_llm/shriram_dundigalla/src/config_gpu_large.yaml
+#
+# WHY. The MPS run was underfitting, but "underfitting" has two possible causes and they
+# call for opposite fixes: too little training, or too little capacity. `config_gpu.yaml`
+# tests the first by training the same 4.8M-parameter model for longer at a longer
+# context. This tests the second by scaling the model under an otherwise identical
+# recipe, so the difference between the two runs is attributable to capacity alone.
+#
+# WHAT SCALES, AND WHY THESE NUMBERS.
+#
+#   d_model 256 -> 512 and n_layer 6 -> 8, giving 25,451,520 parameters against the
+#   cheap arm's 4,854,784 -- 5.2x, confirmed by constructing both.
+#   Depth and width are scaled together because scaling width alone tends to buy less
+#   per parameter, and the ratio d_model/n_layer stays in the range these models are
+#   normally trained at rather than becoming an unusually wide, shallow oddity.
+#
+#   n_head 8 -> 8 is NOT a typo. Head count is held fixed so d_head rises 32 -> 64.
+#   Keeping d_head at 32 by moving to 16 heads would change the attention resolution at
+#   the same time as capacity, which is the confound worth avoiding here.
+#
+#   dropout 0.1 -> 0.15. The only non-capacity change, and it is a consequence of the
+#   capacity change rather than an independent one: at 5x parameters on the same 100,000
+#   windows, the MPS run's 0.035-nat gap could plausibly invert into overfitting. If it
+#   does, that is the answer to the capacity question and the run is still informative.
+#
+#   batch_size stays at 128, matching the cheap arm. It was briefly dropped to 64 as a
+#   memory accommodation for the larger activations at context 256, which mattered on a
+#   laptop and does not on the booked RTX 5090: 32 GB against an estimated 5-7 GB for
+#   this configuration. Holding it equal is what makes this a capacity comparison
+#   rather than a capacity-plus-batch-size comparison, and batch size is not a neutral
+#   difference -- it changes the gradient noise scale, so it would have been a second
+#   explanation for any gap this run shows.
+#
+# COST. Timed on this M4 at the earlier batch_size of 64 over two runs: 6,409 and 8,420
+# tokens/sec, against the cheap arm's 13,939-24,255 -- roughly 2-3x slower per token,
+# which put the full 768M-token run in the tens of hours on MPS. Those figures predate
+# the return to batch_size 128 and are kept only as the order-of-magnitude reason this
+# cannot run on a laptop. Do not quote them as a benchmark: a 15-step smoke run is
+# dominated by process startup and the first step's kernel selection.
+#
+# Read the real number off the run instead. Every epoch line ends with `eta_min=`, the
+# remaining epochs at the rate just measured, so about a minute into epoch 1 the actual
+# cost is known. Run `config_gpu.yaml` first anyway -- it is the cheaper arm, and a
+# finished cheap arm beats two half-finished runs.
+# Evidence: reproducibility/raw_logs/task1_gpt_char_tinystories_gpu_large_smoke_*.log
+
+run_name: gpt_char_tinystories_gpu_large
+seed: 9015                  # identical to the MPS run, so the split is identical
+
+data:
+  stories_jsonl: task1_llm/data/tinystories_train_first20000.jsonl
+  block_size: 256           # was 128
+  n_train_windows: 100000
+  n_val_windows: 10000
+  val_story_frac: 0.10
+
+model:                      # the only intended difference from config_gpu.yaml
+  n_layer: 8               # was 6
+  n_head: 8                # held fixed, so d_head 32 -> 64
+  d_model: 512             # was 256
+  d_ff_mult: 4
+  dropout: 0.15            # was 0.1; see the header
+
+train:
+  epochs: 30                # was 12
+  batch_size: 128           # equal to the cheap arm, so capacity is the only difference
+  lr: 3.0e-4
+  min_lr_frac: 0.1
+  warmup_frac: 0.03
+  weight_decay: 0.1
+  betas: [0.9, 0.95]
+  grad_clip: 1.0
+  log_every: 50
+  num_workers: 4            # safe on CUDA, unlike MPS
+  amp: true                 # bf16 autocast, training only
+
+eval:
+  train_eval_batches: null   # the whole training split, as reported
+
+generate:
+  prompt: "Once upon a time"
+  max_new_tokens: 400
+  temperatures: [0.0, 0.5, 0.8, 1.0, 1.2]
+  top_k: null
+  prompts:
+    - "Once upon a time"
+    - "The little girl found a"
+    - "Tom was very sad because"
+    - "\"Hello,\" said the"
+    - "The two cats were"
+  n_samples: 3
+  decoding_variants:
+    - {name: plain, top_k: null, top_p: null, repetition_penalty: 1.0}
+    - {name: top_k_40, top_k: 40, top_p: null, repetition_penalty: 1.0}
+    - {name: top_p_0.9, top_k: null, top_p: 0.9, repetition_penalty: 1.0}
+    - {name: rep_pen_1.15, top_k: null, top_p: null, repetition_penalty: 1.15}
+    - {name: top_p_0.9_rep_1.15, top_k: null, top_p: 0.9, repetition_penalty: 1.15}
+  decoding_temperature: 0.8
+
+paths:
+  checkpoints: task1_llm/shriram_dundigalla/checkpoints
+  outputs: task1_llm/shriram_dundigalla/outputs
+  raw_logs: reproducibility/raw_logs

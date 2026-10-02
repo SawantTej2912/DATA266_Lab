@@ -1,0 +1,13 @@
+[2026-09-30T04:21:10+00:00] device=mps (Apple MPS (arm)) torch=2.14.0
+[2026-09-30T04:21:10+00:00] amp=off (fp32) tf32=False note=evaluation always runs in fp32, so reported metrics are not affected by the training precision
+[2026-09-30T04:21:10+00:00] config={"data": {"stories_jsonl": "task1_llm/data/tinystories_train_first20000.jsonl", "block_size": 256, "n_train_windows": 2000, "n_val_windows": 500, "val_story_frac": 0.1}, "model": {"n_layer": 6, "n_head": 8, "d_model": 256, "d_ff_mult": 4, "dropout": 0.1}, "train": {"epochs": 2, "batch_size": 128, "lr": 0.0003, "min_lr_frac": 0.1, "warmup_frac": 0.03, "weight_decay": 0.1, "betas": [0.9, 0.95], "grad_clip": 1.0, "log_every": 50, "num_workers": 4, "amp": true}}
+[2026-09-30T04:21:10+00:00] stories train/val=18000/2000 chars train/val=16172268/1758634 vocab=98 windows train/val=2000/500
+[2026-09-30T04:21:10+00:00] parameters=4,854,784
+[2026-09-30T04:21:11+00:00] optimizer=AdamW decay_tensors=25 nodecay_tensors=52
+[2026-09-30T04:21:11+00:00] steps_per_epoch=15 total_steps=30 warmup_steps=1
+[2026-09-30T04:21:14+00:00] epoch=1 step=0/30 loss=4.6417 grad_norm=11.651 lr=3.00e-04
+[2026-09-30T04:21:32+00:00] EPOCH 1 train_ce=3.2573 val_ce=2.7756 val_ppl=16.048 val_bpc=4.0044 val_top1=0.3059 secs=21.6 tokens_per_sec=22,706
+[2026-09-30T04:21:51+00:00] EPOCH 2 train_ce=2.6986 val_ce=2.6350 val_ppl=13.943 val_bpc=3.8015 val_top1=0.3091 secs=18.9 tokens_per_sec=26,033
+[2026-09-30T04:21:51+00:00] checkpoint=task1_llm/shriram_dundigalla/checkpoints/gpt_char_tinystories_gpu_smoke_20260930T042110Z.pt
+[2026-09-30T04:21:57+00:00] train metrics computed over 15 batches of 15
+[2026-09-30T04:21:58+00:00] train_ce=2.6290 val_ce=2.6350 gap=0.0060 tokens_per_sec=24,255 peak_mem_mb=87.2 total_secs=40.5

@@ -1,0 +1,94 @@
+[2026-09-29T03:30:24+00:00] device=mps hardware=Apple M4 integrated GPU via Apple MPS torch=2.14.0
+[2026-09-29T03:30:24+00:00] loaded cached preprocessing from task2_sentiment/shriram_dundigalla/data_processed/task2_data.pkl
+[2026-09-29T03:30:24+00:00] --- baseline_bow: mean-pooled embeddings (dim 128) -> MLP [256] -> 1 logit; dropout 0.3; 3,873,281 params
+[2026-09-29T03:30:25+00:00] baseline_bow epoch=1 step=0/391 loss=0.6933
+[2026-09-29T03:30:27+00:00] baseline_bow epoch=1 step=100/391 loss=0.2799
+[2026-09-29T03:30:29+00:00] baseline_bow epoch=1 step=200/391 loss=0.2315
+[2026-09-29T03:30:31+00:00] baseline_bow epoch=1 step=300/391 loss=0.1731
+[2026-09-29T03:30:33+00:00] baseline_bow EPOCH 1 train_loss=0.2886 val_loss=0.2073 val_macro_f1=0.9214
+[2026-09-29T03:30:33+00:00] baseline_bow epoch=2 step=0/391 loss=0.1183
+[2026-09-29T03:30:35+00:00] baseline_bow epoch=2 step=100/391 loss=0.1413
+[2026-09-29T03:30:37+00:00] baseline_bow epoch=2 step=200/391 loss=0.2416
+[2026-09-29T03:30:39+00:00] baseline_bow epoch=2 step=300/391 loss=0.1270
+[2026-09-29T03:30:42+00:00] baseline_bow EPOCH 2 train_loss=0.1730 val_loss=0.2070 val_macro_f1=0.9206
+[2026-09-29T03:30:42+00:00] baseline_bow epoch=3 step=0/391 loss=0.1998
+[2026-09-29T03:30:44+00:00] baseline_bow epoch=3 step=100/391 loss=0.1990
+[2026-09-29T03:30:46+00:00] baseline_bow epoch=3 step=200/391 loss=0.1407
+[2026-09-29T03:30:48+00:00] baseline_bow epoch=3 step=300/391 loss=0.1574
+[2026-09-29T03:30:51+00:00] baseline_bow EPOCH 3 train_loss=0.1499 val_loss=0.2170 val_macro_f1=0.9167
+[2026-09-29T03:30:51+00:00] baseline_bow early stop at epoch 3 (best val_macro_f1=0.9214)
+[2026-09-29T03:30:52+00:00] --- exp1_bilstm: embeddings (dim 200) -> biLSTM hidden 192 x1 -> [mean; max] pool -> 1 logit; dropout 0.4; 6,605,953 params
+[2026-09-29T03:30:54+00:00] exp1_bilstm epoch=1 step=0/782 loss=0.6932
+[2026-09-29T03:31:50+00:00] exp1_bilstm epoch=1 step=100/782 loss=0.2966
+[2026-09-29T03:32:39+00:00] exp1_bilstm epoch=1 step=200/782 loss=0.1729
+[2026-09-29T03:33:28+00:00] exp1_bilstm epoch=1 step=300/782 loss=0.1847
+[2026-09-29T03:34:18+00:00] exp1_bilstm epoch=1 step=400/782 loss=0.1992
+[2026-09-29T03:35:14+00:00] exp1_bilstm epoch=1 step=500/782 loss=0.2317
+[2026-09-29T03:36:08+00:00] exp1_bilstm epoch=1 step=600/782 loss=0.1170
+[2026-09-29T03:36:58+00:00] exp1_bilstm epoch=1 step=700/782 loss=0.1756
+[2026-09-29T03:38:15+00:00] exp1_bilstm EPOCH 1 train_loss=0.2381 val_loss=0.1992 val_macro_f1=0.9209
+[2026-09-29T03:38:15+00:00] exp1_bilstm epoch=2 step=0/782 loss=0.1945
+[2026-09-29T03:39:05+00:00] exp1_bilstm epoch=2 step=100/782 loss=0.1048
+[2026-09-29T03:39:56+00:00] exp1_bilstm epoch=2 step=200/782 loss=0.1911
+[2026-09-29T03:40:48+00:00] exp1_bilstm epoch=2 step=300/782 loss=0.2239
+[2026-09-29T03:41:45+00:00] exp1_bilstm epoch=2 step=400/782 loss=0.1499
+[2026-09-29T03:42:38+00:00] exp1_bilstm epoch=2 step=500/782 loss=0.1204
+[2026-09-29T03:43:28+00:00] exp1_bilstm epoch=2 step=600/782 loss=0.1915
+[2026-09-29T03:44:22+00:00] exp1_bilstm epoch=2 step=700/782 loss=0.1281
+[2026-09-29T03:45:19+00:00] exp1_bilstm EPOCH 2 train_loss=0.1398 val_loss=0.1777 val_macro_f1=0.9310
+[2026-09-29T03:45:19+00:00] exp1_bilstm epoch=3 step=0/782 loss=0.0933
+[2026-09-29T03:46:13+00:00] exp1_bilstm epoch=3 step=100/782 loss=0.1094
+[2026-09-29T03:47:09+00:00] exp1_bilstm epoch=3 step=200/782 loss=0.1100
+[2026-09-29T03:48:05+00:00] exp1_bilstm epoch=3 step=300/782 loss=0.0531
+[2026-09-29T03:49:01+00:00] exp1_bilstm epoch=3 step=400/782 loss=0.1067
+[2026-09-29T03:49:57+00:00] exp1_bilstm epoch=3 step=500/782 loss=0.1083
+[2026-09-29T03:50:55+00:00] exp1_bilstm epoch=3 step=600/782 loss=0.0579
+[2026-09-29T03:51:52+00:00] exp1_bilstm epoch=3 step=700/782 loss=0.1239
+[2026-09-29T03:52:50+00:00] exp1_bilstm EPOCH 3 train_loss=0.0994 val_loss=0.1817 val_macro_f1=0.9330
+[2026-09-29T03:52:51+00:00] exp1_bilstm epoch=4 step=0/782 loss=0.0646
+[2026-09-29T03:53:50+00:00] exp1_bilstm epoch=4 step=100/782 loss=0.0390
+[2026-09-29T03:54:49+00:00] exp1_bilstm epoch=4 step=200/782 loss=0.0245
+[2026-09-29T03:55:50+00:00] exp1_bilstm epoch=4 step=300/782 loss=0.0718
+[2026-09-29T03:56:50+00:00] exp1_bilstm epoch=4 step=400/782 loss=0.0748
+[2026-09-29T03:57:51+00:00] exp1_bilstm epoch=4 step=500/782 loss=0.0966
+[2026-09-29T03:58:54+00:00] exp1_bilstm epoch=4 step=600/782 loss=0.1802
+[2026-09-29T03:59:55+00:00] exp1_bilstm epoch=4 step=700/782 loss=0.0466
+[2026-09-29T04:00:57+00:00] exp1_bilstm EPOCH 4 train_loss=0.0689 val_loss=0.2209 val_macro_f1=0.9277
+[2026-09-29T04:00:57+00:00] exp1_bilstm epoch=5 step=0/782 loss=0.0351
+[2026-09-29T04:02:02+00:00] exp1_bilstm epoch=5 step=100/782 loss=0.0361
+[2026-09-29T04:03:03+00:00] exp1_bilstm epoch=5 step=200/782 loss=0.0167
+[2026-09-29T04:04:05+00:00] exp1_bilstm epoch=5 step=300/782 loss=0.0204
+[2026-09-29T04:05:07+00:00] exp1_bilstm epoch=5 step=400/782 loss=0.0341
+[2026-09-29T04:06:12+00:00] exp1_bilstm epoch=5 step=500/782 loss=0.0447
+[2026-09-29T04:07:23+00:00] exp1_bilstm epoch=5 step=600/782 loss=0.0125
+[2026-09-29T04:08:28+00:00] exp1_bilstm epoch=5 step=700/782 loss=0.0156
+[2026-09-29T04:09:31+00:00] exp1_bilstm EPOCH 5 train_loss=0.0478 val_loss=0.2532 val_macro_f1=0.9296
+[2026-09-29T04:09:31+00:00] exp1_bilstm early stop at epoch 5 (best val_macro_f1=0.9330)
+[2026-09-29T04:09:52+00:00] --- exp2_textcnn: embeddings (dim 160) -> Conv1d kernels [2, 3, 4, 5] x128 filters -> global max pool -> 1 logit; dropout 0.5; 5,087,745 params
+[2026-09-29T04:09:53+00:00] exp2_textcnn epoch=1 step=0/391 loss=0.6997
+[2026-09-29T04:10:04+00:00] exp2_textcnn epoch=1 step=100/391 loss=0.2932
+[2026-09-29T04:10:17+00:00] exp2_textcnn epoch=1 step=200/391 loss=0.1986
+[2026-09-29T04:10:30+00:00] exp2_textcnn epoch=1 step=300/391 loss=0.2151
+[2026-09-29T04:10:45+00:00] exp2_textcnn EPOCH 1 train_loss=0.2651 val_loss=0.1760 val_macro_f1=0.9325
+[2026-09-29T04:10:45+00:00] exp2_textcnn epoch=2 step=0/391 loss=0.1660
+[2026-09-29T04:10:58+00:00] exp2_textcnn epoch=2 step=100/391 loss=0.1698
+[2026-09-29T04:11:11+00:00] exp2_textcnn epoch=2 step=200/391 loss=0.1471
+[2026-09-29T04:11:24+00:00] exp2_textcnn epoch=2 step=300/391 loss=0.1322
+[2026-09-29T04:11:39+00:00] exp2_textcnn EPOCH 2 train_loss=0.1432 val_loss=0.1710 val_macro_f1=0.9351
+[2026-09-29T04:11:39+00:00] exp2_textcnn epoch=3 step=0/391 loss=0.1255
+[2026-09-29T04:11:52+00:00] exp2_textcnn epoch=3 step=100/391 loss=0.1316
+[2026-09-29T04:12:04+00:00] exp2_textcnn epoch=3 step=200/391 loss=0.1145
+[2026-09-29T04:12:17+00:00] exp2_textcnn epoch=3 step=300/391 loss=0.1319
+[2026-09-29T04:12:31+00:00] exp2_textcnn EPOCH 3 train_loss=0.0942 val_loss=0.1848 val_macro_f1=0.9303
+[2026-09-29T04:12:32+00:00] exp2_textcnn epoch=4 step=0/391 loss=0.0634
+[2026-09-29T04:12:44+00:00] exp2_textcnn epoch=4 step=100/391 loss=0.1001
+[2026-09-29T04:12:57+00:00] exp2_textcnn epoch=4 step=200/391 loss=0.1022
+[2026-09-29T04:13:10+00:00] exp2_textcnn epoch=4 step=300/391 loss=0.0564
+[2026-09-29T04:13:24+00:00] exp2_textcnn EPOCH 4 train_loss=0.0576 val_loss=0.2126 val_macro_f1=0.9297
+[2026-09-29T04:13:24+00:00] exp2_textcnn early stop at epoch 4 (best val_macro_f1=0.9351)
+[2026-09-29T04:13:30+00:00] baseline_bow: acc=0.9245 macroF1=0.9245 ROC-AUC=0.9751 PR-AUC=0.9748 MCC=0.8492 Brier=0.0572 ECE=0.0044
+[2026-09-29T04:13:31+00:00] exp1_bilstm: acc=0.9334 macroF1=0.9334 ROC-AUC=0.9830 PR-AUC=0.9836 MCC=0.8671 Brier=0.0500 ECE=0.0165
+[2026-09-29T04:13:31+00:00] exp2_textcnn: acc=0.9344 macroF1=0.9344 ROC-AUC=0.9829 PR-AUC=0.9835 MCC=0.8688 Brier=0.0487 ECE=0.0061
+[2026-09-29T04:13:31+00:00] McNemar baseline_bow vs exp1_bilstm: only_a=976 only_b=1315 chi-square (continuity corrected) p=1.646e-12
+[2026-09-29T04:13:31+00:00] McNemar baseline_bow vs exp2_textcnn: only_a=932 only_b=1309 chi-square (continuity corrected) p=1.979e-15
+[2026-09-29T04:13:31+00:00] wrote task2_sentiment/shriram_dundigalla/metrics_report.csv

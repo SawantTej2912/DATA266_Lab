@@ -1,0 +1,3 @@
+model_a,model_b,only_a_correct,only_b_correct,both_correct,both_wrong,test,statistic,p_value
+baseline_bow,exp1_bilstm,976,1315,34155,1554,chi-square (continuity corrected),49.86643387167176,1.6457615191613357e-12
+baseline_bow,exp2_textcnn,932,1309,34199,1560,chi-square (continuity corrected),63.08612226684516,1.9786327426063817e-15

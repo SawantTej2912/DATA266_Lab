@@ -1,0 +1,84 @@
+# Task 2 run configuration — Shriram Dundigalla.
+# Paths are relative to the repo root so the run reproduces on any checkout.
+
+seed: 9015
+
+data:
+  train_parquet: task2_sentiment/data/yelp_polarity_train.parquet
+  test_parquet: task2_sentiment/data/yelp_polarity_test.parquet
+  cache_dir: task2_sentiment/shriram_dundigalla/data_processed
+
+  # Yelp Polarity ships 560K train / 38K test. Training on a balanced 100K subsample
+  # keeps three model builds inside a laptop-GPU budget; the held-out score is always
+  # computed on the FULL official 38K test set, so the numbers stay comparable to
+  # anyone who trains on all 560K.
+  n_train: 100000
+  n_val: 10000
+  use_full_test: true
+
+  max_len: 250              # ~90th percentile of token length after cleaning
+  vocab_size: 30000
+  min_freq: 2
+
+preprocess:
+  lowercase: true
+  strip_punctuation: true
+  remove_stopwords: true
+  # NLTK's English stopword list contains 15 negation tokens (not, no, nor, don't,
+  # didn't, ...). Dropping them would delete the single most important cue in a
+  # sentiment task, so they are put back.
+  keep_negations: true
+  stemmer: porter            # one of: porter, none
+
+models:
+  baseline_bow:
+    kind: bag_of_embeddings
+    embed_dim: 128
+    hidden: [256]
+    dropout: 0.3
+    lr: 1.0e-3
+    epochs: 6
+    batch_size: 256
+
+  exp1_bilstm:
+    kind: bilstm
+    embed_dim: 200
+    hidden_size: 192
+    n_layers: 1
+    bidirectional: true
+    dropout: 0.4
+    lr: 1.0e-3
+    epochs: 5
+    batch_size: 128
+
+  exp2_textcnn:
+    kind: textcnn
+    embed_dim: 160
+    n_filters: 128
+    kernel_sizes: [2, 3, 4, 5]
+    dropout: 0.5
+    lr: 1.5e-3
+    epochs: 6
+    batch_size: 256
+
+train:
+  weight_decay: 1.0e-4
+  grad_clip: 1.0
+  log_every: 100
+  num_workers: 0
+  early_stop_patience: 2      # on validation macro-F1
+
+eval:
+  bootstrap_n: 2000
+  calibration_bins: 15
+  threshold: 0.5
+
+paths:
+  checkpoints: task2_sentiment/shriram_dundigalla/checkpoints
+  outputs: task2_sentiment/shriram_dundigalla/outputs
+  raw_logs: reproducibility/raw_logs
+  # Where metrics_report.csv is written. Separate from `outputs` because the reported
+  # CSV sits beside results.md at the member root, while figures and predictions go in
+  # outputs/. A seed-sweep arm or a smoke run overrides this so it cannot overwrite the
+  # committed report -- which is not hypothetical, it happened.
+  report_dir: task2_sentiment/shriram_dundigalla

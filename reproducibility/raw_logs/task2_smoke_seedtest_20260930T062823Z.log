@@ -1,0 +1,20 @@
+[2026-09-30T06:28:23+00:00] device=mps hardware=Apple M4 integrated GPU via Apple MPS torch=2.14.0
+[2026-09-30T06:28:24+00:00] scrub: train 560000 -> 560000, test 38000 -> 38000
+[2026-09-30T06:28:24+00:00] vocab size 7987 (cap 30000, min_freq 2)
+[2026-09-30T06:28:25+00:00] stats={"n_train": 4000, "n_val": 1000, "n_test": 10000, "vocab_size": 7987, "max_len": 250, "train_class_counts": {"0": 2015, "1": 1985}, "test_class_counts": {"0": 4944, "1": 5056}, "token_length_mean": 68.81675, "token_length_median": 50.0, "token_length_p90": 145.0, "token_length_max": 472, "length_quantiles_33_66": [34.0, 72.0], "test_oov_token_rate": 0.041341230433930176, "test_truncation_rate_sample": 0.0195, "stopwords_removed": 179, "negations_retained": true}
+[2026-09-30T06:28:25+00:00] preprocessing took 1.8s
+[2026-09-30T06:28:25+00:00] --- baseline_bow: mean-pooled embeddings (dim 128) -> MLP [256] -> 1 logit; dropout 0.3; 1,055,617 params
+[2026-09-30T06:28:26+00:00] baseline_bow epoch=1 step=0/16 loss=0.6947
+[2026-09-30T06:28:26+00:00] baseline_bow EPOCH 1 train_loss=0.6902 val_loss=0.6834 val_macro_f1=0.8010
+[2026-09-30T06:28:27+00:00] --- exp1_bilstm: embeddings (dim 200) -> biLSTM hidden 192 x1 -> [mean; max] pool -> 1 logit; dropout 0.4; 2,203,353 params
+[2026-09-30T06:28:28+00:00] exp1_bilstm epoch=1 step=0/32 loss=0.6966
+[2026-09-30T06:28:45+00:00] exp1_bilstm EPOCH 1 train_loss=0.6591 val_loss=0.5185 val_macro_f1=0.7310
+[2026-09-30T06:28:51+00:00] --- exp2_textcnn: embeddings (dim 160) -> Conv1d kernels [2, 3, 4, 5] x128 filters -> global max pool -> 1 logit; dropout 0.5; 1,565,665 params
+[2026-09-30T06:28:51+00:00] exp2_textcnn epoch=1 step=0/16 loss=0.6899
+[2026-09-30T06:28:53+00:00] exp2_textcnn EPOCH 1 train_loss=0.6637 val_loss=0.6145 val_macro_f1=0.7224
+[2026-09-30T06:28:54+00:00] baseline_bow: acc=0.7974 macroF1=0.7974 ROC-AUC=0.8790 PR-AUC=0.8762 MCC=0.5947 Brier=0.2450 ECEconf=0.2910 ECEpos=0.0052
+[2026-09-30T06:28:54+00:00] exp1_bilstm: acc=0.7296 macroF1=0.7141 ROC-AUC=0.8613 PR-AUC=0.8475 MCC=0.5097 Brier=0.1751 ECEconf=0.0483 ECEpos=0.1247
+[2026-09-30T06:28:54+00:00] exp2_textcnn: acc=0.7467 macroF1=0.7464 ROC-AUC=0.8469 PR-AUC=0.8462 MCC=0.4957 Brier=0.2067 ECEconf=0.1743 ECEpos=0.1995
+[2026-09-30T06:28:54+00:00] McNemar baseline_bow vs exp1_bilstm: only_a=1546 only_b=868 chi-square (continuity corrected) p=3.406e-43
+[2026-09-30T06:28:54+00:00] McNemar baseline_bow vs exp2_textcnn: only_a=1214 only_b=707 chi-square (continuity corrected) p=7.841e-31
+[2026-09-30T06:28:54+00:00] wrote task2_sentiment/shriram_dundigalla/metrics_report.csv

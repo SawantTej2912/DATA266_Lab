@@ -1,0 +1,217 @@
+{
+  "seed": 9015,
+  "n_scored": 30,
+  "n_controls": 5,
+  "key": [
+    {
+      "sample_id": "S001",
+      "model": "shriram",
+      "source_image": "161b3c519e.jpg",
+      "is_control": false
+    },
+    {
+      "sample_id": "S002",
+      "model": "shriram",
+      "source_image": "d39869db76.jpg",
+      "is_control": false
+    },
+    {
+      "sample_id": "S003",
+      "model": "shriram",
+      "source_image": "fe3c9d0016.jpg",
+      "is_control": false
+    },
+    {
+      "sample_id": "S004",
+      "model": "shriram",
+      "source_image": "066b81e0f9.jpg",
+      "is_control": false
+    },
+    {
+      "sample_id": "S005",
+      "model": "__control_real_monet",
+      "source_image": "dcf5ea1040.jpg",
+      "is_control": true
+    },
+    {
+      "sample_id": "S006",
+      "model": "shriram",
+      "source_image": "eb74ee9751.jpg",
+      "is_control": false
+    },
+    {
+      "sample_id": "S007",
+      "model": "shriram",
+      "source_image": "50f7a05ee7.jpg",
+      "is_control": false
+    },
+    {
+      "sample_id": "S008",
+      "model": "shriram",
+      "source_image": "2c64a2295e.jpg",
+      "is_control": false
+    },
+    {
+      "sample_id": "S009",
+      "model": "__control_real_monet",
+      "source_image": "da72006ef5.jpg",
+      "is_control": true
+    },
+    {
+      "sample_id": "S010",
+      "model": "shriram",
+      "source_image": "84cae20e39.jpg",
+      "is_control": false
+    },
+    {
+      "sample_id": "S011",
+      "model": "shriram",
+      "source_image": "04cb1f4705.jpg",
+      "is_control": false
+    },
+    {
+      "sample_id": "S012",
+      "model": "shriram",
+      "source_image": "cdb621d29d.jpg",
+      "is_control": false
+    },
+    {
+      "sample_id": "S013",
+      "model": "shriram",
+      "source_image": "1064e8c2fc.jpg",
+      "is_control": false
+    },
+    {
+      "sample_id": "S014",
+      "model": "shriram",
+      "source_image": "bb313a5e16.jpg",
+      "is_control": false
+    },
+    {
+      "sample_id": "S015",
+      "model": "shriram",
+      "source_image": "54796e9027.jpg",
+      "is_control": false
+    },
+    {
+      "sample_id": "S016",
+      "model": "shriram",
+      "source_image": "a4e346e887.jpg",
+      "is_control": false
+    },
+    {
+      "sample_id": "S017",
+      "model": "__control_real_monet",
+      "source_image": "77b37629f2.jpg",
+      "is_control": true
+    },
+    {
+      "sample_id": "S018",
+      "model": "shriram",
+      "source_image": "072f1336c9.jpg",
+      "is_control": false
+    },
+    {
+      "sample_id": "S019",
+      "model": "shriram",
+      "source_image": "fe0a4f0e5a.jpg",
+      "is_control": false
+    },
+    {
+      "sample_id": "S020",
+      "model": "shriram",
+      "source_image": "1467b3a6ac.jpg",
+      "is_control": false
+    },
+    {
+      "sample_id": "S021",
+      "model": "shriram",
+      "source_image": "ce1740b144.jpg",
+      "is_control": false
+    },
+    {
+      "sample_id": "S022",
+      "model": "shriram",
+      "source_image": "bf0e0a58a4.jpg",
+      "is_control": false
+    },
+    {
+      "sample_id": "S023",
+      "model": "shriram",
+      "source_image": "16de6b603c.jpg",
+      "is_control": false
+    },
+    {
+      "sample_id": "S024",
+      "model": "shriram",
+      "source_image": "aa0485a59f.jpg",
+      "is_control": false
+    },
+    {
+      "sample_id": "S025",
+      "model": "shriram",
+      "source_image": "c9bca1b8ea.jpg",
+      "is_control": false
+    },
+    {
+      "sample_id": "S026",
+      "model": "shriram",
+      "source_image": "4bfed75eb2.jpg",
+      "is_control": false
+    },
+    {
+      "sample_id": "S027",
+      "model": "shriram",
+      "source_image": "f10f748b4d.jpg",
+      "is_control": false
+    },
+    {
+      "sample_id": "S028",
+      "model": "__control_real_monet",
+      "source_image": "68b60c04b7.jpg",
+      "is_control": true
+    },
+    {
+      "sample_id": "S029",
+      "model": "shriram",
+      "source_image": "ca4170de40.jpg",
+      "is_control": false
+    },
+    {
+      "sample_id": "S030",
+      "model": "shriram",
+      "source_image": "b879c75442.jpg",
+      "is_control": false
+    },
+    {
+      "sample_id": "S031",
+      "model": "shriram",
+      "source_image": "bde2a9e1fa.jpg",
+      "is_control": false
+    },
+    {
+      "sample_id": "S032",
+      "model": "__control_real_monet",
+      "source_image": "7017e6caa1.jpg",
+      "is_control": true
+    },
+    {
+      "sample_id": "S033",
+      "model": "shriram",
+      "source_image": "6b87dc38dc.jpg",
+      "is_control": false
+    },
+    {
+      "sample_id": "S034",
+      "model": "shriram",
+      "source_image": "527ddb23d4.jpg",
+      "is_control": false
+    },
+    {
+      "sample_id": "S035",
+      "model": "shriram",
+      "source_image": "c7622b657d.jpg",
+      "is_control": false
+    }
+  ]
+}

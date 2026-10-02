@@ -1,0 +1,41 @@
+# DATA266 Lab 1 — GPU lab PC requirements. Python 3.11.9.
+#
+# PYTORCH IS NOT PINNED HERE ON PURPOSE. Installing `torch` from PyPI on Linux gives you
+# a CUDA build, but which CUDA build depends on the index you install from, and a wheel
+# compiled against the wrong CUDA runtime either fails to import or silently falls back
+# to CPU. So install torch FIRST, from the index matching the lab machine's driver, and
+# only then install this file. SETUP_GPU_PC.md gives the exact commands.
+#
+# Do not `pip install torch` without an index URL and do not let anything here upgrade
+# or replace it -- that is how a GPU run quietly becomes a CPU run.
+
+# --- pinned to the versions every reported number was produced with ---
+numpy==2.4.6
+scipy==1.17.1
+scikit-learn==1.9.1
+pandas==3.0.5
+matplotlib==3.11.1
+pillow==12.3.0
+nltk==3.10.3
+pyyaml==6.0.3
+pyarrow==25.0.1
+datasets==5.0.1
+
+# --- Part 3 scoring ---
+lpips==0.1.4          # LPIPS perceptual distance; pulls its own AlexNet weights
+
+# --- Part 2 statistics ---
+statsmodels==0.15.0   # McNemar's test (metrics.py)
+
+# --- notebooks, reporting, verification ---
+nbconvert==7.17.1
+ipykernel==7.3.0
+reportlab==5.0.1      # scripts/build_report.py
+pypdf==6.19.0         # scripts/verify_submission.py reads the built report
+
+# --- dataset download, only if you fetch data on the lab PC ---
+kaggle==2.2.4
+
+tqdm==4.70.0          # progress bars in evaluate_local.py and the course scorer
+
+# torch==2.14.0 and torchvision==0.29.0 are installed separately; see SETUP_GPU_PC.md.

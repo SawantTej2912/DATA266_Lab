@@ -1,0 +1,83 @@
+# Task 1 run configuration — Shriram Dundigalla.
+# Every path is relative to the repo root so the run reproduces on any checkout.
+
+run_name: gpt_char_tinystories_v1
+seed: 9015
+
+data:
+  stories_jsonl: task1_llm/data/tinystories_train_first20000.jsonl
+  block_size: 128
+  n_train_windows: 100000   # the brief's "100K" read as sequences, not characters
+  n_val_windows: 10000      # the brief's "10K"
+  val_story_frac: 0.10      # split by story, so no validation text leaks into training
+
+model:
+  n_layer: 6
+  n_head: 8
+  d_model: 256              # d_head = 256 / 8 = 32
+  d_ff_mult: 4
+  dropout: 0.1
+
+train:
+  epochs: 12                # brief requires >= 10
+  batch_size: 128
+  lr: 3.0e-4
+  min_lr_frac: 0.1          # cosine floor, as a fraction of peak lr
+  warmup_frac: 0.03         # linear warm-up over the first 3% of steps
+  weight_decay: 0.1         # applied to matmul weights only
+  betas: [0.9, 0.95]
+  grad_clip: 1.0
+  log_every: 50
+  num_workers: 0            # MPS + fork workers is a known source of hangs
+
+eval:
+  # Batches of the *training* split used for the final post-hoc metrics. `null` means
+  # all of them, which is what should be reported: at batch_size 128 a cap of 100 covers
+  # 12,800 of 100,000 windows, or 12.8%, and calling that "the training loss" overstates
+  # what was measured. The full pass is forward-only and costs about 3 minutes on MPS,
+  # which is not worth economising on. Kept as a knob only so a smoke run can cap it.
+  train_eval_batches: null
+  # Held-out metrics always use the whole validation split; there is no knob for that.
+
+generate:
+  prompt: "Once upon a time"
+  max_new_tokens: 400
+  # One greedy sample plus a temperature sweep, so the failure analysis can show how
+  # the failure mode changes with sampling temperature rather than only at one setting.
+  temperatures: [0.0, 0.5, 0.8, 1.0, 1.2]
+  top_k: null
+
+  # A single 400-character sample is one draw from a stochastic decoder, and the
+  # generation metrics move a lot between draws -- quoting one number for distinct-2 or
+  # repeated-4-gram rate says almost nothing about the model. These settings drive a
+  # mean/std sweep instead: every (prompt, temperature) pair is sampled `n_samples`
+  # times with different seeds, and the report carries the spread.
+  #
+  # The prompts are chosen to vary what the model has to do, not just to be different:
+  # the canonical story opener, a mid-sentence noun-phrase continuation, a causal clause
+  # that demands a reason, a dialogue opening, and a plural subject that constrains
+  # agreement. 5 prompts x 5 temperatures x 3 seeds x 400 tokens is about 2 minutes.
+  prompts:
+    - "Once upon a time"
+    - "The little girl found a"
+    - "Tom was very sad because"
+    - "\"Hello,\" said the"
+    - "The two cats were"
+  n_samples: 3
+
+  # Decoding strategies, compared at the headline temperature. The point is the
+  # repetition penalty: this model's documented failure mode is a degenerate loop at low
+  # temperature, and a penalty targets it directly where raising the temperature only
+  # trades it for incoherence.
+  decoding_variants:
+    - {name: plain, top_k: null, top_p: null, repetition_penalty: 1.0}
+    - {name: top_k_40, top_k: 40, top_p: null, repetition_penalty: 1.0}
+    - {name: top_p_0.9, top_k: null, top_p: 0.9, repetition_penalty: 1.0}
+    - {name: rep_pen_1.15, top_k: null, top_p: null, repetition_penalty: 1.15}
+    - {name: top_p_0.9_rep_1.15, top_k: null, top_p: 0.9, repetition_penalty: 1.15}
+  decoding_temperature: 0.8
+
+paths:
+  checkpoints: task1_llm/shriram_dundigalla/checkpoints
+  outputs: task1_llm/shriram_dundigalla/outputs
+  raw_logs: reproducibility/raw_logs

@@ -1,0 +1,108 @@
+# Task 1, GPU-lab preset — longer training at a longer context, same architecture.
+#
+#   python task1_llm/shriram_dundigalla/src/train.py \
+#       --config task1_llm/shriram_dundigalla/src/config_gpu.yaml
+#
+# WHY THIS EXISTS. The reported MPS run stopped at 12 epochs with validation loss still
+# falling monotonically and a generalization gap of only 0.035 nats: it was underfitting,
+# and the limit was wall clock on a laptop, not the model. 6,144 s for 12 epochs at
+# ~25k tokens/sec is the whole story. This preset spends a CUDA slot on the two changes
+# the evidence actually supports.
+#
+# WHAT CHANGES, AND WHY EACH ONE.
+#
+#   epochs 12 -> 30. Directly targets the underfitting. Validation loss was still
+#   improving in the final four epochs, so the run ended early rather than converged.
+#
+#   block_size 128 -> 256. A character-level model at block 128 sees about 25 words of
+#   context, which is not enough to keep a TinyStories plot coherent -- and incoherence
+#   past the first couple of sentences is exactly failure Case 3. Doubling context is
+#   the change most likely to fix a documented failure rather than just lower a number.
+#   Attention cost is quadratic in context, so this is ~2x the compute per token even
+#   before the extra epochs.
+#
+#   num_workers 0 -> 4. The MPS run used 0 because fork workers plus MPS is a known
+#   source of hangs. That constraint does not exist on CUDA, and with pin_memory the
+#   loader stops being the bottleneck.
+#
+#   amp: true. bf16 autocast on the forward pass. See train.py for why bf16 and not
+#   fp16, and note that evaluation always runs in fp32, so the reported metrics are
+#   comparable with the MPS run's rather than being measured in a different precision.
+#
+# WHAT DELIBERATELY DOES NOT CHANGE: the architecture (6 layers, 8 heads, d_model 256),
+# the seed, the optimiser, the LR schedule shape, and the data split. Note the parameter
+# count is 4,854,784 here rather than the MPS run's 4,822,016 -- the learned positional
+# embedding is block_size x d_model, so doubling the context necessarily adds
+# 128 x 256 = 32,768 parameters. That is a consequence of the context change, not an
+# independent one, and it is 0.7% of the model. Held fixed so that this run against `config_gpu_large.yaml` -- which differs
+# only in model size -- is a controlled capacity comparison. Changing capacity and
+# schedule together would leave the comparison uninterpretable, which is the usual way
+# an ablation ends up proving nothing.
+#
+# COST, AND WHY THIS CANNOT RUN LOCALLY. 100,000 windows x 256 tokens = 25.6M tokens per
+# epoch, 768M over 30 epochs. Timed on this M4 via `--smoke` with this exact config, over
+# two runs: 13,939 and 24,255 tokens/sec overall, putting the full run somewhere in
+# **9-15 hours** on MPS. The spread is wide because a smoke run is 15 steps, so process
+# startup and the first-step compile dominate; treat it as an order-of-magnitude check,
+# not a benchmark. It does not need to be precise to make the point -- the answer is
+# "hours", and a lab GPU at a realistic 400k-800k tokens/sec in bf16 does the same run in
+# 20-35 minutes. Run this first; it is the cheap arm.
+# Evidence: reproducibility/raw_logs/task1_gpt_char_tinystories_gpu_smoke_*.log
+
+run_name: gpt_char_tinystories_gpu
+seed: 9015                  # identical to the MPS run, so the split is identical
+
+data:
+  stories_jsonl: task1_llm/data/tinystories_train_first20000.jsonl
+  block_size: 256           # was 128
+  n_train_windows: 100000
+  n_val_windows: 10000
+  val_story_frac: 0.10
+
+model:                      # untouched, so capacity is the only difference vs. _large
+  n_layer: 6
+  n_head: 8
+  d_model: 256
+  d_ff_mult: 4
+  dropout: 0.1
+
+train:
+  epochs: 30                # was 12
+  batch_size: 128
+  lr: 3.0e-4
+  min_lr_frac: 0.1
+  warmup_frac: 0.03
+  weight_decay: 0.1
+  betas: [0.9, 0.95]
+  grad_clip: 1.0
+  log_every: 50
+  num_workers: 4            # safe on CUDA, unlike MPS
+  amp: true                 # bf16 autocast, training only
+
+eval:
+  train_eval_batches: null   # the whole training split, as reported
+
+generate:
+  prompt: "Once upon a time"
+  max_new_tokens: 400
+  temperatures: [0.0, 0.5, 0.8, 1.0, 1.2]
+  top_k: null
+  prompts:
+    - "Once upon a time"
+    - "The little girl found a"
+    - "Tom was very sad because"
+    - "\"Hello,\" said the"
+    - "The two cats were"
+  n_samples: 3
+  decoding_variants:
+    - {name: plain, top_k: null, top_p: null, repetition_penalty: 1.0}
+    - {name: top_k_40, top_k: 40, top_p: null, repetition_penalty: 1.0}
+    - {name: top_p_0.9, top_k: null, top_p: 0.9, repetition_penalty: 1.0}
+    - {name: rep_pen_1.15, top_k: null, top_p: null, repetition_penalty: 1.15}
+    - {name: top_p_0.9_rep_1.15, top_k: null, top_p: 0.9, repetition_penalty: 1.15}
+  decoding_temperature: 0.8
+
+paths:
+  checkpoints: task1_llm/shriram_dundigalla/checkpoints
+  outputs: task1_llm/shriram_dundigalla/outputs
+  raw_logs: reproducibility/raw_logs

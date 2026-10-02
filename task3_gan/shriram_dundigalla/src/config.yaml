@@ -1,0 +1,49 @@
+# Part 3 — CycleGAN Monet <-> Photo, as run.
+#
+# This file is extracted verbatim from the CONFIG dict in task3_cyclegan_unet.ipynb,
+# which is where the run actually read its settings from. It is written out here
+# because the brief requires a config beside the code in every member folder, and
+# because a YAML is readable without opening a 20 MB notebook. It is a record of the
+# reported run, not a second source of truth: changing a value here changes nothing
+# until the same value is changed in the notebook's CONFIG cell.
+#
+# The two path keys in the original CONFIG are deliberately not reproduced. They were
+# Colab-session paths (/content/...) that mean nothing off that machine, and the brief
+# forbids committed personal or cloud paths. Point data_root at the shared domains in
+# this repository instead.
+
+data:
+  # Relative to the repository root. The notebook's CONFIG held a Colab /content path.
+  monet_dir: task3_gan/data/monet_jpg
+  photo_dir: task3_gan/data/photo_jpg
+
+image:
+  image_size: 256      # output resolution; the competition requires 256x256 RGB
+  load_size: 286       # resize to 286 then random-crop to 256, as augmentation
+  channels: 3
+
+model:
+  ngf: 64              # base generator filters, doubling each downsample
+  ndf: 64              # base discriminator filters
+  unet_downs: 8        # 256 -> 1 spatially; full U-Net depth
+
+train:
+  batch_size: 1        # CycleGAN standard; InstanceNorm prefers batch 1
+  epochs: 100
+  steps_per_epoch: 1000    # an epoch is a fixed step count, not one pass over a domain
+  decay_start: 50          # constant LR until here, then linear decay to zero
+  lr: 0.0002
+  beta1: 0.5               # 0.5 rather than the usual 0.9; GANs need the shorter memory
+  beta2: 0.999
+  use_amp: true            # fp16 autocast + GradScaler. Evaluation stays fp32.
+  pool_size: 50            # replay buffer of past fakes shown to the discriminators
+
+loss:
+  lambda_cycle: 10.0       # round-trip content preservation; the dominant term
+  lambda_identity: 5.0
+
+logging:
+  checkpoint_every: 10
+  sample_every: 5
+
+seed: 42                   # Parts 1 and 2 use 9015; this run used 42. See REPRODUCIBILITY.md.
