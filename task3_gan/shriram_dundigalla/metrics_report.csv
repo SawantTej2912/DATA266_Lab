@@ -1,0 +1,44 @@
+metric,direction,value,device,protocol,notes
+fid,A2B_monet_to_photo,103.92,NVIDIA A100 (CUDA),official evaluation script,"ImageNet norm, Resize(299)+CenterCrop(299), n=300, reference recomputed from real folders"
+fid,B2A_photo_to_monet,98.95,NVIDIA A100 (CUDA),official evaluation script,same
+fid,averaged,101.44,NVIDIA A100 (CUDA),official evaluation script,(A2B+B2A)/2; this is the submitted and graded value
+mifid,A2B_monet_to_photo,0.4241,NVIDIA A100 (CUDA),official evaluation script,mean positional cosine distance between sorted real and sorted generated features; not the Kaggle memorization-penalized MiFID
+mifid,B2A_photo_to_monet,0.4104,NVIDIA A100 (CUDA),official evaluation script,same
+mifid,averaged,0.4172,NVIDIA A100 (CUDA),official evaluation script,submitted value
+kid,A2B_monet_to_photo,0.0191,NVIDIA A100 (CUDA),unbiased MMD polynomial kernel,100 subsets of 100
+kid,B2A_photo_to_monet,0.0082,NVIDIA A100 (CUDA),unbiased MMD polynomial kernel,100 subsets of 100
+kid,averaged,0.0136,NVIDIA A100 (CUDA),unbiased MMD polynomial kernel,
+precision,A2B_monet_to_photo,0.6833,NVIDIA A100 (CUDA),prdc k=5,
+recall,A2B_monet_to_photo,0.4433,NVIDIA A100 (CUDA),prdc k=5,
+density,A2B_monet_to_photo,0.8627,NVIDIA A100 (CUDA),prdc k=5,
+coverage,A2B_monet_to_photo,0.79,NVIDIA A100 (CUDA),prdc k=5,
+precision,B2A_photo_to_monet,0.5,NVIDIA A100 (CUDA),prdc k=5,
+recall,B2A_photo_to_monet,0.73,NVIDIA A100 (CUDA),prdc k=5,
+density,B2A_photo_to_monet,0.3847,NVIDIA A100 (CUDA),prdc k=5,
+coverage,B2A_photo_to_monet,0.6933,NVIDIA A100 (CUDA),prdc k=5,
+cycle_reconstruction_l1,both,0.0482,NVIDIA A100 (CUDA),L1 on [-11] tensors,A->B->A and B->A->B averaged
+content_cosine_input_vs_translation,both,0.7756,NVIDIA A100 (CUDA),Inception 2048-d cosine similarity,
+lpips,A2B_monet_to_photo,0.1806,NVIDIA A100 (CUDA),LPIPS AlexNet,input vs translation
+lpips,B2A_photo_to_monet,0.2498,NVIDIA A100 (CUDA),LPIPS AlexNet,input vs translation
+lpips,averaged,0.2152,NVIDIA A100 (CUDA),LPIPS AlexNet,
+cycle_loss_final_epoch,n/a,0.093547,NVIDIA A100 (CUDA),training log epoch 099,from logs/metrics_per_epoch.csv
+identity_loss_final_epoch,n/a,0.048619,NVIDIA A100 (CUDA),training log epoch 099,from logs/metrics_per_epoch.csv
+adversarial_loss_final_epoch,n/a,1.140634,NVIDIA A100 (CUDA),training log epoch 099,from logs/metrics_per_epoch.csv
+generator_loss_final_epoch,n/a,2.319197,NVIDIA A100 (CUDA),training log epoch 099,from logs/metrics_per_epoch.csv
+discriminator_loss_final_epoch,n/a,0.261295,NVIDIA A100 (CUDA),training log epoch 099,from logs/metrics_per_epoch.csv
+grad_norm_generator_mean,n/a,27.0,NVIDIA A100 (CUDA),training log,over 100 epochs
+grad_norm_generator_max,n/a,112.5,NVIDIA A100 (CUDA),training log,over 100 epochs
+nan_count,n/a,0,NVIDIA A100 (CUDA),training log,no non-finite loss in any of the three runs
+params_per_generator_M,n/a,54.4,NVIDIA A100 (CUDA),count of nn.Parameter elements,"U-Net depth 8, ngf=64; two generators"
+params_per_discriminator_M,n/a,2.76,NVIDIA A100 (CUDA),count of nn.Parameter elements,70x70 PatchGAN ndf=64; two discriminators
+params_total_trainable_M,n/a,114.34,NVIDIA A100 (CUDA),count of nn.Parameter elements,"2 generators + 2 discriminators: 2x54,404,099 + 2x2,763,841"
+train_time_hours,n/a,2.77,NVIDIA A100 (CUDA),wall clock,100 epochs x 1000 steps
+avg_sec_per_epoch,n/a,99.6,NVIDIA A100 (CUDA),wall clock,
+throughput_img_per_sec,n/a,10.04,NVIDIA A100 (CUDA),wall clock,batch size 1
+peak_gpu_mem_MB,n/a,1882,NVIDIA A100 (CUDA),torch.cuda.max_memory_allocated,inference only; training peak was not logged
+gpu,n/a,A100,NVIDIA A100 (CUDA),Colab,
+kaggle_rank,n/a,20,NVIDIA A100 (CUDA),class competition leaderboard,rank 11-20 band = 9 leaderboard points
+human_audit_style,n/a,pending human audit,NVIDIA A100 (CUDA),30 fixed samples 2 raters,not yet run
+human_audit_content,n/a,pending human audit,NVIDIA A100 (CUDA),30 fixed samples 2 raters,not yet run
+human_audit_artifacts,n/a,pending human audit,NVIDIA A100 (CUDA),30 fixed samples 2 raters,not yet run
+human_audit_cohens_kappa,n/a,pending human audit,NVIDIA A100 (CUDA),30 fixed samples 2 raters,not yet run

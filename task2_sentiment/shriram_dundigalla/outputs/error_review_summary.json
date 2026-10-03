@@ -1,0 +1,20 @@
+{
+  "model_reviewed": "exp2_textcnn",
+  "n_errors": 2492,
+  "error_rate": 0.06557894736842106,
+  "worst_slice": {
+    "model": "exp2_textcnn",
+    "slice_family": "exclamations",
+    "slice": "no_exclaim",
+    "n": 20364,
+    "positive_rate": 0.4152916912197996,
+    "macro_f1": 0.9229142403274988,
+    "error_rate": 0.0750343743861716
+  },
+  "bucket_counts": {
+    "confident false positive": 5,
+    "confident false negative": 5,
+    "near-threshold error": 5,
+    "slice-specific failure (exclamations=no_exclaim)": 5
+  }
+}

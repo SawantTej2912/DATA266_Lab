@@ -1,0 +1,31 @@
+==============================================================================
+TEMPERATURE 0.0 (greedy)
+==============================================================================
+Once upon a time, there was a little girl named Lily. She loved to play outside in the sunshine. One day, she went to the park with her mommy. She saw a big box of stars and a big box. She wanted to see what was inside. She wanted to see what was inside. She took a big bite and started to cry. She said, "Lily, you can have some bread for me. I will help you find it." The bird said, "You can have the branch and th
+
+==============================================================================
+TEMPERATURE 0.5 (temperature sampling)
+==============================================================================
+Once upon a time, there was a little girl named Lily. She loved to play outside in the sunshine. One day, she went to the park with her mommy and saw a big truck. It was so much fun! She saw a big star and wanted to see what was inside. She wanted to find a strange truck and play with it every day. But it was too late. So, she decided to go home and make a big bucket of pie. 
+
+The stranger was so happy to have a 
+
+==============================================================================
+TEMPERATURE 0.8 (temperature sampling)
+==============================================================================
+Once upon a time, there was a little boy named Timmy. Timmy lived in a small house with his family. Timmy liked to follow his family and they had a lot of fun. One day, Timmy wanted to go to the park, so he asked his mommy if he could have him playing. His mommy bought the nuts and said hello. Timmy remembered his mommy tost his toys and she asked him what he was wrong. The toy said he couldn't help but the neigh
+
+==============================================================================
+TEMPERATURE 1.0 (temperature sampling)
+==============================================================================
+Once upon a time, there was a little boy named Benny. Benny loved his car and rolled his doll's teeth. He was happy because he got to hold on the swings and sang with his mom and dad. They were talking to the park to play them with it.
+
+Once upon a time, there was a little boy named Timmy. Timmy loved to play outside in the sun. One day, Timmy decided to go on an adventure to find something too. Timmy's mom asked
+
+==============================================================================
+TEMPERATURE 1.2 (temperature sampling)
+==============================================================================
+Once upon a time, there was a little girl named Lily. Lily lived in a big lunch with her doll near her house. She was very happy, so she asked her cat if she could discover from the other other side. Then Lily realized that it's important to always remember this time and keep it also safe.
+
+They cried to get the fire for a safe cat's very wealthy. The little fire, who waited until their mom said they could get be
+
