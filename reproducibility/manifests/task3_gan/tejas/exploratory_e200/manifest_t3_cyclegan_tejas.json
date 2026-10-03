@@ -1,0 +1,62 @@
+{
+  "run_name": "t3_cyclegan_tejas",
+  "seed": 1446,
+  "smoke": false,
+  "config": {
+    "run_name": "t3_cyclegan_tejas",
+    "img_size": 256,
+    "load_size": 286,
+    "n_res_blocks": 9,
+    "ngf": 64,
+    "ndf": 64,
+    "n_d_layers": 3,
+    "lambda_cycle": 10.0,
+    "lambda_id": 5.0,
+    "lr": 0.0002,
+    "betas": [
+      0.5,
+      0.999
+    ],
+    "epochs": 200,
+    "decay_start_epoch": 100,
+    "upsample": "resize",
+    "snapshot_every_epochs": 20,
+    "ckpt_every_epochs": 5,
+    "iters_per_epoch": 300,
+    "batch_size": 1,
+    "pool_size": 50,
+    "num_workers": 0,
+    "log_every": 50,
+    "sample_every_epochs": 5,
+    "n_eval": 300,
+    "translate_all_photos": false,
+    "n_audit": 30
+  },
+  "hardware": {
+    "platform": "Windows-11-10.0.26200-SP0",
+    "python": "3.12.10",
+    "torch": "2.14.1+cu126",
+    "device": "cuda",
+    "cpu": "AMD Ryzen 9 7950X 16-Core Processor",
+    "cpu_count": 32,
+    "gpu": "NVIDIA GeForce RTX 4090",
+    "gpu_mem_gb": 25.76,
+    "cuda": "12.6"
+  },
+  "created": "2026-10-01 18:13:11",
+  "checkpoint_to_result": {
+    "checkpoints/G_AB.pt": "outputs/pred_A2B (Monet\u2192Photo)",
+    "checkpoints/G_BA.pt": "outputs/pred_B2A (Photo\u2192Monet)",
+    "checkpoints/G_AB.pt + G_BA.pt": "submission.csv, full_metrics_report.csv",
+    "checkpoints/last.pt": "resume point (all 4 nets + optimizers)"
+  },
+  "params": {
+    "G_AB": 11378179,
+    "G_BA": 11378179,
+    "D_A": 2764737,
+    "D_B": 2764737
+  },
+  "raw_logs": [
+    "C:\\Users\\tejas\\Desktop\\Data266_Lab\\reproducibility\\raw_logs\\task3_gan\\tejas\\t3_cyclegan_tejas_20261001-161959.jsonl"
+  ]
+}

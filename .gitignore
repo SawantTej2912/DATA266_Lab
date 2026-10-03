@@ -10,3 +10,16 @@ __pycache__/
 **/checkpoints/snapshots/
 *.zip
 **/outputs/ta_eval/
+task3_gan/*/exploratory/*/checkpoints/
+task3_gan/*/exploratory/*/outputs/samples/
+task3_gan/*/exploratory/*/outputs/pred_A2B/
+task3_gan/*/exploratory/*/outputs/pred_B2A/
+task3_gan/*/exploratory/*/outputs/audit/
+task3_gan/*/outputs/samples/*
+!task3_gan/*/outputs/samples/epoch_050.png
+!task3_gan/*/outputs/samples/epoch_100.png
+!task3_gan/*/outputs/samples/epoch_150.png
+!task3_gan/*/outputs/samples/epoch_200.png
+!task3_gan/*/outputs/samples/epoch_250.png
+!task3_gan/*/outputs/samples/epoch_300.png
+task3_gan/*/Part3_Evaluation_Script.ipynb
