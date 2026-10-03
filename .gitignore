@@ -1,12 +1,11 @@
 .venv/
+__pycache__/
+.ipynb_checkpoints/
+*.tmp
+.DS_Store
+*.zip
 **/data/*
 !**/data/README.md
 **/data_processed/
-*.tmp
-.ipynb_checkpoints/
-__pycache__/
-.DS_Store
 **/checkpoints/last.pt
 **/checkpoints/snapshots/
-*.zip
-**/outputs/ta_eval/
