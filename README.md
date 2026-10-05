@@ -59,6 +59,8 @@ cd task3_gan\tejas\src; $env:SMOKE="1"; jupyter nbconvert --to notebook --execut
 
 Same pattern for `task1_llm/tejas/src/task1_llm.ipynb` and `task2_sentiment/tejas/src/task2_sentiment.ipynb`.
 
+**Absolute paths in logs and manifests.** Raw training logs (`reproducibility/raw_logs/`, `task3_gan/shriram_dundigalla/logs/`) and run manifests (`reproducibility/manifests/`) are kept unedited as the evidence trail, so they contain the absolute paths of the machines the runs were executed on (a Windows PC with an RTX 4090 and Google Colab). These paths were recorded at runtime and are not hard-coded: all code is config-driven and resolves paths relative to the repository root (or via environment variables).
+
 ## Full runs
 
 - Run the notebook from its `src/` folder without `SMOKE`.

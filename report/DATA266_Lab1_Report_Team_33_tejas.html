@@ -1,0 +1,1265 @@
+<!DOCTYPE html><html><head><meta charset="utf-8"><title>DATA266 Lab 1 Team 33 Report (Tejas)</title><style>
+body{font-family:"Times New Roman",Times,serif;max-width:1000px;margin:2em auto;padding:0 1em;line-height:1.4;font-size:12pt;color:#000;background:#fff}
+table{border-collapse:collapse;margin:1em 0;font-size:10pt;width:100%}
+th,td{border:1px solid #000;padding:4px 6px;vertical-align:top}
+th{font-weight:bold}
+img{max-width:100%;height:auto}
+code{font-family:"Times New Roman",Times,serif;font-size:100%;word-break:break-all}
+a{color:#000}
+@media print{body{max-width:none;margin:0}tr,img{page-break-inside:avoid}}
+</style></head><body><h1 id="data266-lab-1-team-33-report-tejass-version">DATA266 Lab 1 — Team 33 Report (Tejas's version)</h1>
+<ul>
+<li><strong>Repository:</strong> <a href="https://github.com/SawantTej2912/DATA266_Lab">https://github.com/SawantTej2912/DATA266_Lab</a></li>
+<li><strong>Members:</strong> Tejas Nandkishor Sawant (<code>*/tejas/</code>), Shriram Dundigalla (<code>*/shriram_dundigalla/</code>)</li>
+<li><strong>Kaggle team:</strong> <code>PairProgramming_Team_33</code></li>
+</ul>
+<p>All numbers in this report are taken from the repository file cited with each table. Values marked "(derived)" are simple arithmetic on cited values. Confidence intervals are written as [low, high].</p>
+<h2 id="ownership-statement">Ownership statement</h2>
+<p>Each member designed, trained and evaluated his own models for all three tasks. No model was shared or trained jointly. Before training we agreed on a shared measurement protocol (<code>TEAM_PROTOCOL.md</code>, drafted by Shriram and agreed by both) so that the comparison tables compare models and not measurement choices. Tejas built a character-level GPT (6 layers, 6 heads, 384-d, 256-character context) for Task 1; a fastText-style n-gram bag, a Transformer encoder and a BiGRU with attention pooling for Task 2; and a ResNet-9 CycleGAN with resize-convolution, DiffAugment, generator EMA and a direction-specific identity ramp (run <code>i270k</code>) for Task 3. Shriram built a character-level GPT (6 layers, 8 heads, 256-d, 128-character context) for Task 1; a bag-of-embeddings MLP, a BiLSTM and a TextCNN for Task 2; and a U-Net CycleGAN (run 1, epoch-60 checkpoint) for Task 3. Shriram also wrote the shared repository tooling in <code>scripts/</code>. Both members submitted to Kaggle individually. The Task 3 human audit of Tejas's outputs was scored by two independent raters (Tejas and a second rater). The audit of Shriram's outputs (<code>task3_gan/human_audit/</code>) is pending at time of writing (ratings not yet recorded).</p>
+<h3 id="comparability-notes">Comparability notes</h3>
+<p>Some choices differ from <code>TEAM_PROTOCOL.md</code>. They affect how the side-by-side tables should be read.</p>
+<table>
+<thead>
+<tr>
+<th>Task</th>
+<th>Protocol</th>
+<th>What was done</th>
+<th>Source</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>100K / 10K windows, shared <code>metrics.py</code>, 400-character probe at T in {0, 0.5, 0.8, 1.0, 1.2}</td>
+<td>Shriram followed the protocol. Tejas used 100K / 10K stories (about 5 times the text), his own metric code, a 300-character probe with greedy and T = 0.8 only, and distinct-n pooled over 45 samples</td>
+<td><code>task1_llm/tejas/src/task1_llm.ipynb</code> (CFG cell), <code>task1_llm/shriram_dundigalla/src/config.yaml</code></td>
+</tr>
+<tr>
+<td>2</td>
+<td>Balanced 100K training subsample, 2,000 bootstrap replicates, shared slices</td>
+<td>Shriram followed the protocol. Tejas used the full 560K training split (5% held out for validation), 1,000 bootstrap replicates and his own slices (contrast, negation, length quartile, truncated)</td>
+<td><code>task2_sentiment/tejas/metrics_report.csv</code>, <code>task2_sentiment/tejas/src/task2_sentiment.ipynb</code>, <code>task2_sentiment/shriram_dundigalla/src/config.yaml</code></td>
+</tr>
+<tr>
+<td>3</td>
+<td>LPIPS over random generated pairs (diversity)</td>
+<td>Both members report LPIPS between each input and its translation, so the two members are comparable with each other but not with the protocol definition</td>
+<td><code>task3_gan/tejas/evaluate_local.py</code>, <code>task3_gan/shriram_dundigalla/results.md</code></td>
+</tr>
+<tr>
+<td>All</td>
+<td>Same hardware not required</td>
+<td>Tejas used an RTX 4090 for all tasks. Shriram used an Apple M4 (MPS) for Tasks 1 and 2 and a Colab A100 for Task 3. Time, throughput and memory are not directly comparable across members</td>
+<td>each <code>metrics_report.csv</code></td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="task-1-gpt-from-scratch-tinystories-character-level">Task 1: GPT from scratch (TinyStories, character level)</h2>
+<h3 id="comparison-table">Comparison table</h3>
+<table>
+<thead>
+<tr>
+<th></th>
+<th><strong>Tejas</strong> (<code>t1_gpt_tejas</code>)</th>
+<th><strong>Shriram</strong> (<code>gpt_char_tinystories_v1</code>)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Architecture</td>
+<td>Decoder-only GPT, 6 pre-LN blocks, 6 heads, d_model 384, FFN 4x GELU, learned token and position embeddings, LM head tied to token embedding</td>
+<td>Decoder-only GPT, 6 pre-LN blocks, 8 heads, d_model 256, d_ff 1024, learned token and position embeddings, untied LM head</td>
+</tr>
+<tr>
+<td>Context length</td>
+<td>256 characters</td>
+<td>128 characters</td>
+</tr>
+<tr>
+<td>Vocabulary</td>
+<td>77 symbols (characters seen fewer than 50 times mapped to one symbol)</td>
+<td>98 symbols (index 0 = <code>&lt;unk&gt;</code>)</td>
+</tr>
+<tr>
+<td>Data</td>
+<td>100,000 train / 10,000 val stories, seed 1446</td>
+<td>100,000 train / 10,000 val windows from 20,000 stories (split by story), seed 9015</td>
+</tr>
+<tr>
+<td>Dropout</td>
+<td>0.1</td>
+<td>0.1</td>
+</tr>
+<tr>
+<td>Optimiser</td>
+<td>AdamW (0.9, 0.95), weight decay 0.1 on weight matrices, clip 1.0</td>
+<td>AdamW (0.9, 0.95), weight decay 0.1 on matmuls only, clip 1.0</td>
+</tr>
+<tr>
+<td>LR schedule</td>
+<td>peak 6e-4, 3% linear warm-up, cosine to 6e-5</td>
+<td>peak 3e-4, 3% linear warm-up (281 of 9,372 steps), cosine to 0.1x</td>
+</tr>
+<tr>
+<td>Batch / epochs</td>
+<td>64 x 256 characters, 10 epochs (54,850 steps), fp16 AMP</td>
+<td>128 x 128 characters, 12 epochs (9,372 steps), fp32</td>
+</tr>
+<tr>
+<td>Parameters</td>
+<td>10,775,424</td>
+<td>4,822,016</td>
+</tr>
+<tr>
+<td>Train CE (nats/char)</td>
+<td>0.5370</td>
+<td>0.7089</td>
+</tr>
+<tr>
+<td><strong>Val CE (nats/char)</strong></td>
+<td><strong>0.5586</strong></td>
+<td><strong>0.7441</strong></td>
+</tr>
+<tr>
+<td>Val perplexity</td>
+<td>1.7482</td>
+<td>2.1045 (train 2.0317)</td>
+</tr>
+<tr>
+<td>Val bits/char</td>
+<td>0.8059</td>
+<td>1.0735 (train 1.0227)</td>
+</tr>
+<tr>
+<td>Generalization gap (val CE minus train CE)</td>
+<td>0.0216</td>
+<td>0.0352</td>
+</tr>
+<tr>
+<td>Top-1 next-character accuracy (val)</td>
+<td>0.8212 (train 0.8267)</td>
+<td>0.7639 (train 0.7728)</td>
+</tr>
+<tr>
+<td>Best epoch</td>
+<td>10 of 10 (val still falling)</td>
+<td>12 of 12 (val still falling)</td>
+</tr>
+<tr>
+<td>Distinct-1 / 2 / 3 (word level, T = 0.8)</td>
+<td>0.2727 / 0.6934 / 0.8901, pooled over 45 continuations</td>
+<td>single draw 0.7073 / 0.9877 / 1.0000; mean ± SD over 15 draws 0.714 ± 0.046 / 0.957 ± 0.030 / 0.991 ± 0.014</td>
+</tr>
+<tr>
+<td>Repeated 4-gram rate (T = 0.8)</td>
+<td>0.0036</td>
+<td>single draw 0.0000; 15 draws 0.0017 ± 0.0044</td>
+</tr>
+<tr>
+<td>Greedy: distinct-2 / repeated 4-gram</td>
+<td>0.6278 / 0.0804</td>
+<td>0.690 ± 0.311 / 0.235 ± 0.319 (15 draws)</td>
+</tr>
+<tr>
+<td>Best decoding strategy</td>
+<td>not evaluated (greedy and T = 0.8 only)</td>
+<td>repetition penalty 1.15 (repeated 4-gram 0.000 ± 0.000)</td>
+</tr>
+<tr>
+<td>Gradient norm mean / max</td>
+<td>0.280 / 16.77 (max at step 0)</td>
+<td>0.701 / 11.13 (max at step 0)</td>
+</tr>
+<tr>
+<td>NaN / non-finite</td>
+<td>18 fp16 overflow steps skipped by GradScaler, 0 NaN losses</td>
+<td>0</td>
+</tr>
+<tr>
+<td>Loss spikes</td>
+<td>0</td>
+<td>0</td>
+</tr>
+<tr>
+<td>Train throughput</td>
+<td>357,646 tokens/s</td>
+<td>24,990 tokens/s</td>
+</tr>
+<tr>
+<td>Generation throughput</td>
+<td>256.7 tokens/s (no KV cache)</td>
+<td>371.8 tokens/s</td>
+</tr>
+<tr>
+<td>Peak memory</td>
+<td>3,324 MB (CUDA)</td>
+<td>80.0 MB (MPS allocator)</td>
+</tr>
+<tr>
+<td>Training time</td>
+<td>45.4 min compute (47.4 min wall)</td>
+<td>6,144 s (102.4 min)</td>
+</tr>
+<tr>
+<td>Hardware</td>
+<td>RTX 4090 + Ryzen 9 7950X</td>
+<td>Apple M4 (MPS)</td>
+</tr>
+</tbody>
+</table>
+<p>Sources: <code>task1_llm/tejas/metrics_report.csv</code>, <code>task1_llm/tejas/outputs/epoch_history.csv</code>, <code>task1_llm/tejas/results.md</code>; <code>task1_llm/shriram_dundigalla/metrics_report.csv</code>, <code>task1_llm/shriram_dundigalla/results.md</code> (15-draw sweep and decoding tables), <code>task1_llm/shriram_dundigalla/src/config.yaml</code>.</p>
+<p>Shriram's generation throughput is taken from his <code>metrics_report.csv</code>; his <code>results.md</code> lists 387 tokens/s.</p>
+<p float="left">
+<img src="figures/t1_tejas_loss_curves.png" width="49%" alt="Tejas Task 1 loss curves"/>
+<img src="figures/t1_shriram_loss_curves.png" width="49%" alt="Shriram Task 1 loss curves"/>
+</p>
+
+<p><em>Left: Tejas, training loss, train and val loss per epoch, gradient norm and LR. Right: Shriram, train and val loss curves.</em></p>
+<h3 id="joint-analysis">Joint analysis</h3>
+<p><strong>Perplexity.</strong> Tejas's model has the lower validation CE (0.5586 vs. 0.7441) and higher top-1 accuracy (0.821 vs. 0.764). The two models differ in size (10.78M vs. 4.82M parameters), context (256 vs. 128 characters), training text (about 5 times more for Tejas) and vocabulary (77 vs. 98 symbols). The gap cannot be assigned to a single factor.</p>
+<p><strong>Underfitting.</strong> Validation loss was still falling in the last epoch for both models (Tejas by 0.0035 in epoch 10, Shriram by 0.0032 in epoch 12, derived from the epoch logs). Both generalization gaps are small (0.0216 and 0.0352). More epochs or more capacity is the clear next step for both.</p>
+<p><strong>Decoding.</strong> Greedy decoding loops for both models (repeated 4-gram rate 0.080 for Tejas, 0.235 ± 0.319 for Shriram), and sampling at T = 0.8 removes most of the repetition. Absolute distinct-n values are not comparable, because Tejas pools n-grams over 45 continuations and Shriram averages over 15 draws. Shriram showed that a repetition penalty of 1.15 removes repeated 4-grams entirely.</p>
+<p><strong>Stability and cost.</strong> Both runs had 0 loss spikes, and the maximum gradient norm occurred at step 0. Tejas's 18 non-finite steps are fp16 overflows (0.03% of steps), not divergence. Throughput and memory differences mostly reflect the hardware (RTX 4090 vs. Apple M4).</p>
+<p><strong>Limitation and next step.</strong> Both failure analyses trace story resets to the context window (128 characters for Shriram; 256 characters, shorter than the 300-character generations, for Tejas). Next steps are a longer context or subword tokens, a KV cache, a repetition penalty for both models and a rerun on matched data.</p>
+<h3 id="evidence">Evidence</h3>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>Tejas</th>
+<th>Shriram</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Loss curves</td>
+<td><a href="../task1_llm/tejas/outputs/loss_curves.png"><code>loss_curves.png</code></a></td>
+<td><a href="../task1_llm/shriram_dundigalla/outputs/loss_curves_gpt_char_tinystories_v1_20260928T204206Z.png"><code>loss_curves_…png</code></a>, <a href="../task1_llm/shriram_dundigalla/outputs/stability_gpt_char_tinystories_v1_20260928T204206Z.png"><code>stability_…png</code></a></td>
+</tr>
+<tr>
+<td>Raw log</td>
+<td><a href="../reproducibility/raw_logs/task1_llm/tejas/t1_gpt_tejas_20261001-144225.jsonl"><code>t1_gpt_tejas_20261001-144225.jsonl</code></a></td>
+<td><a href="../reproducibility/raw_logs/task1_gpt_char_tinystories_v1_20260928T204206Z.log"><code>task1_gpt_char_tinystories_v1_20260928T204206Z.log</code></a></td>
+</tr>
+<tr>
+<td>Generations</td>
+<td><a href="../task1_llm/tejas/outputs/generations.json"><code>generations.json</code></a>, <a href="../task1_llm/tejas/outputs/diversity_samples.json"><code>diversity_samples.json</code></a>, <a href="../task1_llm/tejas/outputs/failure_candidates.json"><code>failure_candidates.json</code></a></td>
+<td><a href="../task1_llm/shriram_dundigalla/outputs/generations_gpt_char_tinystories_v1_20260928T204206Z.txt"><code>generations_…txt</code></a>, <a href="../task1_llm/shriram_dundigalla/outputs/generation_sweep_gpt_char_tinystories_v1_20260928T204206Z.csv"><code>generation_sweep_…csv</code></a>, <a href="../task1_llm/shriram_dundigalla/outputs/decoding_comparison_gpt_char_tinystories_v1_20260928T204206Z.csv"><code>decoding_comparison_…csv</code></a></td>
+</tr>
+<tr>
+<td>Checkpoint</td>
+<td><a href="../task1_llm/tejas/checkpoints/best.pt"><code>best.pt</code></a> (epoch 10)</td>
+<td><a href="../task1_llm/shriram_dundigalla/checkpoints/gpt_char_tinystories_v1_20260928T204206Z.pt"><code>gpt_char_tinystories_v1_20260928T204206Z.pt</code></a></td>
+</tr>
+<tr>
+<td>Manifest</td>
+<td><a href="../reproducibility/manifests/task1_llm/tejas/manifest_t1_gpt_tejas.json"><code>manifest_t1_gpt_tejas.json</code></a></td>
+<td><a href="../reproducibility/manifests/shriram_dundigalla_manifest.md"><code>shriram_dundigalla_manifest.md</code></a></td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="task-2-yelp-polarity-sentiment-classification">Task 2: Yelp Polarity sentiment classification</h2>
+<p>All six models are scored on the full official test set of 38,000 reviews (19,000 per class) at threshold 0.5. No pretrained embeddings are used.</p>
+<h3 id="comparison-table_1">Comparison table</h3>
+<table>
+<thead>
+<tr>
+<th></th>
+<th><strong>T-Base</strong> n-gram bag</th>
+<th><strong>T-Exp1</strong> Transformer</th>
+<th><strong>T-Exp2</strong> BiGRU + attention</th>
+<th><strong>S-Base</strong> bag of embeddings</th>
+<th><strong>S-Exp1</strong> BiLSTM</th>
+<th><strong>S-Exp2</strong> TextCNN</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Member</td>
+<td>Tejas</td>
+<td>Tejas</td>
+<td>Tejas</td>
+<td>Shriram</td>
+<td>Shriram</td>
+<td>Shriram</td>
+</tr>
+<tr>
+<td>Architecture</td>
+<td>mean of unigram and hashed-bigram embeddings, linear output (200K buckets)</td>
+<td>2 layers, 4 heads, d 128, FFN 256, learned positions, pre-LN, masked mean pool</td>
+<td>BiGRU hidden 128 with attention pooling</td>
+<td>mean-pooled embeddings, MLP [256], 1 logit</td>
+<td>BiLSTM hidden 192, [mean; max] pool, 1 logit</td>
+<td>Conv1d widths 2/3/4/5 with 128 filters, global max pool, 1 logit</td>
+</tr>
+<tr>
+<td>Embedding dim</td>
+<td>64</td>
+<td>128</td>
+<td>128</td>
+<td>128</td>
+<td>200</td>
+<td>160</td>
+</tr>
+<tr>
+<td>Dropout / LR / batch</td>
+<td>0.2 / 2e-3 / 256</td>
+<td>0.1 / 5e-4 / 128</td>
+<td>0.3 / 1e-3 / 128</td>
+<td>0.3 / 1e-3 / 256</td>
+<td>0.4 / 1e-3 / 128</td>
+<td>0.5 / 1.5e-3 / 256</td>
+</tr>
+<tr>
+<td>Epochs (max / run)</td>
+<td>5 / 5</td>
+<td>5 / 5</td>
+<td>5 / 5</td>
+<td>6 / 3</td>
+<td>5 / 5</td>
+<td>6 / 4</td>
+</tr>
+<tr>
+<td>Optimiser</td>
+<td>Adam, clip 5.0, early stopping (patience 2)</td>
+<td>same</td>
+<td>same</td>
+<td>AdamW wd 1e-4, clip 1.0, early stopping (patience 2)</td>
+<td>same</td>
+<td>same</td>
+</tr>
+<tr>
+<td>Preprocessing</td>
+<td>lemmatize, keep negations, vocab 45,818 (min_freq 5), max_len 188, head and tail truncation</td>
+<td>same</td>
+<td>same</td>
+<td>Porter stem, keep negations, vocab 30,000 (min_freq 2), max_len 250</td>
+<td>same</td>
+<td>same</td>
+</tr>
+<tr>
+<td>Training data</td>
+<td>full 560K (5% val)</td>
+<td>same</td>
+<td>same</td>
+<td>balanced 100K + 10K val</td>
+<td>same</td>
+<td>same</td>
+</tr>
+<tr>
+<td><strong>Accuracy [95% CI]</strong></td>
+<td>0.9327 [0.9301, 0.9351]</td>
+<td>0.9365 [0.9341, 0.9388]</td>
+<td><strong>0.9536 [0.9514, 0.9557]</strong></td>
+<td>0.9245 [0.9218, 0.9272]</td>
+<td>0.9334 [0.9309, 0.9358]</td>
+<td>0.9344 [0.9319, 0.9368]</td>
+</tr>
+<tr>
+<td>Macro P / R / F1</td>
+<td>0.9327 / 0.9327 / 0.9327</td>
+<td>0.9365 / 0.9365 / 0.9365</td>
+<td>0.9536 / 0.9536 / 0.9536</td>
+<td>0.9247 / 0.9245 / 0.9245</td>
+<td>0.9337 / 0.9334 / 0.9334</td>
+<td>0.9344 / 0.9344 / 0.9344</td>
+</tr>
+<tr>
+<td>Macro-F1 95% CI</td>
+<td>[0.9301, 0.9351]</td>
+<td>[0.9341, 0.9388]</td>
+<td>[0.9514, 0.9557]</td>
+<td>[0.9218, 0.9271]</td>
+<td>[0.9309, 0.9358]</td>
+<td>[0.9319, 0.9368]</td>
+</tr>
+<tr>
+<td>Micro P / R / F1</td>
+<td>0.9327</td>
+<td>0.9365</td>
+<td>0.9536</td>
+<td>0.9245</td>
+<td>0.9334</td>
+<td>0.9344</td>
+</tr>
+<tr>
+<td>Weighted P / R / F1</td>
+<td>0.9327 / 0.9327 / 0.9327</td>
+<td>0.9365 / 0.9365 / 0.9365</td>
+<td>0.9536 / 0.9536 / 0.9536</td>
+<td>0.9247 / 0.9245 / 0.9245</td>
+<td>0.9337 / 0.9334 / 0.9334</td>
+<td>0.9344 / 0.9344 / 0.9344</td>
+</tr>
+<tr>
+<td>Confusion TN / FP / FN / TP</td>
+<td>17,786 / 1,214 / 1,345 / 17,655</td>
+<td>17,902 / 1,098 / 1,316 / 17,684</td>
+<td>18,143 / 857 / 905 / 18,095</td>
+<td>17,756 / 1,244 / 1,625 / 17,375</td>
+<td>17,498 / 1,502 / 1,028 / 17,972</td>
+<td>17,759 / 1,241 / 1,251 / 17,749</td>
+</tr>
+<tr>
+<td>ROC-AUC</td>
+<td>0.9794</td>
+<td>0.9843</td>
+<td><strong>0.9906</strong></td>
+<td>0.9751</td>
+<td>0.9830</td>
+<td>0.9829</td>
+</tr>
+<tr>
+<td>PR-AUC</td>
+<td>0.9788</td>
+<td>0.9847</td>
+<td><strong>0.9909</strong></td>
+<td>0.9748</td>
+<td>0.9836</td>
+<td>0.9835</td>
+</tr>
+<tr>
+<td><strong>MCC [95% CI]</strong></td>
+<td>0.8653 [0.8603, 0.8703]</td>
+<td>0.8730 [0.8683, 0.8777]</td>
+<td><strong>0.9073 [0.9028, 0.9114]</strong></td>
+<td>0.8492 [0.8438, 0.8545]</td>
+<td>0.8671 [0.8622, 0.8719]</td>
+<td>0.8688 [0.8638, 0.8737]</td>
+</tr>
+<tr>
+<td>Brier</td>
+<td>0.0507</td>
+<td>0.0477</td>
+<td><strong>0.0356</strong></td>
+<td>0.0572</td>
+<td>0.0500</td>
+<td>0.0487</td>
+</tr>
+<tr>
+<td>ECE, predicted-class confidence (15 bins)</td>
+<td>0.0072</td>
+<td>0.0121</td>
+<td>0.0120</td>
+<td><strong>0.0044</strong></td>
+<td>0.0165</td>
+<td>0.0061</td>
+</tr>
+<tr>
+<td>ECE, positive class</td>
+<td>not computed</td>
+<td>not computed</td>
+<td>not computed</td>
+<td>0.0075</td>
+<td>0.0203</td>
+<td>0.0064</td>
+</tr>
+<tr>
+<td>McNemar vs. own baseline (b / c, χ², p)</td>
+<td>reference</td>
+<td>766 / 911, 12.36, 4.4e-4</td>
+<td>561 / 1,358, 330.18, 8.8e-74</td>
+<td>reference</td>
+<td>976 / 1,315, 49.87, 1.6e-12</td>
+<td>932 / 1,309, 63.09, 2.0e-15</td>
+</tr>
+<tr>
+<td>Best val macro-F1</td>
+<td>0.9312</td>
+<td>0.9348</td>
+<td>0.9527</td>
+<td>0.9214</td>
+<td>0.9330</td>
+<td>0.9351</td>
+</tr>
+<tr>
+<td>Parameters</td>
+<td>15,732,417</td>
+<td>6,154,113</td>
+<td>6,063,362</td>
+<td>3,873,281</td>
+<td>6,605,953</td>
+<td>5,087,745</td>
+</tr>
+<tr>
+<td>Training time</td>
+<td>0.55 min</td>
+<td>2.97 min</td>
+<td>11.99 min</td>
+<td>25.8 s</td>
+<td>2,318.6 s</td>
+<td>211.1 s</td>
+</tr>
+<tr>
+<td>Examples / s</td>
+<td>80,405</td>
+<td>14,950</td>
+<td>3,698</td>
+<td>11,610</td>
+<td>216</td>
+<td>1,895</td>
+</tr>
+<tr>
+<td>Peak memory</td>
+<td>355 MB (CUDA)</td>
+<td>947 MB (CUDA)</td>
+<td>440 MB (CUDA)</td>
+<td>60 MB (MPS)</td>
+<td>102 MB (MPS)</td>
+<td>79 MB (MPS)</td>
+</tr>
+<tr>
+<td>Hardware</td>
+<td>RTX 4090</td>
+<td>RTX 4090</td>
+<td>RTX 4090</td>
+<td>Apple M4</td>
+<td>Apple M4</td>
+<td>Apple M4</td>
+</tr>
+<tr>
+<td>Bootstrap replicates</td>
+<td>1,000</td>
+<td>1,000</td>
+<td>1,000</td>
+<td>2,000</td>
+<td>2,000</td>
+<td>2,000</td>
+</tr>
+</tbody>
+</table>
+<p>McNemar b = baseline right and experimental model wrong; c = baseline wrong and experimental model right. Shriram also reports BiLSTM vs. TextCNN: 931 / 969, p = 0.396 (<code>task2_sentiment/shriram_dundigalla/results.md</code>).</p>
+<p>Sources: <code>task2_sentiment/tejas/metrics_report.csv</code>, <code>task2_sentiment/tejas/outputs/table_*.csv</code>, <code>task2_sentiment/tejas/results.md</code>; <code>task2_sentiment/shriram_dundigalla/metrics_report.csv</code>, <code>task2_sentiment/shriram_dundigalla/outputs/mcnemar_tests.csv</code>, <code>task2_sentiment/shriram_dundigalla/src/config.yaml</code>, <code>task2_sentiment/shriram_dundigalla/results.md</code>.</p>
+<h3 id="weakest-data-slice-per-model">Weakest data slice per model</h3>
+<table>
+<thead>
+<tr>
+<th>Model</th>
+<th>Weakest slice (n)</th>
+<th>Macro-F1</th>
+<th>Error rate</th>
+<th>Note</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>T-Base n-gram bag</td>
+<td><code>truncated = True</code> (1,843)</td>
+<td>0.9111</td>
+<td>0.0787</td>
+<td>also lowest macro-F1</td>
+</tr>
+<tr>
+<td>T-Exp1 Transformer</td>
+<td><code>truncated = True</code> (1,843)</td>
+<td>0.9219</td>
+<td>0.0695</td>
+<td>also lowest macro-F1</td>
+</tr>
+<tr>
+<td>T-Exp2 BiGRU</td>
+<td><code>truncated = True</code> (1,843)</td>
+<td>0.9294</td>
+<td>0.0624</td>
+<td>also lowest macro-F1</td>
+</tr>
+<tr>
+<td>S-Base BoW</td>
+<td><code>exclamations = no_exclaim</code> (20,364)</td>
+<td>0.9120</td>
+<td>0.0854</td>
+<td>also lowest macro-F1</td>
+</tr>
+<tr>
+<td>S-Exp1 BiLSTM</td>
+<td><code>exclamations = no_exclaim</code> (20,364)</td>
+<td>0.9206</td>
+<td>0.0776</td>
+<td>lowest macro-F1 is <code>no_negation</code> (0.9185)</td>
+</tr>
+<tr>
+<td>S-Exp2 TextCNN</td>
+<td><code>exclamations = no_exclaim</code> (20,364)</td>
+<td>0.9229</td>
+<td>0.0750</td>
+<td>lowest macro-F1 is <code>no_negation</code> (0.9207)</td>
+</tr>
+</tbody>
+</table>
+<p>Sources: <code>task2_sentiment/tejas/outputs/table_slices.csv</code>, <code>task2_sentiment/shriram_dundigalla/outputs/slice_metrics.csv</code>. The two members use different slice definitions, so slices are compared within a member only. For Tejas's BiGRU the truncated-slice error rate (0.0624) is about 1.3 times its overall error rate (0.0464, derived).</p>
+<h3 id="joint-analysis_1">Joint analysis</h3>
+<p><strong>Best model.</strong> Tejas's BiGRU with attention is the best model on every headline metric (accuracy 0.9536, MCC 0.9073, ROC-AUC 0.9906, Brier 0.0356), and its accuracy CI does not overlap any other model's. It was trained on all 560K reviews while Shriram's models used a balanced 100K subsample, so part of the gap may come from data size. A rerun on matched data is needed before calling it an architectural win.</p>
+<p><strong>Model families.</strong> Tejas's n-gram bag beats Shriram's bag of embeddings (0.9327 vs. 0.9245); the hashed bigrams are a likely reason, but this is confounded with about 5 times more training data. Among order-aware models the BiGRU (0.9536) is ahead of the Transformer (0.9365), the TextCNN (0.9344) and the BiLSTM (0.9334).</p>
+<p><strong>Within each member.</strong> Both of Tejas's experimental models beat his baseline significantly, the BiGRU by a large margin (p = 8.8e-74) and the Transformer by a small one (p = 4.4e-4). Shriram's BiLSTM and TextCNN are statistically tied (p = 0.396), and both beat his baseline by about 1 point. Across both members, order-aware models add 1 to 2 points over a bag model that already reaches 92 to 93%.</p>
+<p><strong>Cost.</strong> The BiGRU is Tejas's slowest model (3,698 vs. 80,405 examples/s for the n-gram bag) and gains 2.1 accuracy points. Shriram's TextCNN matches his BiLSTM at 11 times the speed (211 s vs. 2,319 s). Parameter counts are dominated by embedding tables for both members. Cost is not comparable across members because the hardware differs.</p>
+<p><strong>Calibration.</strong> All models are well calibrated (confidence ECE at most 0.0165). For both members the bag baseline has the lowest ECE (0.0072 and 0.0044), so the most accurate model is not the best calibrated. Shriram's BiLSTM has the highest ECE (0.0165), which matches its rising validation loss.</p>
+<p><strong>Slices.</strong> Truncated reviews (more than 188 tokens) are the weakest slice for all of Tejas's models. Reviews without exclamation marks are the weakest slice for all of Shriram's models. Both members found that negation is not where errors concentrate once negation words are kept: Tejas's BiGRU has only 0.3 points more error on negation reviews, and Shriram's models score higher macro-F1 on them.</p>
+<p><strong>Shared errors.</strong> The two independent 20-error reviews flagged some of the same test reviews as probable label noise ("Wow love the place…", "my husband had an omelette…") and the same edited review ("EDIT: They really did change the service…"). This supports a label-noise floor under both error rates.</p>
+<p><strong>Limitations.</strong> One seed per model; different training sizes, slice definitions, truncation lengths (188 vs. 250 tokens) and bootstrap counts (1,000 vs. 2,000) across members.</p>
+<p><strong>Next steps.</strong> Retrain each member's best architecture on the same data, run a seed sweep (<code>scripts/seed_sweep_task2.py</code>), test Tejas's max_len 188 to 400 change, test Shriram's position-aware pooling and negation-scope marking, and apply temperature scaling to the BiLSTM.</p>
+<p float="left">
+<img src="figures/t2_tejas_confusion_matrices.png" width="49%" alt="Tejas Task 2 confusion matrices"/>
+<img src="figures/t2_shriram_confusion_matrices.png" width="49%" alt="Shriram Task 2 confusion matrices"/>
+</p>
+
+<p float="left">
+<img src="figures/t2_tejas_exp2_roc_pr_reliability.png" width="49%" alt="Tejas BiGRU ROC, PR and reliability"/>
+<img src="figures/t2_shriram_roc_pr_curves.png" width="49%" alt="Shriram ROC and PR curves"/>
+</p>
+
+<p float="left">
+<img src="figures/t2_tejas_slice_error_rates.png" width="49%" alt="Tejas slice error rates"/>
+<img src="figures/t2_shriram_slice_macro_f1.png" width="49%" alt="Shriram slice macro-F1"/>
+</p>
+
+<p><em>Left column: Tejas (confusion matrices, BiGRU ROC/PR/reliability, slice error rates). Right column: Shriram (confusion matrices, ROC/PR curves, slice macro-F1).</em></p>
+<h3 id="evidence_1">Evidence</h3>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>Tejas</th>
+<th>Shriram</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Confusion matrices</td>
+<td><a href="../task2_sentiment/tejas/outputs/confusion_matrices_all.png"><code>confusion_matrices_all.png</code></a></td>
+<td><a href="../task2_sentiment/shriram_dundigalla/outputs/figures/confusion_matrices.png"><code>confusion_matrices.png</code></a></td>
+</tr>
+<tr>
+<td>ROC / PR / reliability</td>
+<td><a href="../task2_sentiment/tejas/outputs/baseline_eval_plots.png"><code>baseline_eval_plots.png</code></a>, <a href="../task2_sentiment/tejas/outputs/exp1_eval_plots.png"><code>exp1_eval_plots.png</code></a>, <a href="../task2_sentiment/tejas/outputs/exp2_eval_plots.png"><code>exp2_eval_plots.png</code></a></td>
+<td><a href="../task2_sentiment/shriram_dundigalla/outputs/figures/roc_pr_curves.png"><code>roc_pr_curves.png</code></a>, <a href="../task2_sentiment/shriram_dundigalla/outputs/figures/calibration.png"><code>calibration.png</code></a>, <a href="../task2_sentiment/shriram_dundigalla/outputs/figures/bootstrap_cis.png"><code>bootstrap_cis.png</code></a></td>
+</tr>
+<tr>
+<td>Slices</td>
+<td><a href="../task2_sentiment/tejas/outputs/slice_error_rates.png"><code>slice_error_rates.png</code></a>, <a href="../task2_sentiment/tejas/outputs/table_slices.csv"><code>table_slices.csv</code></a></td>
+<td><a href="../task2_sentiment/shriram_dundigalla/outputs/figures/slice_macro_f1.png"><code>slice_macro_f1.png</code></a>, <a href="../task2_sentiment/shriram_dundigalla/outputs/slice_metrics.csv"><code>slice_metrics.csv</code></a></td>
+</tr>
+<tr>
+<td>Training curves</td>
+<td><a href="../task2_sentiment/tejas/outputs/model_comparison.png"><code>model_comparison.png</code></a></td>
+<td><a href="../task2_sentiment/shriram_dundigalla/outputs/figures/training_curves.png"><code>training_curves.png</code></a></td>
+</tr>
+<tr>
+<td>Raw logs</td>
+<td><a href="../reproducibility/raw_logs/task2_sentiment/tejas/t2_sentiment_tejas_baseline_20261001-154517.jsonl"><code>baseline</code></a>, <a href="../reproducibility/raw_logs/task2_sentiment/tejas/t2_sentiment_tejas_exp1_20261001-154551.jsonl"><code>exp1</code></a>, <a href="../reproducibility/raw_logs/task2_sentiment/tejas/t2_sentiment_tejas_exp2_20261001-154854.jsonl"><code>exp2</code></a></td>
+<td><a href="../reproducibility/raw_logs/task2_20260929T033024Z.log"><code>task2_20260929T033024Z.log</code></a></td>
+</tr>
+<tr>
+<td>Checkpoints</td>
+<td><code>checkpoints/{baseline,exp1,exp2}_best.pt</code></td>
+<td><code>checkpoints/{baseline_bow,exp1_bilstm,exp2_textcnn}.pt</code></td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="task-3-cyclegan-monet-photo">Task 3: CycleGAN Monet ↔ Photo</h2>
+<p>All FID and MiFID values come from the course evaluation script (<code>task3_gan/Part3_Evaluation_Script.ipynb</code>, reproduced in each member's <code>evaluate_local.py</code>): ImageNet normalisation, Resize(299) and CenterCrop(299), n = 300 per side, and the submitted value is the mean of both directions. A2B is Monet to Photo and B2A is Photo to Monet.</p>
+<h3 id="comparison-table_2">Comparison table</h3>
+<table>
+<thead>
+<tr>
+<th></th>
+<th><strong>Tejas</strong>: ResNet-9, run <code>i270k</code>, EMA snapshot epoch 280</th>
+<th><strong>Shriram</strong>: U-Net, run 1, <code>ckpt_epoch060.pth</code></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Generator</td>
+<td>ResNet-9 (c7s1-64, d128, d256, 9 residual blocks, 2 resize-convolution upsampling layers, c7s1-3, tanh), InstanceNorm, reflection padding</td>
+<td>U-Net depth 8, ngf 64: 8 stride-2 encoder blocks, 8 transposed-conv decoder blocks with skip connections, InstanceNorm, dropout 0.5 in the first 3 decoder blocks, tanh</td>
+</tr>
+<tr>
+<td>Discriminator</td>
+<td>70x70 PatchGAN, ndf 64, InstanceNorm, LeakyReLU 0.2</td>
+<td>70x70 PatchGAN, ndf 64 (C64-C128-C256-C512), 30x30 output map</td>
+</tr>
+<tr>
+<td>Parameters</td>
+<td>G 11,378,179 each; D 2,764,737 each; 28,285,832 total</td>
+<td>G 54,404,099 each; D 2,763,841 each; 114.34M total</td>
+</tr>
+<tr>
+<td>Losses</td>
+<td>LSGAN + cycle L1 (λ 10) + identity L1 (λ_id 5 for Monet to Photo; 5 down to 1.5 for Photo to Monet during the decay phase)</td>
+<td>LSGAN + cycle L1 (λ 10) + identity L1 (λ 5)</td>
+</tr>
+<tr>
+<td>Learning rates</td>
+<td>Adam (0.5, 0.999); G 2e-4, D 7.5e-5</td>
+<td>Adam (0.5, 0.999); 2e-4 for G and D</td>
+</tr>
+<tr>
+<td>Schedule</td>
+<td>constant until epoch 135 (45%), then linear decay to 0</td>
+<td>constant for 50 epochs, then linear decay to 0 over 50</td>
+</tr>
+<tr>
+<td>Iterations</td>
+<td>900 per epoch x 300 epochs = 270,000 (selected snapshot at 252,000, derived)</td>
+<td>1,000 per epoch x 100 epochs = 100,000 (selected checkpoint at 60,000)</td>
+</tr>
+<tr>
+<td>Batch / image pool</td>
+<td>1 / 50</td>
+<td>1 / 50</td>
+</tr>
+<tr>
+<td>Augmentation / regularisation</td>
+<td>resize 286, random crop 256, horizontal flip; DiffAugment (colour, translation, cutout) on all D inputs; EMA of G weights (0.999)</td>
+<td>resize 286, random crop 256, horizontal flip; N(0, 0.02) init; AMP</td>
+</tr>
+<tr>
+<td>Model selection</td>
+<td>EMA snapshots every 10 epochs scored with the course FID</td>
+<td>checkpoints at epochs 50 to 99 scored with an earlier A2B-only FID; epoch 60 best</td>
+</tr>
+<tr>
+<td>Seed / hardware</td>
+<td>1446 / RTX 4090</td>
+<td>42 / A100 (Colab)</td>
+</tr>
+<tr>
+<td><strong>FID A2B / B2A</strong></td>
+<td>100.92 / <strong>96.49</strong></td>
+<td>103.92 / 98.95</td>
+</tr>
+<tr>
+<td><strong>FID submitted (mean)</strong></td>
+<td><strong>98.70</strong></td>
+<td>101.44</td>
+</tr>
+<tr>
+<td>MiFID A2B / B2A / mean</td>
+<td>0.4166 / 0.4045 / 0.4106</td>
+<td>0.4241 / 0.4104 / 0.4172</td>
+</tr>
+<tr>
+<td>KID A2B / B2A</td>
+<td>0.0181 ± 0.0022 / 0.0066 ± 0.0015</td>
+<td>0.0191 ± 0.0033 / 0.0082 ± 0.0010</td>
+</tr>
+<tr>
+<td>Precision / recall A2B</td>
+<td>0.747 / 0.483</td>
+<td>0.683 / 0.443</td>
+</tr>
+<tr>
+<td>Precision / recall B2A</td>
+<td>0.543 / 0.720</td>
+<td>0.500 / 0.730</td>
+</tr>
+<tr>
+<td>Density / coverage A2B</td>
+<td>1.078 / 0.907</td>
+<td>0.863 / 0.790</td>
+</tr>
+<tr>
+<td>Density / coverage B2A</td>
+<td>0.451 / 0.710</td>
+<td>0.385 / 0.693</td>
+</tr>
+<tr>
+<td>Cycle L1 (A→B→A / B→A→B)</td>
+<td>0.0785 / 0.0849</td>
+<td>0.0471 / 0.0493</td>
+</tr>
+<tr>
+<td>LPIPS, input vs. translation, A2B / B2A</td>
+<td>0.322 / 0.364</td>
+<td>0.181 / 0.250</td>
+</tr>
+<tr>
+<td>Content cosine A2B / B2A</td>
+<td>0.812 / 0.796 (Inception-v3)</td>
+<td>0.8259 / 0.7253 (VGG16)</td>
+</tr>
+<tr>
+<td>Final cycle / identity loss</td>
+<td>0.146 / 0.140 (end of training)</td>
+<td>0.0935 / 0.0486 (epoch 99)</td>
+</tr>
+<tr>
+<td>Final G / D loss</td>
+<td>G 2.870; D_A 0.144, D_B 0.184</td>
+<td>G 2.319; D 0.261 (epoch 99)</td>
+</tr>
+<tr>
+<td>NaN count</td>
+<td>0</td>
+<td>0 (all 3 runs)</td>
+</tr>
+<tr>
+<td>G gradient norm mean / max</td>
+<td>29.5 / 1,017.9 (D 17.5 / 72.5)</td>
+<td>27.0 / 112.5</td>
+</tr>
+<tr>
+<td>Training time</td>
+<td>507.0 min (533.2 min wall)</td>
+<td>2.77 h (99.6 s per epoch)</td>
+</tr>
+<tr>
+<td>Train images / s</td>
+<td>17.8</td>
+<td>10.04</td>
+</tr>
+<tr>
+<td>Inference images / s A2B / B2A</td>
+<td>270.9 / 360.8</td>
+<td>not measured</td>
+</tr>
+<tr>
+<td>Peak memory</td>
+<td>3,386 MB (training)</td>
+<td>1,882 MB (inference only; training peak not logged)</td>
+</tr>
+<tr>
+<td>Kaggle score</td>
+<td>−49.55</td>
+<td>−50.93</td>
+</tr>
+<tr>
+<td>Kaggle rank</td>
+<td>20 (at submission time)</td>
+<td>20</td>
+</tr>
+<tr>
+<td>Human audit (30 samples, 2 raters)</td>
+<td>style 4.33 (A2B 4.10 / B2A 4.57), quadratic κ 0.84, 73% agreement; content 4.70 (4.60 / 4.80), κ 1.00, 100%; artifacts in 55% (53% / 57%), κ 0.66, 83%</td>
+<td>pending at time of writing (ratings not yet recorded)</td>
+</tr>
+</tbody>
+</table>
+<p>Sources: <code>task3_gan/tejas/metrics_report.csv</code>, <code>task3_gan/tejas/results.md</code>, <code>task3_gan/tejas/submission.csv</code>, <code>task3_gan/tejas/outputs/{checkpoint_selection,audit_results}.csv</code>, <code>reproducibility/manifests/task3_gan/tejas/manifest_t3_cyclegan_tejas.json</code>; <code>task3_gan/shriram_dundigalla/{metrics_report,full_metrics_report,submission}.csv</code>, <code>task3_gan/shriram_dundigalla/results.md</code>, and printed outputs of <code>task3_gan/shriram_dundigalla/src/task3_cyclegan_unet.ipynb</code> (per-direction cycle L1, content cosine and KID spread, training seconds, Kaggle score).</p>
+<p>Shriram's content cosine uses VGG16 features and is not directly comparable to Tejas's Inception-based value. Shriram's final losses are from epoch 99, not from the submitted epoch-60 checkpoint.</p>
+<h3 id="run-histories">Run histories</h3>
+<p><strong>Tejas</strong> (<code>task3_gan/tejas/results.md</code>, <code>task3_gan/tejas/exploratory/*/metrics_report.csv</code>, <code>task3_gan/tejas/outputs/checkpoint_selection.csv</code>):</p>
+<table>
+<thead>
+<tr>
+<th>Run</th>
+<th>Iterations</th>
+<th>Change and reason</th>
+<th>Best FID mean (A2B / B2A)</th>
+<th>Train time</th>
+<th>G grad-norm max</th>
+<th>Score</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>quick30</td>
+<td>9K (30 x 300)</td>
+<td>Baseline: paper configuration, transposed-conv upsampling</td>
+<td>146.97 (142.82 / 151.12)</td>
+<td>23.5 min</td>
+<td>142.7</td>
+<td>−73.70</td>
+</tr>
+<tr>
+<td>e200</td>
+<td>60K (200 x 300)</td>
+<td>Resize-convolution (quick30 showed checkerboard artifacts), longer schedule, snapshot selection</td>
+<td>114.23 (122.30 / 106.16)</td>
+<td>102.8 min</td>
+<td>916.1</td>
+<td>−57.33</td>
+</tr>
+<tr>
+<td>e300</td>
+<td>90K (300 x 300)</td>
+<td>DiffAugment, slower D (1e-4) and EMA, because the D dominated in e200 (D loss about 0.06, real/fake 0.86/0.14)</td>
+<td>110.70 (115.56 / 105.85)</td>
+<td>168.1 min</td>
+<td>179.6</td>
+<td>−55.56</td>
+</tr>
+<tr>
+<td>i180k</td>
+<td>180K (200 x 900)</td>
+<td>Same setup, twice as long, because the e300 plateau was the LR reaching 0</td>
+<td>103.09 (104.70 / 101.48)</td>
+<td>329.5 min</td>
+<td>190.4</td>
+<td>−51.75</td>
+</tr>
+<tr>
+<td><strong>i270k (final)</strong></td>
+<td><strong>270K (300 x 900)</strong></td>
+<td>Direction-specific identity ramp (Photo to Monet had plateaued near 101), D LR 7.5e-5, 45/55 schedule</td>
+<td><strong>98.70 (100.92 / 96.49)</strong></td>
+<td>507.0 min</td>
+<td>1,017.9</td>
+<td><strong>−49.55</strong></td>
+</tr>
+</tbody>
+</table>
+<p>The score column is −(FID + MiFID)/2. Only i270k has a recorded leaderboard score; the values for the earlier runs come from Tejas's snapshot tables.</p>
+<p><strong>Shriram</strong> (<code>task3_gan/shriram_dundigalla/results.md</code>, <code>failure_analysis.md</code>, <code>full_metrics_report.csv</code>, <code>src/task3_cyclegan_unet.ipynb</code>):</p>
+<table>
+<thead>
+<tr>
+<th>Run</th>
+<th>Change</th>
+<th>FID mean (A2B / B2A)</th>
+<th>G grad-norm mean / max</th>
+<th>NaN</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>1 (submitted)</strong></td>
+<td>Baseline U-Net, λ_cycle 10, λ_id 5, 100 epochs x 1,000 steps; best checkpoint epoch 60</td>
+<td><strong>101.44</strong> (103.92 / 98.95)</td>
+<td>27.0 / 112.5</td>
+<td>0</td>
+</tr>
+<tr>
+<td>2</td>
+<td>λ_cycle 8, λ_id 2, 80 epochs, LR decay from epoch 40; best checkpoint epoch 79</td>
+<td>101.51 (102.65 / 100.37)</td>
+<td>not measured</td>
+<td>0</td>
+</tr>
+<tr>
+<td>3</td>
+<td>Run-2 losses plus DiffAugment (colour, translation, cutout) on all D inputs, 80 epochs</td>
+<td>112.97 (108.54 / 117.40)</td>
+<td>137.0 / 640.5</td>
+<td>0</td>
+</tr>
+</tbody>
+</table>
+<p>Shriram's run-2 FID is reported from the official script (101.51); his own scoring of the same checkpoint gave 99.58. For run 1 he selected among checkpoints at epochs 50, 60, 70, 80, 90 and 99 with an earlier A2B-only FID (88.02, 87.32, 88.13, 87.59, 87.51, 89.02), which is on a different scale from the course script.</p>
+<p float="left">
+<img src="figures/t3_tejas_fid_vs_epoch.png" width="49%" alt="Tejas FID vs epoch"/>
+<img src="figures/t3_tejas_experiments_comparison.png" width="49%" alt="Tejas experiments comparison"/>
+</p>
+
+<p float="left">
+<img src="figures/t3_shriram_loss_curves.png" width="49%" alt="Shriram run 1 loss curves"/>
+<img src="figures/t3_shriram_run1_vs_run3_stability.png" width="49%" alt="Shriram run 1 vs run 3 stability"/>
+</p>
+
+<p><em>Top: Tejas's FID per snapshot in the final run, and best FID across his five runs. Bottom: Shriram's run-1 losses and gradient norm, and his run 1 vs. run 3 stability comparison.</em></p>
+<h3 id="example-translations">Example translations</h3>
+<p>Tejas (i270k, EMA snapshot epoch 280), input and output pairs. Left: Photo to Monet. Right: Monet to Photo.</p>
+<p float="left">
+<img src="figures/t3_tejas_examples_photo2monet.png" width="49%" alt="Tejas Photo to Monet examples"/>
+<img src="figures/t3_tejas_examples_monet2photo.png" width="49%" alt="Tejas Monet to Photo examples"/>
+</p>
+
+<p>Shriram (run 1, epoch 60), unedited generator outputs from <code>outputs/pred_B2A/</code> and <code>outputs/pred_A2B/</code>. Top row: Photo to Monet. Bottom row: Monet to Photo.</p>
+<p float="left">
+<img src="figures/t3_shriram_B2A_00068bc07f.jpg" width="32%" alt="Shriram Photo to Monet 00068bc07f"/>
+<img src="figures/t3_shriram_B2A_000910d219.jpg" width="32%" alt="Shriram Photo to Monet 000910d219"/>
+<img src="figures/t3_shriram_B2A_000ded5c41.jpg" width="32%" alt="Shriram Photo to Monet 000ded5c41"/>
+</p>
+<p float="left">
+<img src="figures/t3_shriram_A2B_000c1e3bff.jpg" width="32%" alt="Shriram Monet to Photo 000c1e3bff"/>
+<img src="figures/t3_shriram_A2B_011835cfbf.jpg" width="32%" alt="Shriram Monet to Photo 011835cfbf"/>
+<img src="figures/t3_shriram_A2B_0260d15306.jpg" width="32%" alt="Shriram Monet to Photo 0260d15306"/>
+</p>
+
+<p>Cycle-consistency check. Tejas's A→B→A reconstructions are shown below (cycle L1 0.0785 / 0.0849). Shriram checked cycle consistency numerically only (cycle L1 0.0471 / 0.0493).</p>
+<p><img src="figures/t3_tejas_cycle_verification.png" width="70%" alt="Tejas cycle verification"/></p>
+<h3 id="joint-analysis_2">Joint analysis</h3>
+<p><strong>ResNet vs. U-Net.</strong> Tejas's ResNet-9 (28.3M parameters) has lower FID than Shriram's U-Net (114.3M) in both directions: 100.92 vs. 103.92 for A2B and 96.49 vs. 98.95 for B2A. It also changes the input more (LPIPS 0.322 / 0.364 vs. 0.181 / 0.250). The U-Net reconstructs better through the cycle (L1 0.047 / 0.049 vs. 0.078 / 0.085), which fits Shriram's view that skip connections make reconstruction easy but resist the repainting that stylisation needs. The comparison is confounded with training length (270K vs. 100K updates), DiffAugment and EMA (Tejas only) and the discriminator LR.</p>
+<p><strong>DiffAugment.</strong> It hurt Shriram's U-Net (FID 101.51 in run 2 to 112.97 in run 3, G gradient-norm mean 137 in run 3 vs. 27 in run 1). His discriminator was not dominating (D loss about 0.26). In Tejas's e200 run the discriminator was dominating (D loss about 0.06), and adding DiffAugment with a slower D and EMA improved FID from 114.23 to 110.70. Both results fit the rule in <code>TEAM_PROTOCOL.md</code>: use DiffAugment only when the discriminator overfits. Tejas changed three things at once, so the share due to DiffAugment alone is not isolated.</p>
+<p><strong>Training length.</strong> Tejas's FID kept improving with longer schedules (110.70 at 90K, 103.09 at 180K, 98.70 at 270K). Shriram's best checkpoint was epoch 60 of 100, so the last 40 epochs did not improve FID even though cycle loss kept falling. Training loss was not a useful selection signal for either of us; periodic FID on checkpoints was.</p>
+<p><strong>Direction.</strong> Both models score better on Photo to Monet. Both show higher precision and lower recall for A2B (Tejas 0.747 / 0.483, Shriram 0.683 / 0.443) and the reverse for B2A (0.543 / 0.720 and 0.500 / 0.730). B2A density is the weakest value for both (0.451 and 0.385). Tejas's identity ramp, which lowers λ_id for Photo to Monet only, moved his B2A FID from about 101 to 96.49.</p>
+<p><strong>Stability.</strong> No run of either member produced NaNs. Tejas's final run has his largest G gradient-norm spike (1,017.9 vs. 190.4 for i180k) with a similar mean (29.5). The raw log places it at step 2,300 (epoch 2), early in the constant-LR phase, and training continued normally, so it was a transient and not a divergence. He also observed slow discriminator creep late in training (real/fake 0.62/0.38 to 0.70/0.30). Shriram's run 1 was stable at G about 2.3 and D about 0.26.</p>
+<p><strong>Audit vs. FID.</strong> Only Tejas's outputs have been audited so far. The style ratings agree with FID on direction: Photo to Monet was rated 4.57 vs. 4.10 and has the lower FID. Content ratings are high (4.70, κ 1.00, partly a ceiling effect), which matches the low cycle L1.</p>
+<p><strong>Evaluation caveat.</strong> Both members score the images they trained on, as the competition requires, and both selected checkpoints using that FID (Tejas among 30 snapshots, Shriram among 6 checkpoints). The reported FIDs are therefore slightly optimistic. The course "MiFID" is a positional cosine distance without a memorisation threshold, so it is not the Kaggle MiFID.</p>
+<p><strong>Limitations.</strong> Only 300 Monet images; one seed per run; speckle and halo artifacts in about half of Tejas's audited samples; Shriram's training peak memory was not logged; different GPUs.</p>
+<p><strong>Next steps.</strong> Finish the shared blinded audit with both members' outputs, hold out photos to measure generalisation, try R1 or spectral-norm regularisation (Tejas), try a weaker DiffAugment policy under a matched budget (Shriram), and compare ResNet and U-Net generators under the same budget.</p>
+<h3 id="evidence_2">Evidence</h3>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>Tejas</th>
+<th>Shriram</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>FID per checkpoint</td>
+<td><a href="../task3_gan/tejas/outputs/fid_vs_epoch.png"><code>fid_vs_epoch.png</code></a>, <a href="../task3_gan/tejas/outputs/checkpoint_selection.csv"><code>checkpoint_selection.csv</code></a>, <a href="../task3_gan/tejas/exploratory/i180k/outputs/experiments_comparison.png"><code>experiments_comparison.png</code></a></td>
+<td>printed in <a href="../task3_gan/shriram_dundigalla/src/task3_cyclegan_unet.ipynb"><code>task3_cyclegan_unet.ipynb</code></a> (runs 1, 2 and 3)</td>
+</tr>
+<tr>
+<td>Loss curves</td>
+<td><a href="../task3_gan/tejas/outputs/loss_curves.png"><code>loss_curves.png</code></a>, <a href="../task3_gan/tejas/outputs/epoch_history.csv"><code>epoch_history.csv</code></a></td>
+<td><a href="../task3_gan/shriram_dundigalla/outputs/figures/loss_curves_run1.png"><code>loss_curves_run1.png</code></a>, <a href="../task3_gan/shriram_dundigalla/outputs/figures/run1_vs_run3_stability.png"><code>run1_vs_run3_stability.png</code></a>, <a href="../task3_gan/shriram_dundigalla/logs/metrics_per_epoch.csv"><code>metrics_per_epoch.csv</code></a></td>
+</tr>
+<tr>
+<td>Examples</td>
+<td><a href="../task3_gan/tejas/outputs/examples_photo2monet.png"><code>examples_photo2monet.png</code></a>, <a href="../task3_gan/tejas/outputs/examples_monet2photo.png"><code>examples_monet2photo.png</code></a>, <a href="../task3_gan/tejas/outputs/samples/"><code>samples/</code></a></td>
+<td><a href="../task3_gan/shriram_dundigalla/outputs/pred_A2B/"><code>pred_A2B/</code></a> (300), <a href="../task3_gan/shriram_dundigalla/outputs/pred_B2A/"><code>pred_B2A/</code></a> (7,038)</td>
+</tr>
+<tr>
+<td>Cycle verification</td>
+<td><a href="../task3_gan/tejas/outputs/cycle_verification.png"><code>cycle_verification.png</code></a></td>
+<td>numeric check in the notebook</td>
+</tr>
+<tr>
+<td>Submission</td>
+<td><a href="../task3_gan/tejas/submission.csv"><code>submission.csv</code></a> (98.7030 / 0.41056)</td>
+<td><a href="../task3_gan/shriram_dundigalla/submission.csv"><code>submission.csv</code></a> (101.4378 / 0.41722)</td>
+</tr>
+<tr>
+<td>Course-script cross-check</td>
+<td><a href="../task3_gan/tejas/outputs/ta_eval_script_executed.ipynb"><code>ta_eval_script_executed.ipynb</code></a>, <a href="../task3_gan/tejas/outputs/submission_ta_script.csv"><code>submission_ta_script.csv</code></a> (98.70296 / 0.41056, agrees with <code>submission.csv</code> to &lt; 1e-6)</td>
+<td>course script run in the notebook with only paths changed: Photo to Monet FID 98.952, Monet to Photo FID 103.924, matching <code>submission.csv</code></td>
+</tr>
+<tr>
+<td>Audit</td>
+<td><a href="../task3_gan/tejas/outputs/audit_results.csv"><code>audit_results.csv</code></a>, <a href="../task3_gan/tejas/outputs/audit_rater1.csv"><code>audit_rater1.csv</code></a>, <a href="../task3_gan/tejas/outputs/audit_rater2.csv"><code>audit_rater2.csv</code></a>, <a href="../task3_gan/tejas/outputs/audit/"><code>audit/</code></a></td>
+<td><a href="../task3_gan/human_audit/"><code>human_audit/</code></a> (pending)</td>
+</tr>
+<tr>
+<td>Raw logs</td>
+<td><a href="../reproducibility/raw_logs/task3_gan/tejas/t3_cyclegan_tejas_20261002-132424.jsonl"><code>t3_cyclegan_tejas_20261002-132424.jsonl</code></a> and one per exploratory run</td>
+<td><a href="../reproducibility/raw_logs/task3_cyclegan_unet_run1.log"><code>task3_cyclegan_unet_run1.log</code></a>, <a href="../task3_gan/shriram_dundigalla/logs/train.log"><code>train.log</code></a></td>
+</tr>
+<tr>
+<td>Weights</td>
+<td><code>checkpoints/G_AB.pt</code>, <code>G_BA.pt</code> (EMA, committed)</td>
+<td><code>ckpt_epoch060.pth</code> (1.3 GB, not in git; SHA-256 in <a href="../task3_gan/shriram_dundigalla/checkpoints/README.md"><code>checkpoints/README.md</code></a>)</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="failure-and-error-analysis">Failure and error analysis</h2>
+<h3 id="task-1-three-failure-cases-per-member">Task 1: three failure cases per member</h3>
+<p><strong>Tejas</strong> (<code>task1_llm/tejas/failure_analysis.md</code>; 300 new characters per prompt):</p>
+<table>
+<thead>
+<tr>
+<th>Case</th>
+<th>Decoding / prompt</th>
+<th>Snippet (verbatim)</th>
+<th>Failure type</th>
+<th>Observation</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>Greedy, "One day, Tom" (repeated 4-gram rate 0.213)</td>
+<td>"One day, Tom wanted to play with his toys and run around outside. He saw a big tree with many leaves. Tom wanted to climb the tree, but he was too small. He tried to climb the tree, but he could not. Tom was sad. Tom saw a big tree…"</td>
+<td>Repetition loop</td>
+<td>The plot stalls and restarts the same scene; argmax reinforces frequent phrases.</td>
+</tr>
+<tr>
+<td>2</td>
+<td>Greedy, "The little dog"</td>
+<td>"The little dog was so happy to have a new friend. They played together all day long. The end. / Once upon a time, there was a little girl named Lily. She loved to play outside in the sunshine. One day, she saw a big box in the garden."</td>
+<td>Story reset</td>
+<td>After "The end." the model falls back to the most common opening, identical to the greedy "Once upon a time" output. The 300-character generation is longer than the 256-character context.</td>
+</tr>
+<tr>
+<td>3</td>
+<td>T = 0.8, "In the forest"</td>
+<td>"In the forest was a bright, sunny barn. The barn was full of lots of animals, flowers and flowers. At night, the barn went for many long walks in the meadow. But then, something bad happened. A man came to say he had a spell."</td>
+<td>Semantic error</td>
+<td>Grammatical but impossible: a barn "went for many long walks". Good local syntax, weak world knowledge.</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Shriram</strong> (<code>task1_llm/shriram_dundigalla/failure_analysis.md</code>; prompt "Once upon a time", 400 new characters):</p>
+<table>
+<thead>
+<tr>
+<th>Case</th>
+<th>Temperature</th>
+<th>Snippet (verbatim)</th>
+<th>Failure type</th>
+<th>Observation</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>0.0 (greedy)</td>
+<td>"…She saw a big box of stars and a big box. She wanted to see what was inside. She wanted to see what was inside. She took a big bite and started to cry."</td>
+<td>Verbatim repetition</td>
+<td>Repeated 4-gram rate 0.060 at T = 0 vs. 0.000 at T ≥ 0.5 in this draw; a decoding failure.</td>
+</tr>
+<tr>
+<td>2</td>
+<td>0.8</td>
+<td>"One day, Timmy wanted to go to the park, so he asked his mommy if he could have him playing. His mommy bought the nuts and said hello. Timmy remembered his mommy tost his toys and she asked him what he was wrong."</td>
+<td>Broken grammar and a non-word</td>
+<td>"tost" is not a word; distinct-n still scores the passage as perfect, which led him to add a training-vocabulary word rate (0.988).</td>
+</tr>
+<tr>
+<td>3</td>
+<td>1.0</td>
+<td>"Once upon a time, there was a little boy named Benny. Benny loved his car and rolled his doll's teeth. … They were talking to the park to play them with it. / Once upon a time, there was a little boy named Timmy."</td>
+<td>Loss of coherence, early story boundary</td>
+<td>Benny leaves the 128-character window and the model starts a new story mid-generation.</td>
+</tr>
+</tbody>
+</table>
+<p>Both members found the same two mechanisms: greedy looping, and story resets caused by the context window and the story separator. This supports both proposed fixes, a repetition penalty (already shown to work by Shriram) and a longer context.</p>
+<h3 id="task-2-20-error-reviews">Task 2: 20-error reviews</h3>
+<p>Both members reviewed 5 confident false positives, 5 confident false negatives, 5 near-threshold errors and 5 weakest-slice errors.</p>
+<p><strong>Tejas</strong>, BiGRU with attention, weakest slice <code>truncated = True</code> (<code>task2_sentiment/tejas/failure_analysis.md</code>, <code>outputs/error_candidates.csv</code>):</p>
+<table>
+<thead>
+<tr>
+<th>Error type</th>
+<th>Count</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Truncation / long narrative</td>
+<td>5</td>
+</tr>
+<tr>
+<td>Contrast, mixed, lukewarm or comparative</td>
+<td>6</td>
+</tr>
+<tr>
+<td>Sarcasm / irony</td>
+<td>2</td>
+</tr>
+<tr>
+<td>Edited reviews (temporal mismatch)</td>
+<td>2</td>
+</tr>
+<tr>
+<td>Label noise / rating and text mismatch</td>
+<td>2</td>
+</tr>
+<tr>
+<td>Domain vocabulary, implicit sentiment, tokenization</td>
+<td>3</td>
+</tr>
+</tbody>
+</table>
+<p>Examples:
+- <strong>FN4</strong> (p = 0.001, sarcasm): "TERRIBLE SERVICE, RUDE WAITERS WITH A PISS POOR ATTITUDE! WOULD EAT HERE AGAIN! A++++". Lowercasing and punctuation removal remove the cues.
+- <strong>FP5</strong> (p = 0.999, comparative): "Though I'm a Copper enthusiast… Maharani was a cheaper but tasty option… Copper is definitely still my place, but Maharani was fine enough." The praise is for a competitor.
+- <strong>NT3</strong> (p = 0.498, contrast and tokenization): "…deserve 5 starshowever the procedures used to estimate and charge… are in need of improvement." The missing space merges two informative words into one unknown token.</p>
+<p><strong>Proposed fix (Tejas).</strong> Raise max_len from 188 to 400 tokens (about the 99th percentile), keep head and tail truncation, and retrain Exp 2 with the same seed. Measure the error rate and macro-F1 on the truncated slice before and after, run a paired McNemar test on the full test set, and record training time and peak memory.</p>
+<p><strong>Shriram</strong>, TextCNN, 2,492 errors (6.56%), weakest slice <code>exclamations = no_exclaim</code> (<code>task2_sentiment/shriram_dundigalla/failure_analysis.md</code>, <code>outputs/error_review_exp2_textcnn.csv</code>):</p>
+<table>
+<thead>
+<tr>
+<th>Error type</th>
+<th>Count</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Negation scope / detached negation</td>
+<td>3</td>
+</tr>
+<tr>
+<td>Temporal contrast (past negative, present positive)</td>
+<td>2</td>
+</tr>
+<tr>
+<td>Genuinely mixed sentiment (near threshold)</td>
+<td>5</td>
+</tr>
+<tr>
+<td>Probable label noise</td>
+<td>2</td>
+</tr>
+<tr>
+<td>Late verdict reversal / concessive</td>
+<td>2</td>
+</tr>
+<tr>
+<td>Sarcasm</td>
+<td>1</td>
+</tr>
+<tr>
+<td>Target confusion</td>
+<td>1</td>
+</tr>
+<tr>
+<td>Truncation</td>
+<td>1</td>
+</tr>
+<tr>
+<td>Rhetorical question</td>
+<td>1</td>
+</tr>
+<tr>
+<td>Insufficient evidence (very short)</td>
+<td>2</td>
+</tr>
+</tbody>
+</table>
+<p>Examples:
+- <strong>A1</strong> (p = 0.9994, sarcasm): "Yay. Cafeteria food. Yay."
+- <strong>A2</strong> (p = 0.9991, late verdict reversal): "We had a great time and I thoroughly enjoyed the food, but I need to give this a 1 start given that if we had eaten a week later, this salmonella outbreak could have caused immeasurable harm to our child."
+- <strong>B3</strong> (p = 0.0006, target confusion): "Someone deleted my review.. intentionally. That is very rude and disrespectful. Don't be silly guys.. I like this place and new owner is very nice and friendly…"</p>
+<p><strong>Proposed fixes (Shriram).</strong> His first priority is position-aware pooling: add a max-pool over the last 20% of tokens to the global max-pool, and check that accuracy improves on "but"/"however" reviews while overall accuracy holds. He also proposes negation-scope marking (a <code>NOT_</code> prefix on the 3 tokens after a negation) and hand-labelling the 200 most confident errors to estimate the label-noise ceiling.</p>
+<p>Both reviews conclude that part of the remaining error cannot be fixed by modelling. Shriram counts 8 of 20 (sarcasm, label noise, mixed reviews). Tejas counts 4 of 20 as unfixable (edited reviews, label noise) and 2 as hard (sarcasm).</p>
+<hr />
+<h2 id="reproducibility">Reproducibility</h2>
+<p><strong>Smoke tests.</strong> <code>README.md</code> gives a one-command smoke test for Tejas's notebooks: <code>cd task3_gan/tejas/src &amp;&amp; SMOKE=1 jupyter nbconvert --to notebook --execute --output smoke_run.ipynb task3_cyclegan.ipynb</code>, with the same pattern for Tasks 1 and 2. Shriram's scripts take a <code>--smoke</code> flag that writes only to gitignored <code>smoke/</code> folders: <code>python task1_llm/shriram_dundigalla/src/train.py --smoke --require-cuda</code> and <code>python task2_sentiment/shriram_dundigalla/src/train.py --smoke --require-cuda</code>. His Task 3 notebook has its own one-epoch smoke cell. Repository-wide checks are <code>python scripts/verify_gpu_ready.py</code> and <code>python scripts/verify_submission.py</code>.</p>
+<p><strong>Configuration.</strong> Tejas uses a <code>CFG</code> cell in each notebook, recorded in each manifest JSON. Shriram uses YAML configs (<code>task1_llm/shriram_dundigalla/src/config*.yaml</code>, <code>task2_sentiment/shriram_dundigalla/src/config.yaml</code>, <code>task3_gan/shriram_dundigalla/src/config.yaml</code>).</p>
+<p><strong>Raw logs and manifests.</strong></p>
+<table>
+<thead>
+<tr>
+<th>Member</th>
+<th>Raw logs</th>
+<th>Manifests</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Tejas</td>
+<td><code>reproducibility/raw_logs/{task1_llm,task2_sentiment,task3_gan}/tejas/</code> (Task 3: final run and four exploratory runs)</td>
+<td><code>reproducibility/manifests/{task1_llm,task2_sentiment,task3_gan}/tejas/</code> (JSON and <code>requirements_frozen.txt</code>)</td>
+</tr>
+<tr>
+<td>Shriram</td>
+<td><code>reproducibility/raw_logs/</code> (<code>task1_gpt_char_*.log</code>, <code>task2_*.log</code>, <code>task3_cyclegan_unet_run1.log</code>, smoke logs)</td>
+<td><code>reproducibility/manifests/shriram_dundigalla_manifest.md</code></td>
+</tr>
+</tbody>
+</table>
+<p><strong>Data and weights.</strong> Dataset download link: see <code>README.md</code>. Shriram's Task 3 checkpoint (1.3 GB) is not in git; its SHA-256 is in <code>task3_gan/shriram_dundigalla/checkpoints/README.md</code>.</p>
+<p><strong>Absolute paths in logs and manifests.</strong> Raw logs and manifests are kept unedited, so they contain the runtime paths of the machines that produced them (a Windows PC and Google Colab). This is disclosed in <code>README.md</code>. Tejas's notebook outputs use <code>&lt;REPO&gt;</code> placeholders. Shriram's Task 3 notebook keeps its Colab Drive paths, so running it elsewhere requires changing the Drive root in its first cell.</p>
+<hr />
+<h2 id="references">References</h2>
+<ol>
+<li>Vaswani, A., Shazeer, N., Parmar, N., Uszkoreit, J., Jones, L., Gomez, A. N., Kaiser, Ł., &amp; Polosukhin, I. (2017). Attention Is All You Need. <em>NeurIPS 2017</em>.</li>
+<li>Eldan, R., &amp; Li, Y. (2023). TinyStories: How Small Can Language Models Be and Still Speak Coherent English? <em>arXiv:2305.07759</em>.</li>
+<li>Zhu, J.-Y., Park, T., Isola, P., &amp; Efros, A. A. (2017). Unpaired Image-to-Image Translation using Cycle-Consistent Adversarial Networks. <em>ICCV 2017</em>.</li>
+<li>Zhao, S., Liu, Z., Lin, J., Zhu, J.-Y., &amp; Han, S. (2020). Differentiable Augmentation for Data-Efficient GAN Training. <em>NeurIPS 2020</em>.</li>
+<li>Joulin, A., Grave, E., Bojanowski, P., &amp; Mikolov, T. (2017). Bag of Tricks for Efficient Text Classification. <em>EACL 2017</em>.</li>
+<li>Zhang, X., Zhao, J., &amp; LeCun, Y. (2015). Character-level Convolutional Networks for Text Classification. <em>NeurIPS 2015</em>.</li>
+<li>Johnson, J., Alahi, A., &amp; Fei-Fei, L. (2016). Perceptual Losses for Real-Time Style Transfer and Super-Resolution. <em>ECCV 2016</em>.</li>
+<li>Guo, C., Pleiss, G., Sun, Y., &amp; Weinberger, K. Q. (2017). On Calibration of Modern Neural Networks. <em>ICML 2017</em>.</li>
+<li>Heusel, M., Ramsauer, H., Unterthiner, T., Nessler, B., &amp; Hochreiter, S. (2017). GANs Trained by a Two Time-Scale Update Rule Converge to a Local Nash Equilibrium. <em>NeurIPS 2017</em>.</li>
+<li>Bińkowski, M., Sutherland, D. J., Arbel, M., &amp; Gretton, A. (2018). Demystifying MMD GANs. <em>ICLR 2018</em>.</li>
+<li>Zhang, R., Isola, P., Efros, A. A., Shechtman, E., &amp; Wang, O. (2018). The Unreasonable Effectiveness of Deep Features as a Perceptual Metric. <em>CVPR 2018</em>.</li>
+<li>Naeem, M. F., Oh, S. J., Uh, Y., Choi, Y., &amp; Yoo, J. (2020). Reliable Fidelity and Diversity Metrics for Generative Models. <em>ICML 2020</em>.</li>
+<li>Isola, P., Zhu, J.-Y., Zhou, T., &amp; Efros, A. A. (2017). Image-to-Image Translation with Conditional Adversarial Networks. <em>CVPR 2017</em>.</li>
+<li>Mao, X., Li, Q., Xie, H., Lau, R. Y. K., Wang, Z., &amp; Smolley, S. P. (2017). Least Squares Generative Adversarial Networks. <em>ICCV 2017</em>.</li>
+<li>Ronneberger, O., Fischer, P., &amp; Brox, T. (2015). U-Net: Convolutional Networks for Biomedical Image Segmentation. <em>MICCAI 2015</em>.</li>
+<li>Odena, A., Dumoulin, V., &amp; Olah, C. (2016). Deconvolution and Checkerboard Artifacts. <em>Distill</em>.</li>
+<li>Holtzman, A., Buys, J., Du, L., Forbes, M., &amp; Choi, Y. (2020). The Curious Case of Neural Text Degeneration. <em>ICLR 2020</em>.</li>
+<li>Keskar, N. S., McCann, B., Varshney, L. R., Xiong, C., &amp; Socher, R. (2019). CTRL: A Conditional Transformer Language Model for Controllable Generation. <em>arXiv:1909.05858</em>.</li>
+<li>Kim, Y. (2014). Convolutional Neural Networks for Sentence Classification. <em>EMNLP 2014</em>.</li>
+<li>Hochreiter, S., &amp; Schmidhuber, J. (1997). Long Short-Term Memory. <em>Neural Computation, 9</em>(8).</li>
+<li>Cho, K., van Merriënboer, B., Gulcehre, C., Bahdanau, D., Bougares, F., Schwenk, H., &amp; Bengio, Y. (2014). Learning Phrase Representations using RNN Encoder-Decoder for Statistical Machine Translation. <em>EMNLP 2014</em>.</li>
+</ol></body></html>
