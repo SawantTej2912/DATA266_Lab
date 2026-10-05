@@ -15,7 +15,41 @@ a{color:#000}
 </ul>
 <p>All numbers in this report are taken from the repository file cited with each table. Values marked "(derived)" are simple arithmetic on cited values. Confidence intervals are written as [low, high].</p>
 <h2 id="ownership-statement">Ownership statement</h2>
-<p>Each member designed, trained and evaluated his own models for all three tasks. No model was shared or trained jointly. Before training we agreed on a shared measurement protocol (<code>TEAM_PROTOCOL.md</code>, drafted by Shriram and agreed by both) so that the comparison tables compare models and not measurement choices. Tejas built a character-level GPT (6 layers, 6 heads, 384-d, 256-character context) for Task 1; a fastText-style n-gram bag, a Transformer encoder and a BiGRU with attention pooling for Task 2; and a ResNet-9 CycleGAN with resize-convolution, DiffAugment, generator EMA and a direction-specific identity ramp (run <code>i270k</code>) for Task 3. Shriram built a character-level GPT (6 layers, 8 heads, 256-d, 128-character context) for Task 1; a bag-of-embeddings MLP, a BiLSTM and a TextCNN for Task 2; and a U-Net CycleGAN (run 1, epoch-60 checkpoint) for Task 3. Shriram also wrote the shared repository tooling in <code>scripts/</code>. Both members submitted to Kaggle individually. The Task 3 human audit of Tejas's outputs was scored by two independent raters (Tejas and a second rater). The audit of Shriram's outputs (<code>task3_gan/human_audit/</code>) is pending at time of writing (ratings not yet recorded).</p>
+<p>Each member designed, trained and evaluated his own models for all three tasks. No model was shared or trained jointly. Before training we agreed on a shared measurement protocol (<code>TEAM_PROTOCOL.md</code>, drafted by Shriram and agreed by both) so that the comparison tables compare models and not measurement choices.</p>
+<p>Tejas built a character-level GPT (6 layers, 6 heads, 384-d, 256-character context) for Task 1; a fastText-style n-gram bag, a Transformer encoder and a BiGRU with attention pooling for Task 2; and a ResNet-9 CycleGAN with resize-convolution, DiffAugment, generator EMA and a direction-specific identity ramp (run <code>i270k</code>) for Task 3. The human audit of his Task 3 outputs was scored by two independent raters (Rater 1: Tejas Nandkishor Sawant; Rater 2: Shriram Dundigalla).</p>
+<p>Shriram built a character-level GPT (6 layers, 8 heads, 256-d, 128-character context) for Task 1; a bag-of-embeddings MLP, a BiLSTM and a TextCNN for Task 2; and a U-Net CycleGAN (run 1, epoch 61 checkpoint) for Task 3. He also wrote the shared repository tooling in <code>scripts/</code>. Both members submitted to Kaggle for the team <code>PairProgramming_Team_33</code>, which has one team rank. The audit of Shriram's outputs (<code>task3_gan/human_audit/</code>) is pending at time of writing (ratings not yet recorded).</p>
+<h2 id="summary-of-results">Summary of results</h2>
+<table>
+<thead>
+<tr>
+<th>Task</th>
+<th>Tejas: best model, headline metric</th>
+<th>Shriram: best model, headline metric</th>
+<th>Team best</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1. Character-level GPT</td>
+<td>GPT 6L/6H/384d: val perplexity 1.7482, 0.8059 bits/char</td>
+<td>GPT 6L/8H/256d: val perplexity 2.1045, 1.0735 bits/char</td>
+<td>Tejas (perplexity 1.7482)</td>
+</tr>
+<tr>
+<td>2. Yelp sentiment</td>
+<td>BiGRU + attention: test accuracy 0.9536, MCC 0.9073</td>
+<td>TextCNN: test accuracy 0.9344, MCC 0.8688</td>
+<td>Tejas (accuracy 0.9536)</td>
+</tr>
+<tr>
+<td>3. CycleGAN</td>
+<td>ResNet-9 (<code>i270k</code>): submitted FID 98.70, Kaggle score −49.55</td>
+<td>U-Net (run 1): submitted FID 101.44, Kaggle score −50.93</td>
+<td>Tejas (FID 98.70; team rank 20)</td>
+</tr>
+</tbody>
+</table>
+<p>Tejas's models lead on every headline metric, although training data, context length and training budget also differ between members (values from each member's <code>metrics_report.csv</code>; Shriram's Kaggle score from his Task 3 notebook).</p>
 <h3 id="comparability-notes">Comparability notes</h3>
 <p>Some choices differ from <code>TEAM_PROTOCOL.md</code>. They affect how the side-by-side tables should be read.</p>
 <table>
@@ -666,7 +700,7 @@ a{color:#000}
 <tr>
 <th></th>
 <th><strong>Tejas</strong>: ResNet-9, run <code>i270k</code>, EMA snapshot epoch 280</th>
-<th><strong>Shriram</strong>: U-Net, run 1, <code>ckpt_epoch060.pth</code></th>
+<th><strong>Shriram</strong>: U-Net, run 1, epoch 61 (<code>ckpt_epoch060.pth</code>)</th>
 </tr>
 </thead>
 <tbody>
@@ -703,7 +737,7 @@ a{color:#000}
 <tr>
 <td>Iterations</td>
 <td>900 per epoch x 300 epochs = 270,000 (selected snapshot at 252,000, derived)</td>
-<td>1,000 per epoch x 100 epochs = 100,000 (selected checkpoint at 60,000)</td>
+<td>1,000 per epoch x 100 epochs = 100,000 (selected checkpoint at 61,000, derived)</td>
 </tr>
 <tr>
 <td>Batch / image pool</td>
@@ -718,7 +752,7 @@ a{color:#000}
 <tr>
 <td>Model selection</td>
 <td>EMA snapshots every 10 epochs scored with the course FID</td>
-<td>checkpoints at epochs 50 to 99 scored with an earlier A2B-only FID; epoch 60 best</td>
+<td>checkpoints at epochs 51 to 100 scored with an earlier A2B-only FID; epoch 61 best</td>
 </tr>
 <tr>
 <td>Seed / hardware</td>
@@ -782,13 +816,13 @@ a{color:#000}
 </tr>
 <tr>
 <td>Final cycle / identity loss</td>
-<td>0.146 / 0.140 (end of training)</td>
-<td>0.0935 / 0.0486 (epoch 99)</td>
+<td>0.146 / 0.140 (epoch 300)</td>
+<td>0.0935 / 0.0486 (epoch 100)</td>
 </tr>
 <tr>
 <td>Final G / D loss</td>
-<td>G 2.870; D_A 0.144, D_B 0.184</td>
-<td>G 2.319; D 0.261 (epoch 99)</td>
+<td>G 2.870; D_A 0.144, D_B 0.184 (epoch 300)</td>
+<td>G 2.319; D 0.261 (epoch 100)</td>
 </tr>
 <tr>
 <td>NaN count</td>
@@ -797,7 +831,7 @@ a{color:#000}
 </tr>
 <tr>
 <td>G gradient norm mean / max</td>
-<td>29.5 / 1,017.9 (D 17.5 / 72.5)</td>
+<td>29.5 / 1,017.9 at epoch 3 (D 17.5 / 72.5)</td>
 <td>27.0 / 112.5</td>
 </tr>
 <tr>
@@ -827,8 +861,8 @@ a{color:#000}
 </tr>
 <tr>
 <td>Kaggle rank</td>
-<td>20 (at submission time)</td>
-<td>20</td>
+<td>team rank 20 (team best score −49.55)</td>
+<td>team rank 20 (team best score −49.55)</td>
 </tr>
 <tr>
 <td>Human audit (30 samples, 2 raters)</td>
@@ -838,7 +872,7 @@ a{color:#000}
 </tbody>
 </table>
 <p>Sources: <code>task3_gan/tejas/metrics_report.csv</code>, <code>task3_gan/tejas/results.md</code>, <code>task3_gan/tejas/submission.csv</code>, <code>task3_gan/tejas/outputs/{checkpoint_selection,audit_results}.csv</code>, <code>reproducibility/manifests/task3_gan/tejas/manifest_t3_cyclegan_tejas.json</code>; <code>task3_gan/shriram_dundigalla/{metrics_report,full_metrics_report,submission}.csv</code>, <code>task3_gan/shriram_dundigalla/results.md</code>, and printed outputs of <code>task3_gan/shriram_dundigalla/src/task3_cyclegan_unet.ipynb</code> (per-direction cycle L1, content cosine and KID spread, training seconds, Kaggle score).</p>
-<p>Shriram's content cosine uses VGG16 features and is not directly comparable to Tejas's Inception-based value. Shriram's final losses are from epoch 99, not from the submitted epoch-60 checkpoint.</p>
+<p>Shriram's content cosine uses VGG16 features and is not directly comparable to Tejas's Inception-based value. Shriram's final losses are from epoch 100, not from the submitted epoch 61 checkpoint. All epochs in this report are 1-based; Shriram's checkpoint file names are 0-based (<code>ckpt_epoch060.pth</code> is epoch 61).</p>
 <h3 id="run-histories">Run histories</h3>
 <p><strong>Tejas</strong> (<code>task3_gan/tejas/results.md</code>, <code>task3_gan/tejas/exploratory/*/metrics_report.csv</code>, <code>task3_gan/tejas/outputs/checkpoint_selection.csv</code>):</p>
 <table>
@@ -916,14 +950,14 @@ a{color:#000}
 <tbody>
 <tr>
 <td><strong>1 (submitted)</strong></td>
-<td>Baseline U-Net, λ_cycle 10, λ_id 5, 100 epochs x 1,000 steps; best checkpoint epoch 60</td>
+<td>Baseline U-Net, λ_cycle 10, λ_id 5, 100 epochs x 1,000 steps; best checkpoint epoch 61</td>
 <td><strong>101.44</strong> (103.92 / 98.95)</td>
 <td>27.0 / 112.5</td>
 <td>0</td>
 </tr>
 <tr>
 <td>2</td>
-<td>λ_cycle 8, λ_id 2, 80 epochs, LR decay from epoch 40; best checkpoint epoch 79</td>
+<td>λ_cycle 8, λ_id 2, 80 epochs, constant LR for 40 epochs then linear decay; best checkpoint epoch 80</td>
 <td>101.51 (102.65 / 100.37)</td>
 <td>not measured</td>
 <td>0</td>
@@ -937,7 +971,7 @@ a{color:#000}
 </tr>
 </tbody>
 </table>
-<p>Shriram's run-2 FID is reported from the official script (101.51); his own scoring of the same checkpoint gave 99.58. For run 1 he selected among checkpoints at epochs 50, 60, 70, 80, 90 and 99 with an earlier A2B-only FID (88.02, 87.32, 88.13, 87.59, 87.51, 89.02), which is on a different scale from the course script.</p>
+<p>Shriram's run-2 FID is reported from the official script (101.51); his own scoring of the same checkpoint gave 99.58. For run 1 he selected among checkpoints at epochs 51, 61, 71, 81, 91 and 100 with an earlier A2B-only FID (88.02, 87.32, 88.13, 87.59, 87.51, 89.02), which is on a different scale from the course script.</p>
 <p float="left">
 <img src="figures/t3_tejas_fid_vs_epoch.png" width="49%" alt="Tejas FID vs epoch"/>
 <img src="figures/t3_tejas_experiments_comparison.png" width="49%" alt="Tejas experiments comparison"/>
@@ -956,7 +990,7 @@ a{color:#000}
 <img src="figures/t3_tejas_examples_monet2photo.png" width="49%" alt="Tejas Monet to Photo examples"/>
 </p>
 
-<p>Shriram (run 1, epoch 60), unedited generator outputs from <code>outputs/pred_B2A/</code> and <code>outputs/pred_A2B/</code>. Top row: Photo to Monet. Bottom row: Monet to Photo.</p>
+<p>Shriram (run 1, epoch 61), unedited generator outputs from <code>outputs/pred_B2A/</code> and <code>outputs/pred_A2B/</code>. Top row: Photo to Monet. Bottom row: Monet to Photo.</p>
 <p float="left">
 <img src="figures/t3_shriram_B2A_00068bc07f.jpg" width="32%" alt="Shriram Photo to Monet 00068bc07f"/>
 <img src="figures/t3_shriram_B2A_000910d219.jpg" width="32%" alt="Shriram Photo to Monet 000910d219"/>
@@ -971,12 +1005,15 @@ a{color:#000}
 <p>Cycle-consistency check. Tejas's A→B→A reconstructions are shown below (cycle L1 0.0785 / 0.0849). Shriram checked cycle consistency numerically only (cycle L1 0.0471 / 0.0493).</p>
 <p><img src="figures/t3_tejas_cycle_verification.png" width="70%" alt="Tejas cycle verification"/></p>
 <h3 id="joint-analysis_2">Joint analysis</h3>
-<p><strong>ResNet vs. U-Net.</strong> Tejas's ResNet-9 (28.3M parameters) has lower FID than Shriram's U-Net (114.3M) in both directions: 100.92 vs. 103.92 for A2B and 96.49 vs. 98.95 for B2A. It also changes the input more (LPIPS 0.322 / 0.364 vs. 0.181 / 0.250). The U-Net reconstructs better through the cycle (L1 0.047 / 0.049 vs. 0.078 / 0.085), which fits Shriram's view that skip connections make reconstruction easy but resist the repainting that stylisation needs. The comparison is confounded with training length (270K vs. 100K updates), DiffAugment and EMA (Tejas only) and the discriminator LR.</p>
-<p><strong>DiffAugment.</strong> It hurt Shriram's U-Net (FID 101.51 in run 2 to 112.97 in run 3, G gradient-norm mean 137 in run 3 vs. 27 in run 1). His discriminator was not dominating (D loss about 0.26). In Tejas's e200 run the discriminator was dominating (D loss about 0.06), and adding DiffAugment with a slower D and EMA improved FID from 114.23 to 110.70. Both results fit the rule in <code>TEAM_PROTOCOL.md</code>: use DiffAugment only when the discriminator overfits. Tejas changed three things at once, so the share due to DiffAugment alone is not isolated.</p>
-<p><strong>Training length.</strong> Tejas's FID kept improving with longer schedules (110.70 at 90K, 103.09 at 180K, 98.70 at 270K). Shriram's best checkpoint was epoch 60 of 100, so the last 40 epochs did not improve FID even though cycle loss kept falling. Training loss was not a useful selection signal for either of us; periodic FID on checkpoints was.</p>
+<p><strong>ResNet vs. U-Net.</strong> Tejas's ResNet-9 (28.3M parameters) has lower FID than Shriram's U-Net (114.3M) in both directions: 100.92 vs. 103.92 for A2B and 96.49 vs. 98.95 for B2A. It also changes the input more (LPIPS 0.322 / 0.364 vs. 0.181 / 0.250).</p>
+<p>The U-Net reconstructs better through the cycle (L1 0.047 / 0.049 vs. 0.078 / 0.085), which fits Shriram's view that skip connections make reconstruction easy but resist the repainting that stylisation needs. The comparison is confounded with training length (270K vs. 100K updates), DiffAugment and EMA (Tejas only) and the discriminator LR.</p>
+<p><strong>DiffAugment.</strong> It hurt Shriram's U-Net (FID 101.51 in run 2 to 112.97 in run 3, G gradient-norm mean 137 in run 3 vs. 27 in run 1). His discriminator was not dominating (D loss about 0.26).</p>
+<p>In Tejas's e200 run the discriminator was dominating (D loss about 0.06), and adding DiffAugment with a slower D and EMA improved FID from 114.23 to 110.70. Both results fit the rule in <code>TEAM_PROTOCOL.md</code>: use DiffAugment only when the discriminator overfits. Tejas changed three things at once, so the share due to DiffAugment alone is not isolated.</p>
+<p><strong>Training length.</strong> Tejas's FID kept improving with longer schedules (110.70 at 90K, 103.09 at 180K, 98.70 at 270K). Shriram's best checkpoint was epoch 61 of 100, so the last 39 epochs did not improve FID even though cycle loss kept falling. For both of us, periodic FID on checkpoints was a better selection signal than training loss.</p>
 <p><strong>Direction.</strong> Both models score better on Photo to Monet. Both show higher precision and lower recall for A2B (Tejas 0.747 / 0.483, Shriram 0.683 / 0.443) and the reverse for B2A (0.543 / 0.720 and 0.500 / 0.730). B2A density is the weakest value for both (0.451 and 0.385). Tejas's identity ramp, which lowers λ_id for Photo to Monet only, moved his B2A FID from about 101 to 96.49.</p>
-<p><strong>Stability.</strong> No run of either member produced NaNs. Tejas's final run has his largest G gradient-norm spike (1,017.9 vs. 190.4 for i180k) with a similar mean (29.5). The raw log places it at step 2,300 (epoch 2), early in the constant-LR phase, and training continued normally, so it was a transient and not a divergence. He also observed slow discriminator creep late in training (real/fake 0.62/0.38 to 0.70/0.30). Shriram's run 1 was stable at G about 2.3 and D about 0.26.</p>
-<p><strong>Audit vs. FID.</strong> Only Tejas's outputs have been audited so far. The style ratings agree with FID on direction: Photo to Monet was rated 4.57 vs. 4.10 and has the lower FID. Content ratings are high (4.70, κ 1.00, partly a ceiling effect), which matches the low cycle L1.</p>
+<p><strong>Stability.</strong> No run of either member produced NaNs. Tejas's final run has his largest G gradient-norm spike (1,017.9 vs. 190.4 for i180k) with a similar mean (29.5). The raw log places it at step 2,300, which is epoch 3 at 900 iterations per epoch, early in the constant-LR phase. Training continued normally, so it was a transient and not a divergence.</p>
+<p>He also observed slow discriminator creep late in training (real/fake 0.62/0.38 to 0.70/0.30). Shriram's run 1 was stable at G about 2.3 and D about 0.26.</p>
+<p><strong>Audit vs. FID.</strong> Only Tejas's outputs have been audited; Shriram's audit is pending at time of writing. The style ratings agree with FID on direction: Photo to Monet was rated 4.57 vs. 4.10 and has the lower FID. Content ratings are high (4.70, κ 1.00, partly a ceiling effect), which matches the low cycle L1.</p>
 <p><strong>Evaluation caveat.</strong> Both members score the images they trained on, as the competition requires, and both selected checkpoints using that FID (Tejas among 30 snapshots, Shriram among 6 checkpoints). The reported FIDs are therefore slightly optimistic. The course "MiFID" is a positional cosine distance without a memorisation threshold, so it is not the Kaggle MiFID.</p>
 <p><strong>Limitations.</strong> Only 300 Monet images; one seed per run; speckle and halo artifacts in about half of Tejas's audited samples; Shriram's training peak memory was not logged; different GPUs.</p>
 <p><strong>Next steps.</strong> Finish the shared blinded audit with both members' outputs, hold out photos to measure generalisation, try R1 or spectral-norm regularisation (Tejas), try a weaker DiffAugment policy under a matched budget (Shriram), and compare ResNet and U-Net generators under the same budget.</p>
@@ -1212,7 +1249,8 @@ a{color:#000}
 <p>Both reviews conclude that part of the remaining error cannot be fixed by modelling. Shriram counts 8 of 20 (sarcasm, label noise, mixed reviews). Tejas counts 4 of 20 as unfixable (edited reviews, label noise) and 2 as hard (sarcasm).</p>
 <hr />
 <h2 id="reproducibility">Reproducibility</h2>
-<p><strong>Smoke tests.</strong> <code>README.md</code> gives a one-command smoke test for Tejas's notebooks: <code>cd task3_gan/tejas/src &amp;&amp; SMOKE=1 jupyter nbconvert --to notebook --execute --output smoke_run.ipynb task3_cyclegan.ipynb</code>, with the same pattern for Tasks 1 and 2. Shriram's scripts take a <code>--smoke</code> flag that writes only to gitignored <code>smoke/</code> folders: <code>python task1_llm/shriram_dundigalla/src/train.py --smoke --require-cuda</code> and <code>python task2_sentiment/shriram_dundigalla/src/train.py --smoke --require-cuda</code>. His Task 3 notebook has its own one-epoch smoke cell. Repository-wide checks are <code>python scripts/verify_gpu_ready.py</code> and <code>python scripts/verify_submission.py</code>.</p>
+<p><strong>Smoke tests.</strong> <code>README.md</code> gives a one-command smoke test for Tejas's notebooks: <code>cd task3_gan/tejas/src &amp;&amp; SMOKE=1 jupyter nbconvert --to notebook --execute --output smoke_run.ipynb task3_cyclegan.ipynb</code>, with the same pattern for Tasks 1 and 2.</p>
+<p>Shriram's scripts take a <code>--smoke</code> flag that writes only to gitignored <code>smoke/</code> folders: <code>python task1_llm/shriram_dundigalla/src/train.py --smoke --require-cuda</code> and <code>python task2_sentiment/shriram_dundigalla/src/train.py --smoke --require-cuda</code>. His Task 3 notebook has its own one-epoch smoke cell. Repository-wide checks are <code>python scripts/verify_gpu_ready.py</code> and <code>python scripts/verify_submission.py</code>.</p>
 <p><strong>Configuration.</strong> Tejas uses a <code>CFG</code> cell in each notebook, recorded in each manifest JSON. Shriram uses YAML configs (<code>task1_llm/shriram_dundigalla/src/config*.yaml</code>, <code>task2_sentiment/shriram_dundigalla/src/config.yaml</code>, <code>task3_gan/shriram_dundigalla/src/config.yaml</code>).</p>
 <p><strong>Raw logs and manifests.</strong></p>
 <table>
@@ -1236,7 +1274,7 @@ a{color:#000}
 </tr>
 </tbody>
 </table>
-<p><strong>Data and weights.</strong> Dataset download link: see <code>README.md</code>. Shriram's Task 3 checkpoint (1.3 GB) is not in git; its SHA-256 is in <code>task3_gan/shriram_dundigalla/checkpoints/README.md</code>.</p>
+<p><strong>Data and weights.</strong> The datasets were provided by the instructor and are not stored in git (<code>README.md</code> gives the expected folder layout). Shriram's Task 3 checkpoint (1.3 GB) is not in git; its SHA-256 is in <code>task3_gan/shriram_dundigalla/checkpoints/README.md</code>.</p>
 <p><strong>Absolute paths in logs and manifests.</strong> Raw logs and manifests are kept unedited, so they contain the runtime paths of the machines that produced them (a Windows PC and Google Colab). This is disclosed in <code>README.md</code>. Tejas's notebook outputs use <code>&lt;REPO&gt;</code> placeholders. Shriram's Task 3 notebook keeps its Colab Drive paths, so running it elsewhere requires changing the Drive root in its first cell.</p>
 <hr />
 <h2 id="references">References</h2>

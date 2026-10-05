@@ -10,7 +10,7 @@
 
 ## Data
 
-Datasets are not stored in git (size limits). Download them from [Google Drive link] and unzip so each task has this layout:
+Datasets are not stored in git (size limits). They were provided by the instructor; unzip them so each task has this layout:
 
 | Task | Expected location |
 |---|---|
