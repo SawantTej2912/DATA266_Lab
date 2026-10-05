@@ -1,0 +1,2 @@
+audit_n,audit_kappa_style_1to5,audit_pct_agree_style_1to5,audit_mean_style_1to5,audit_mean_style_1to5_A2B,audit_mean_style_1to5_B2A,audit_kappa_content_1to5,audit_pct_agree_content_1to5,audit_mean_content_1to5,audit_mean_content_1to5_A2B,audit_mean_content_1to5_B2A,audit_kappa_artifacts_0or1,audit_pct_agree_artifacts_0or1,audit_mean_artifacts_0or1,audit_mean_artifacts_0or1_A2B,audit_mean_artifacts_0or1_B2A,kaggle_public,kaggle_private,kaggle_rank
+30,0.8378,0.7333,4.3333,4.1,4.5667,1.0,1.0,4.7,4.6,4.8,0.6637,0.8333,0.55,0.5333,0.5667,-49.55,,20
