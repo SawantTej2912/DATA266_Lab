@@ -35,7 +35,7 @@ for c, w in (("style_1to5", "quadratic"), ("content_1to5", "quadratic"), ("artif
         res[f"audit_mean_{c}_{tag}"] = round(float((g[f"{c}_r1"] + g[f"{c}_r2"]).mean() / 2), 4)
 res.update(kaggle_public=KAGGLE_PUBLIC, kaggle_private=KAGGLE_PRIVATE, kaggle_rank=KAGGLE_RANK)
 pd.DataFrame([res]).to_csv(O / "audit_results.csv", index=False)
-for f in (M / "full_metrics_report.csv", M / "metrics_report.csv", M / "src" / "full_metrics.csv"):
+for f in (M / "full_metrics_report.csv", M / "metrics_report.csv", M / "src" / "full_metrics_report.csv"):
     if f.exists():
         df = pd.read_csv(f)
         for k, v in res.items():

@@ -26,6 +26,8 @@
 
 Comparison plot of all runs: `outputs/experiments_comparison.png` · per-run evidence in `exploratory/`.
 
+Some cells in the exploratory e200, e300 and i180k notebooks have no execution count because they were skipped on purpose during those runs (e.g. export/backup cells); none produced errors.
+
 ## Final metrics (selected snapshot, both directions)
 
 | Metric | Monet→Photo (A2B) | Photo→Monet (B2A) |

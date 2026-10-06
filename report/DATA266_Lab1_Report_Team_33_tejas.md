@@ -8,11 +8,7 @@ All numbers in this report are taken from the repository file cited with each ta
 
 ## Ownership statement
 
-Each member designed, trained and evaluated his own models for all three tasks. No model was shared or trained jointly. Before training we agreed on a shared measurement protocol (`TEAM_PROTOCOL.md`, drafted by Shriram and agreed by both) so that the comparison tables compare models and not measurement choices.
-
-Tejas built a character-level GPT (6 layers, 6 heads, 384-d, 256-character context) for Task 1; a fastText-style n-gram bag, a Transformer encoder and a BiGRU with attention pooling for Task 2; and a ResNet-9 CycleGAN with resize-convolution, DiffAugment, generator EMA and a direction-specific identity ramp (run `i270k`) for Task 3. The human audit of his Task 3 outputs was scored by two independent raters (Rater 1: Tejas Nandkishor Sawant; Rater 2: Shriram Dundigalla).
-
-Shriram built a character-level GPT (6 layers, 8 heads, 256-d, 128-character context) for Task 1; a bag-of-embeddings MLP, a BiLSTM and a TextCNN for Task 2; and a U-Net CycleGAN (run 1, epoch 61 checkpoint) for Task 3. He also wrote the shared repository tooling in `scripts/`. Both members submitted to Kaggle for the team `PairProgramming_Team_33`, which has one team rank. The audit of Shriram's outputs (`task3_gan/human_audit/`) is pending at time of writing (ratings not yet recorded).
+Each member designed, trained and evaluated his own models for all three tasks, and no model was shared or trained jointly. Before training we agreed on a shared measurement protocol (`TEAM_PROTOCOL.md`, drafted by Shriram and agreed by both). Tejas built a character-level GPT (6 layers, 6 heads, 384-d, 256-character context) for Task 1; an n-gram bag, a Transformer encoder and a BiGRU with attention for Task 2; and a ResNet-9 CycleGAN (run `i270k`) for Task 3. Shriram built a character-level GPT (6 layers, 8 heads, 256-d, 128-character context) for Task 1; a bag-of-embeddings MLP, a BiLSTM and a TextCNN for Task 2; and a U-Net CycleGAN (run 1, epoch 61) for Task 3. He also wrote the shared tooling in `scripts/`. Both members submitted to Kaggle as one team, `PairProgramming_Team_33`. Tejas's Task 3 audit was scored by two raters (Rater 1: Tejas Nandkishor Sawant; Rater 2: Shriram Dundigalla); the audit of Shriram's outputs is pending.
 
 ## Summary of results
 
@@ -85,15 +81,13 @@ Shriram's generation throughput is taken from his `metrics_report.csv`; his `res
 
 ### Joint analysis
 
-**Perplexity.** Tejas's model has the lower validation CE (0.5586 vs. 0.7441) and higher top-1 accuracy (0.821 vs. 0.764). The two models differ in size (10.78M vs. 4.82M parameters), context (256 vs. 128 characters), training text (about 5 times more for Tejas) and vocabulary (77 vs. 98 symbols). The gap cannot be assigned to a single factor.
+**Strengths.** Tejas's model has the lower validation CE (0.5586 vs. 0.7441) and the higher top-1 accuracy (0.821 vs. 0.764). Both runs were stable, with 0 loss spikes and the maximum gradient norm at step 0. Tejas's 18 non-finite steps are fp16 overflows (0.03% of steps), not divergence. Both generalization gaps are small (0.0216 and 0.0352). Sampling at T = 0.8 removes most of the greedy repetition, and Shriram showed that a repetition penalty of 1.15 removes repeated 4-grams entirely.
 
-**Underfitting.** Validation loss was still falling in the last epoch for both models (Tejas by 0.0035 in epoch 10, Shriram by 0.0032 in epoch 12, derived from the epoch logs). Both generalization gaps are small (0.0216 and 0.0352). More epochs or more capacity is the clear next step for both.
+**Weaknesses.** Greedy decoding loops for both models (repeated 4-gram rate 0.080 for Tejas, 0.235 ± 0.319 for Shriram). Both failure analyses trace story resets to the context window (128 characters for Shriram; 256 characters, shorter than the 300-character generations, for Tejas). Both models still underfit: validation loss was still falling in the last epoch (Tejas by 0.0035 in epoch 10, Shriram by 0.0032 in epoch 12, derived from the epoch logs).
 
-**Decoding.** Greedy decoding loops for both models (repeated 4-gram rate 0.080 for Tejas, 0.235 ± 0.319 for Shriram), and sampling at T = 0.8 removes most of the repetition. Absolute distinct-n values are not comparable, because Tejas pools n-grams over 45 continuations and Shriram averages over 15 draws. Shriram showed that a repetition penalty of 1.15 removes repeated 4-grams entirely.
+**Limitations.** The two models differ in size (10.78M vs. 4.82M parameters), context (256 vs. 128 characters), training text (about 5 times more for Tejas) and vocabulary (77 vs. 98 symbols), so the perplexity gap cannot be assigned to a single factor. Absolute distinct-n values are not comparable, because Tejas pools n-grams over 45 continuations and Shriram averages over 15 draws. Throughput and memory differences mostly reflect the hardware (RTX 4090 vs. Apple M4).
 
-**Stability and cost.** Both runs had 0 loss spikes, and the maximum gradient norm occurred at step 0. Tejas's 18 non-finite steps are fp16 overflows (0.03% of steps), not divergence. Throughput and memory differences mostly reflect the hardware (RTX 4090 vs. Apple M4).
-
-**Limitation and next step.** Both failure analyses trace story resets to the context window (128 characters for Shriram; 256 characters, shorter than the 300-character generations, for Tejas). Next steps are a longer context or subword tokens, a KV cache, a repetition penalty for both models and a rerun on matched data.
+**Next steps.** Train both models for more epochs or with more capacity. Try a longer context or subword tokens, add a KV cache, use a repetition penalty for both models, and rerun both on matched data.
 
 ### Evidence
 
@@ -163,21 +157,23 @@ Sources: `task2_sentiment/tejas/outputs/table_slices.csv`, `task2_sentiment/shri
 
 ### Joint analysis
 
-**Best model.** Tejas's BiGRU with attention is the best model on every headline metric (accuracy 0.9536, MCC 0.9073, ROC-AUC 0.9906, Brier 0.0356), and its accuracy CI does not overlap any other model's. It was trained on all 560K reviews while Shriram's models used a balanced 100K subsample, so part of the gap may come from data size. A rerun on matched data is needed before calling it an architectural win.
-
 **Model families.** Tejas's n-gram bag beats Shriram's bag of embeddings (0.9327 vs. 0.9245); the hashed bigrams are a likely reason, but this is confounded with about 5 times more training data. Among order-aware models the BiGRU (0.9536) is ahead of the Transformer (0.9365), the TextCNN (0.9344) and the BiLSTM (0.9334).
 
 **Within each member.** Both of Tejas's experimental models beat his baseline significantly, the BiGRU by a large margin (p = 8.8e-74) and the Transformer by a small one (p = 4.4e-4). Shriram's BiLSTM and TextCNN are statistically tied (p = 0.396), and both beat his baseline by about 1 point. Across both members, order-aware models add 1 to 2 points over a bag model that already reaches 92 to 93%.
 
 **Cost.** The BiGRU is Tejas's slowest model (3,698 vs. 80,405 examples/s for the n-gram bag) and gains 2.1 accuracy points. Shriram's TextCNN matches his BiLSTM at 11 times the speed (211 s vs. 2,319 s). Parameter counts are dominated by embedding tables for both members. Cost is not comparable across members because the hardware differs.
 
-**Calibration.** All models are well calibrated (confidence ECE at most 0.0165). For both members the bag baseline has the lowest ECE (0.0072 and 0.0044), so the most accurate model is not the best calibrated. Shriram's BiLSTM has the highest ECE (0.0165), which matches its rising validation loss.
+**Calibration.** All models are well calibrated (confidence ECE at most 0.0165). For both members the bag baseline has the lowest ECE (0.0072 and 0.0044), so the most accurate model is not the best calibrated.
 
 **Slices.** Truncated reviews (more than 188 tokens) are the weakest slice for all of Tejas's models. Reviews without exclamation marks are the weakest slice for all of Shriram's models. Both members found that negation is not where errors concentrate once negation words are kept: Tejas's BiGRU has only 0.3 points more error on negation reviews, and Shriram's models score higher macro-F1 on them.
 
 **Shared errors.** The two independent 20-error reviews flagged some of the same test reviews as probable label noise ("Wow love the place…", "my husband had an omelette…") and the same edited review ("EDIT: They really did change the service…"). This supports a label-noise floor under both error rates.
 
-**Limitations.** One seed per model; different training sizes, slice definitions, truncation lengths (188 vs. 250 tokens) and bootstrap counts (1,000 vs. 2,000) across members.
+**Strengths.** Tejas's BiGRU with attention is the best model on every headline metric (accuracy 0.9536, MCC 0.9073, ROC-AUC 0.9906, Brier 0.0356), and its accuracy CI does not overlap any other model's. Every experimental model beats its member's baseline significantly. Shriram's TextCNN matches his BiLSTM at 11 times the speed.
+
+**Weaknesses.** Long reviews are the BiGRU's main weakness: its error rate on the truncated slice is 0.0624, against 0.0464 overall. Shriram's models are weakest on reviews without exclamation marks (TextCNN error rate 0.0750 on that slice). Shriram's BiLSTM has the highest ECE (0.0165), which matches its rising validation loss. Part of the remaining error is sarcasm, mixed reviews and label noise, which neither member expects modelling to fix.
+
+**Limitations.** One seed per model. Tejas trained on all 560K reviews while Shriram used a balanced 100K subsample, so part of the BiGRU's lead may come from data size; a rerun on matched data is needed before calling it an architectural win. Slice definitions, truncation lengths (188 vs. 250 tokens) and bootstrap counts (1,000 vs. 2,000) also differ across members.
 
 **Next steps.** Retrain each member's best architecture on the same data, run a seed sweep (`scripts/seed_sweep_task2.py`), test Tejas's max_len 188 to 400 change, test Shriram's position-aware pooling and negation-scope marking, and apply temperature scaling to the BiLSTM.
 
@@ -341,7 +337,11 @@ He also observed slow discriminator creep late in training (real/fake 0.62/0.38 
 
 **Evaluation caveat.** Both members score the images they trained on, as the competition requires, and both selected checkpoints using that FID (Tejas among 30 snapshots, Shriram among 6 checkpoints). The reported FIDs are therefore slightly optimistic. The course "MiFID" is a positional cosine distance without a memorisation threshold, so it is not the Kaggle MiFID.
 
-**Limitations.** Only 300 Monet images; one seed per run; speckle and halo artifacts in about half of Tejas's audited samples; Shriram's training peak memory was not logged; different GPUs.
+**Strengths.** Tejas's ResNet-9 has the lower FID in both directions (submitted 98.70, Kaggle score −49.55, team rank 20). Each change in his run history improved FID, from 146.97 for quick30 to 98.70 for i270k. Shriram's U-Net gives the better cycle reconstruction (L1 0.047 / 0.049), and his run 1 was stable. Audited content preservation for Tejas's outputs is high (4.70, κ 1.00).
+
+**Weaknesses.** DiffAugment hurt Shriram's U-Net (FID 101.51 to 112.97). The U-Net also changes the input less (LPIPS 0.181 / 0.250), which fits the view that skip connections resist repainting. Both models are weaker on Monet to Photo, and B2A density is the lowest value for both (0.451 and 0.385). Artifacts appear in 55% of Tejas's audited samples, and his final run had a large transient gradient spike (1,017.9).
+
+**Limitations.** Only 300 Monet images; one seed per run; Shriram's outputs are not yet audited and his training peak memory was not logged; different GPUs.
 
 **Next steps.** Finish the shared blinded audit with both members' outputs, hold out photos to measure generalisation, try R1 or spectral-norm regularisation (Tejas), try a weaker DiffAugment policy under a matched budget (Shriram), and compare ResNet and U-Net generators under the same budget.
 
@@ -430,6 +430,29 @@ Examples:
 **Proposed fixes (Shriram).** His first priority is position-aware pooling: add a max-pool over the last 20% of tokens to the global max-pool, and check that accuracy improves on "but"/"however" reviews while overall accuracy holds. He also proposes negation-scope marking (a `NOT_` prefix on the 3 tokens after a negation) and hand-labelling the 200 most confident errors to estimate the label-noise ceiling.
 
 Both reviews conclude that part of the remaining error cannot be fixed by modelling. Shriram counts 8 of 20 (sarcasm, label noise, mixed reviews). Tejas counts 4 of 20 as unfixable (edited reviews, label noise) and 2 as hard (sarcasm).
+
+### Task 3: failure cases
+
+**Tejas** (`task3_gan/tejas/failure_analysis.md`):
+
+| Case | Failure type | Evidence file | What changed or would fix it |
+|---|---|---|---|
+| quick30 | Checkerboard texture and dark blobs (FID 146.97) | `exploratory/quick30/outputs/examples_monet2photo.png` | Resize-convolution in e200 (FID 114.23) |
+| e200 | Discriminator domination (D loss 0.057 / 0.061, D_A real/fake 0.863 / 0.134 at epoch 200) | `exploratory/e200/outputs/epoch_history.csv` | DiffAugment, D LR 1e-4 and EMA in e300 (FID 110.70) |
+| e300 | FID plateau (110.70 to 111.99) caused by the LR reaching zero | `exploratory/e300/outputs/checkpoint_selection.csv` | Schedule twice as long in i180k (FID 103.09) |
+| i180k | Photo to Monet stuck near 101 while Monet to Photo improved | `exploratory/i180k/outputs/checkpoint_selection.csv` | Direction-specific identity ramp in i270k (B2A 96.49) |
+| i270k | Sky speckle and washed-out sun (artifacts in 55% of audited samples); slow D_A creep | `outputs/examples_photo2monet.png`, `outputs/audit_results.csv` | R1 or spectral norm, lower identity weight (proposed, not tested) |
+
+**Shriram** (`task3_gan/shriram_dundigalla/failure_analysis.md`):
+
+| Case | Failure type | Evidence file | What changed or would fix it |
+|---|---|---|---|
+| Run 3 | DiffAugment made FID worse (101.44 to 112.97; G gradient-norm mean 27.0 to 137.0) | `full_metrics_report.csv` | Use DiffAugment only when the discriminator overfits; run 1 D loss stayed near 0.26 |
+| Run 2 | Loss-weight tuning changed almost nothing (101.44 to 101.51) | `full_metrics_report.csv` | Bottleneck is likely the architecture or the amount of Monet data, not the lambda values |
+| Run 1 | Best checkpoint at epoch 61, not 100, while cycle loss kept falling | `logs/metrics_per_epoch.csv` | Select checkpoints with periodic FID, not training loss |
+| Run 1 | Photo to Monet density 0.3847 (weakest value); skip connections resist repainting | `full_metrics_report.csv` | Points to a limitation of the U-Net choice |
+
+Both members found that DiffAugment helps only when the discriminator is dominating: it helped Tejas's e200 setup and hurt Shriram's balanced run. Both also found Photo to Monet harder to fix: Tejas's i180k run stalled in that direction, and Shriram's weakest value (density 0.3847) is in that direction.
 
 ---
 
