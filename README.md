@@ -1,6 +1,6 @@
 # DATA266 Lab 1 — Team 33
 
-**Members:** Tejas (`tejas/`), [Teammate] (`[teammate]/`)
+**Members:** Tejas Nandkishor Sawant (`tejas/`), Shriram Dundigalla (`shriram_dundigalla/`)
 
 ## Contents
 
@@ -76,10 +76,10 @@ Shriram's scripts: `python task1_llm/shriram_dundigalla/src/train.py --smoke` an
 | Code + outputs | `<task>/<member>/src/` |
 | Metrics | `<task>/<member>/metrics_report.csv` (Task 3 also `full_metrics_report.csv`, `submission.csv`) |
 | Plots / samples / predictions | `<task>/<member>/outputs/` |
-| Weights | `<task>/<member>/checkpoints/` (resume checkpoints `last.pt` kept off-git: [Drive link]) |
+| Weights | `<task>/<member>/checkpoints/` (Part 3 generators exceed GitHub's 100 MB file limit, so they ship in a bundle built with `python scripts/package_submission.py --checkpoints`; see `DATA_MANIFEST.md`. No reported number depends on it — `evaluate_local.py` scores the committed images, not the checkpoint.) |
 | Raw logs (unedited) | `reproducibility/raw_logs/<task>/<member>/` |
 | Manifests | `reproducibility/manifests/<task>/<member>/` |
 | Write-ups | `results.md`, `failure_analysis.md` |
-| Report | `report/DATA266_Lab1_Report_Team_[Team Number].pdf` |
+| Report | `report/DATA266_Lab1_Report_Team_33.pdf` |
 
 Official team report: report/DATA266_Lab1_Report_Team_33.pdf (Tejas's version, also at report/DATA266_Lab1_Report_Team_33_tejas.pdf). Shriram's earlier draft is kept at report/DATA266_Lab1_Report_Team_33_shriram.pdf.
