@@ -443,10 +443,11 @@ def part3(d: dict) -> list:
              "Content cosine B\u2192A", fmt(f, "content_cosine_input_vs_translation_B2A", 4)],
             ["Leaderboard rank", fmt(f, "kaggle_rank", 0),
              "Peak GPU memory", f'{fmt(f, "peak_gpu_mem_MB", 0)} MB'],
-            ["Leaderboard score, mine", fmt(f, "kaggle_score_my_submission", 2),
-             "Leaderboard score, team", fmt(f, "kaggle_score_team_standing", 2)],
+            ["Public leaderboard, mine", fmt(f, "kaggle_public_score_my_submission", 2),
+             "Public leaderboard, team", fmt(f, "kaggle_public_score_team_standing", 2)],
         ], [1.6 * inch, 1.1 * inch, 1.8 * inch, 1.1 * inch], header=False),
-        p("Kaggle ranks by team and shows the better of a pair\u2019s two submissions, so the "
+        p("Both figures are public-leaderboard scores. Kaggle ranks by team and shows the "
+          "better of a pair\u2019s two submissions, so the "
           "team score is Tejas\u2019s at FID 98.70 rather than this model\u2019s 101.44. My own "
           "submission scored \u221250.93.", SMALL),
         p("The leaderboard rank is the position shown when the submission was made and "

@@ -42,8 +42,8 @@ throughput_img_per_sec,n/a,10.04,NVIDIA A100 (CUDA),wall clock,"measured over on
 peak_gpu_mem_MB,n/a,1882,NVIDIA A100 (CUDA),torch.cuda.max_memory_allocated,"one inference pass; the training peak was higher, with four networks plus optimizer state and AMP, and was not logged so it is not reported"
 gpu,n/a,A100,NVIDIA A100 (CUDA),Colab,
 kaggle_rank,n/a,20,NVIDIA A100 (CUDA),class competition leaderboard,"team leaderboard position, rank 11-20 band = 9 leaderboard points; read at submission time and can move as more teams submit, the FID behind it does not"
-kaggle_score_my_submission,n/a,-50.93,NVIDIA A100 (CUDA),class competition leaderboard,score the leaderboard showed for my own submission when it was recorded
-kaggle_score_team_standing,n/a,-49.55,NVIDIA A100 (CUDA),class competition leaderboard,"the score behind the team's rank 20; Kaggle ranks by team and shows the better of the pair's submissions, which is Tejas's at FID 98.70 against my 101.44"
+kaggle_public_score_my_submission,n/a,-50.93,NVIDIA A100 (CUDA),class competition leaderboard,"public leaderboard score for my own submission, as shown when it was recorded"
+kaggle_public_score_team_standing,n/a,-49.55,NVIDIA A100 (CUDA),class competition leaderboard,"public leaderboard score behind the team's rank 20; Kaggle ranks by team and shows the better of the pair's submissions, which is Tejas's at FID 98.70 against my 101.44"
 human_audit_style,n/a,pending human audit,NVIDIA A100 (CUDA),30 fixed samples 2 raters,not yet run
 human_audit_content,n/a,pending human audit,NVIDIA A100 (CUDA),30 fixed samples 2 raters,not yet run
 human_audit_artifacts,n/a,pending human audit,NVIDIA A100 (CUDA),30 fixed samples 2 raters,not yet run

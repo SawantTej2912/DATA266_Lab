@@ -11,17 +11,18 @@ Scoring: `evaluate_local.py` (the official evaluation script, paths parameterize
 | Submitted FID (averaged over both directions) | **101.44** |
 | Submitted MiFID | **0.4172** |
 | Kaggle class competition rank | **20** (leaderboard band 11-20 = 9 points) |
-| Kaggle score, my submission | **-50.93** |
-| Kaggle score, team standing | **-49.55** |
+| Kaggle public score, my submission | **-50.93** |
+| Kaggle public score, team standing | **-49.55** |
 | Selected checkpoint | `ckpt_epoch060.pth` |
 
-Two things about the leaderboard figures. Kaggle ranks by team, so rank 20 is the pair's position
-rather than this model's on its own, and the score behind it, -49.55, is the better of our two
-submissions — Tejas's, at FID 98.70 against my 101.44. My own submission scored -50.93. And the rank
-is a position in a list that is still growing, so it can move either way as the rest of the class
-submits, without anything about this model changing. The FID and MiFID above are the fixed
-quantities: they are properties of the images in `outputs/pred_A2B/` and `outputs/pred_B2A/`, and
-re-scoring those folders reproduces them on any day.
+Two things about the leaderboard figures, both of which are public-leaderboard scores. Kaggle
+ranks by team, so rank 20 is the pair's position rather than this model's on its own, and the
+score behind it, -49.55, is the better of our two submissions — Tejas's, at FID 98.70 against my
+101.44. My own submission scored -50.93. And the rank is a position in a list that is still
+growing, so it can move either way as the rest of the class submits, without anything about this
+model changing. The FID and MiFID above are the fixed quantities: they are properties of the
+images in `outputs/pred_A2B/` and `outputs/pred_B2A/`, and re-scoring those folders reproduces
+them on any day.
 
 ## Architecture
 
