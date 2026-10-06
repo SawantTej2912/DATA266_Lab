@@ -10,7 +10,7 @@
 
 ## Data
 
-Datasets are not stored in git (size limits). They were provided by the instructor; unzip them so each task has this layout:
+Datasets are not stored in git (size limits). They were provided by the instructor and can be downloaded from [Google Drive](https://drive.google.com/file/d/1eskFxGtgXGmmXbfpCfRt5k69GIKQ-_a3/view?usp=sharing); unzip them so each task has this layout:
 
 | Task | Expected location |
 |---|---|
@@ -59,6 +59,8 @@ cd task3_gan\tejas\src; $env:SMOKE="1"; jupyter nbconvert --to notebook --execut
 
 Same pattern for `task1_llm/tejas/src/task1_llm.ipynb` and `task2_sentiment/tejas/src/task2_sentiment.ipynb`.
 
+Shriram's scripts: `python task1_llm/shriram_dundigalla/src/train.py --smoke` and `python task2_sentiment/shriram_dundigalla/src/train.py --smoke` (run on CUDA or Apple MPS).
+
 **Absolute paths in logs and manifests.** Raw training logs (`reproducibility/raw_logs/`, `task3_gan/shriram_dundigalla/logs/`) and run manifests (`reproducibility/manifests/`) are kept unedited as the evidence trail, so they contain the absolute paths of the machines the runs were executed on (a Windows PC with an RTX 4090 and Google Colab). These paths were recorded at runtime and are not hard-coded: all code is config-driven and resolves paths relative to the repository root (or via environment variables).
 
 ## Full runs
@@ -79,3 +81,5 @@ Same pattern for `task1_llm/tejas/src/task1_llm.ipynb` and `task2_sentiment/teja
 | Manifests | `reproducibility/manifests/<task>/<member>/` |
 | Write-ups | `results.md`, `failure_analysis.md` |
 | Report | `report/DATA266_Lab1_Report_Team_[Team Number].pdf` |
+
+Official team report: report/DATA266_Lab1_Report_Team_33.pdf (Tejas's version, also at report/DATA266_Lab1_Report_Team_33_tejas.pdf). Shriram's earlier draft is kept at report/DATA266_Lab1_Report_Team_33_shriram.pdf.

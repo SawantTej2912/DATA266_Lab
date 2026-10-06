@@ -1185,10 +1185,12 @@ a{color:#000}
 </tr>
 </tbody>
 </table>
-<p>Examples:
-- <strong>FN4</strong> (p = 0.001, sarcasm): "TERRIBLE SERVICE, RUDE WAITERS WITH A PISS POOR ATTITUDE! WOULD EAT HERE AGAIN! A++++". Lowercasing and punctuation removal remove the cues.
-- <strong>FP5</strong> (p = 0.999, comparative): "Though I'm a Copper enthusiast… Maharani was a cheaper but tasty option… Copper is definitely still my place, but Maharani was fine enough." The praise is for a competitor.
-- <strong>NT3</strong> (p = 0.498, contrast and tokenization): "…deserve 5 starshowever the procedures used to estimate and charge… are in need of improvement." The missing space merges two informative words into one unknown token.</p>
+<p>Examples:</p>
+<ul>
+<li><strong>FN4</strong> (p = 0.001, sarcasm): "TERRIBLE SERVICE, RUDE WAITERS WITH A PISS POOR ATTITUDE! WOULD EAT HERE AGAIN! A++++". Lowercasing and punctuation removal remove the cues.</li>
+<li><strong>FP5</strong> (p = 0.999, comparative): "Though I'm a Copper enthusiast… Maharani was a cheaper but tasty option… Copper is definitely still my place, but Maharani was fine enough." The praise is for a competitor.</li>
+<li><strong>NT3</strong> (p = 0.498, contrast and tokenization): "…deserve 5 starshowever the procedures used to estimate and charge… are in need of improvement." The missing space merges two informative words into one unknown token.</li>
+</ul>
 <p><strong>Proposed fix (Tejas).</strong> Raise max_len from 188 to 400 tokens (about the 99th percentile), keep head and tail truncation, and retrain Exp 2 with the same seed. Measure the error rate and macro-F1 on the truncated slice before and after, run a paired McNemar test on the full test set, and record training time and peak memory.</p>
 <p><strong>Shriram</strong>, TextCNN, 2,492 errors (6.56%), weakest slice <code>exclamations = no_exclaim</code> (<code>task2_sentiment/shriram_dundigalla/failure_analysis.md</code>, <code>outputs/error_review_exp2_textcnn.csv</code>):</p>
 <table>
@@ -1241,10 +1243,12 @@ a{color:#000}
 </tr>
 </tbody>
 </table>
-<p>Examples:
-- <strong>A1</strong> (p = 0.9994, sarcasm): "Yay. Cafeteria food. Yay."
-- <strong>A2</strong> (p = 0.9991, late verdict reversal): "We had a great time and I thoroughly enjoyed the food, but I need to give this a 1 start given that if we had eaten a week later, this salmonella outbreak could have caused immeasurable harm to our child."
-- <strong>B3</strong> (p = 0.0006, target confusion): "Someone deleted my review.. intentionally. That is very rude and disrespectful. Don't be silly guys.. I like this place and new owner is very nice and friendly…"</p>
+<p>Examples:</p>
+<ul>
+<li><strong>A1</strong> (p = 0.9994, sarcasm): "Yay. Cafeteria food. Yay."</li>
+<li><strong>A2</strong> (p = 0.9991, late verdict reversal): "We had a great time and I thoroughly enjoyed the food, but I need to give this a 1 start given that if we had eaten a week later, this salmonella outbreak could have caused immeasurable harm to our child."</li>
+<li><strong>B3</strong> (p = 0.0006, target confusion): "Someone deleted my review.. intentionally. That is very rude and disrespectful. Don't be silly guys.. I like this place and new owner is very nice and friendly…"</li>
+</ul>
 <p><strong>Proposed fixes (Shriram).</strong> His first priority is position-aware pooling: add a max-pool over the last 20% of tokens to the global max-pool, and check that accuracy improves on "but"/"however" reviews while overall accuracy holds. He also proposes negation-scope marking (a <code>NOT_</code> prefix on the 3 tokens after a negation) and hand-labelling the 200 most confident errors to estimate the label-noise ceiling.</p>
 <p>Both reviews conclude that part of the remaining error cannot be fixed by modelling. Shriram counts 8 of 20 (sarcasm, label noise, mixed reviews). Tejas counts 4 of 20 as unfixable (edited reviews, label noise) and 2 as hard (sarcasm).</p>
 <hr />
@@ -1274,7 +1278,7 @@ a{color:#000}
 </tr>
 </tbody>
 </table>
-<p><strong>Data and weights.</strong> The datasets were provided by the instructor and are not stored in git (<code>README.md</code> gives the expected folder layout). Shriram's Task 3 checkpoint (1.3 GB) is not in git; its SHA-256 is in <code>task3_gan/shriram_dundigalla/checkpoints/README.md</code>.</p>
+<p><strong>Data and weights.</strong> The datasets were provided by the instructor and are not stored in git. They can be downloaded from <a href="https://drive.google.com/file/d/1eskFxGtgXGmmXbfpCfRt5k69GIKQ-_a3/view?usp=sharing">Google Drive</a>; <code>README.md</code> gives the expected folder layout. Shriram's Task 3 checkpoint (1.3 GB) is not in git; its SHA-256 is in <code>task3_gan/shriram_dundigalla/checkpoints/README.md</code>.</p>
 <p><strong>Absolute paths in logs and manifests.</strong> Raw logs and manifests are kept unedited, so they contain the runtime paths of the machines that produced them (a Windows PC and Google Colab). This is disclosed in <code>README.md</code>. Tejas's notebook outputs use <code>&lt;REPO&gt;</code> placeholders. Shriram's Task 3 notebook keeps its Colab Drive paths, so running it elsewhere requires changing the Drive root in its first cell.</p>
 <hr />
 <h2 id="references">References</h2>

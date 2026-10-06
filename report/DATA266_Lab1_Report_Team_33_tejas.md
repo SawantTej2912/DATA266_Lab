@@ -399,6 +399,7 @@ Both members reviewed 5 confident false positives, 5 confident false negatives, 
 | Domain vocabulary, implicit sentiment, tokenization | 3 |
 
 Examples:
+
 - **FN4** (p = 0.001, sarcasm): "TERRIBLE SERVICE, RUDE WAITERS WITH A PISS POOR ATTITUDE! WOULD EAT HERE AGAIN! A++++". Lowercasing and punctuation removal remove the cues.
 - **FP5** (p = 0.999, comparative): "Though I'm a Copper enthusiast… Maharani was a cheaper but tasty option… Copper is definitely still my place, but Maharani was fine enough." The praise is for a competitor.
 - **NT3** (p = 0.498, contrast and tokenization): "…deserve 5 starshowever the procedures used to estimate and charge… are in need of improvement." The missing space merges two informative words into one unknown token.
@@ -421,6 +422,7 @@ Examples:
 | Insufficient evidence (very short) | 2 |
 
 Examples:
+
 - **A1** (p = 0.9994, sarcasm): "Yay. Cafeteria food. Yay."
 - **A2** (p = 0.9991, late verdict reversal): "We had a great time and I thoroughly enjoyed the food, but I need to give this a 1 start given that if we had eaten a week later, this salmonella outbreak could have caused immeasurable harm to our child."
 - **B3** (p = 0.0006, target confusion): "Someone deleted my review.. intentionally. That is very rude and disrespectful. Don't be silly guys.. I like this place and new owner is very nice and friendly…"
@@ -446,7 +448,7 @@ Shriram's scripts take a `--smoke` flag that writes only to gitignored `smoke/` 
 | Tejas | `reproducibility/raw_logs/{task1_llm,task2_sentiment,task3_gan}/tejas/` (Task 3: final run and four exploratory runs) | `reproducibility/manifests/{task1_llm,task2_sentiment,task3_gan}/tejas/` (JSON and `requirements_frozen.txt`) |
 | Shriram | `reproducibility/raw_logs/` (`task1_gpt_char_*.log`, `task2_*.log`, `task3_cyclegan_unet_run1.log`, smoke logs) | `reproducibility/manifests/shriram_dundigalla_manifest.md` |
 
-**Data and weights.** The datasets were provided by the instructor and are not stored in git (`README.md` gives the expected folder layout). Shriram's Task 3 checkpoint (1.3 GB) is not in git; its SHA-256 is in `task3_gan/shriram_dundigalla/checkpoints/README.md`.
+**Data and weights.** The datasets were provided by the instructor and are not stored in git. They can be downloaded from [Google Drive](https://drive.google.com/file/d/1eskFxGtgXGmmXbfpCfRt5k69GIKQ-_a3/view?usp=sharing); `README.md` gives the expected folder layout. Shriram's Task 3 checkpoint (1.3 GB) is not in git; its SHA-256 is in `task3_gan/shriram_dundigalla/checkpoints/README.md`.
 
 **Absolute paths in logs and manifests.** Raw logs and manifests are kept unedited, so they contain the runtime paths of the machines that produced them (a Windows PC and Google Colab). This is disclosed in `README.md`. Tejas's notebook outputs use `<REPO>` placeholders. Shriram's Task 3 notebook keeps its Colab Drive paths, so running it elsewhere requires changing the Drive root in its first cell.
 
