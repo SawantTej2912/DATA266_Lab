@@ -482,15 +482,72 @@ def part3(d: dict) -> list:
           "varied output that is not yet convincingly Monet. Neither direction shows the "
           "precision-near-one, recall-near-zero pattern that indicates mode collapse, and "
           "no non-finite loss occurred in any of the three runs.", SMALL),
-        p("4.4 Integrity", H2),
+        p("4.4 Blinded human audit and inter-rater agreement", H2),
+        p("Thirty photograph \u2192 Monet outputs were scored blind on style, content and "
+          "artifacts as 1\u20135 integers by two raters, Shriram as rater 1 and Tejas as "
+          "rater 2. Five real Monet paintings were shuffled into the same pool as "
+          "unlabelled controls, so each rater saw 35 images with no indication of which "
+          "were generated. Provenance lives in a key file neither rater opened until both "
+          "sheets were finished. Both sheets came back 35 of 35 complete, so no row was "
+          "dropped \u2014 dropping rows non-randomly would bias the agreement estimate."),
+        Spacer(1, 6),
+        table([
+            ["Dimension", "Mean", "Exact agr.", "Within 1 pt", "\u03ba unwtd.", "\u03ba quad."],
+            ["Style", "3.37", "42.9%", "100%", "0.2239", "0.7925"],
+            ["Content", "3.83", "51.4%", "100%", "0.2975", "0.6863"],
+            ["Artifacts", "3.63", "65.7%", "100%", "0.5205", "0.8047"],
+        ], [1.25 * inch, 0.8 * inch, 1.0 * inch, 1.0 * inch, 1.2 * inch, 1.2 * inch],
+            align_right={1, 2, 3, 4, 5}),
+        p("Both kappa variants are given because they disagree sharply, and the "
+          "disagreement is itself the result. Unweighted kappa treats a 4-vs-5 "
+          "disagreement exactly as badly as 1-vs-5, which is the wrong model for an "
+          "ordered scale; quadratic weights penalise by how far apart the two scores are "
+          "and are the standard choice for Likert data. The within-1-point column "
+          "explains both numbers at once: it is 100% on every dimension, so the raters "
+          "almost never chose the identical integer but never differed by more than one "
+          "step. Reporting 0.79 alone as \"Cohen's kappa\" would overstate the agreement "
+          "and reporting 0.22 alone would understate it, so both appear here and in "
+          "<font face='Courier'>metrics_report.csv</font>.", SMALL),
+        p("The controls did not separate from the generated images on style, and this "
+          "bounds what the audit can claim. Controls averaged 3.40 against 3.37 for the "
+          "generated samples, a gap of 0.033; per rater it is exactly 0.000 for rater 1 "
+          "and +0.067 for rater 2, so the sign of the gap rests on one rater and five "
+          "images. The conclusion drawn here is deliberately not that the output is "
+          "indistinguishable from real Monet \u2014 five controls cannot support that "
+          "claim. What the controls do establish is what they were planted for: both "
+          "raters used the full 1\u20135 range instead of assigning everything a 4, so the "
+          "agreement figures are computed on genuine spread rather than on a flat sheet. "
+          "A rerun aimed at the real-versus-generated question would need roughly thirty "
+          "controls, not five.", SMALL),
+        p("The control means for content (3.10) and artifacts (3.00) fell <i>below</i> the "
+          "generated samples, which should not be read as the model beating real "
+          "paintings. Neither dimension is defined for a control: a real Monet has no "
+          "source photograph, so \"was the original scene preserved\" has no answer, and "
+          "a real painting's visible brushwork reads as texture the artifacts scale was "
+          "not written to describe. Both raters defaulted near the midpoint on those "
+          "rows. Style is the only control dimension carrying information.", SMALL),
+        p("These numbers are not comparable with the audit of Tejas's outputs in the "
+          "team report. That audit scored artifacts as a 0/1 presence flag rather than a "
+          "1\u20135 cleanliness score, mixed both translation directions, and carried no "
+          "real-painting controls. The clearest evidence that the two sit on different "
+          "effective scales is that the real Monet controls here scored 3.40 on style, "
+          "below the 4.57 his photo-to-Monet outputs scored on his sheet \u2014 and no "
+          "generator output is more Monet-like than an actual Monet. Each audit is "
+          "internally valid; only the within-audit comparisons mean anything.", SMALL),
+        p("4.5 Integrity", H2),
         p("Every submitted image is the direct output of our own trained CycleGAN. No "
           "image was hand-picked, manually edited, copied, or sourced externally; no "
           "outputs are hardcoded or looked up; no test-set pairings were used or inspected "
           "during training; and no pretrained or foundation image model was used to "
           "generate or modify any submitted image. The generators are initialised from "
-          "Normal(0, 0.02) and trained from that initialisation only. Pretrained Inception "
-          "and AlexNet networks appear solely as <i>scorers</i>, for FID/KID and LPIPS "
-          "respectively, as the rubric requires. The submitted directories are verified to "
+          "Normal(0, 0.02) and trained from that initialisation only. Pretrained "
+          "Inception, AlexNet and VGG16 networks appear solely as <i>scorers</i> \u2014 for "
+          "FID and KID, for LPIPS, and for the content-preservation cosine respectively "
+          "\u2014 as the rubric requires, and none of them touches a submitted image. VGG16 "
+          "rather than Inception carries the content cosine on purpose: FID already "
+          "measures the Inception feature space, so scoring content preservation there too "
+          "would make the two metrics covary instead of reporting separate things. The "
+          "submitted directories are verified to "
           "hold 300 and 7,038 JPEG images at 256×256 whose filenames match their source "
           "domains one-to-one.", SMALL),
     ]

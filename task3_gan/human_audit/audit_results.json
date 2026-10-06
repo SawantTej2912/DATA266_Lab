@@ -1,0 +1,45 @@
+{
+  "n_rated_by_both": 35,
+  "dimensions": {
+    "style": {
+      "mean_rater1": 3.4,
+      "mean_rater2": 3.343,
+      "percent_exact_agreement": 42.9,
+      "percent_within_1_point": 100.0,
+      "cohens_kappa_unweighted": 0.2239,
+      "cohens_kappa_quadratic": 0.7925
+    },
+    "content": {
+      "mean_rater1": 3.8,
+      "mean_rater2": 3.657,
+      "percent_exact_agreement": 51.4,
+      "percent_within_1_point": 100.0,
+      "cohens_kappa_unweighted": 0.2975,
+      "cohens_kappa_quadratic": 0.6863
+    },
+    "artifacts": {
+      "mean_rater1": 3.514,
+      "mean_rater2": 3.571,
+      "percent_exact_agreement": 65.7,
+      "percent_within_1_point": 100.0,
+      "cohens_kappa_unweighted": 0.5205,
+      "cohens_kappa_quadratic": 0.8047
+    }
+  },
+  "by_model": {
+    "shriram": {
+      "n": 30,
+      "style": 3.367,
+      "content": 3.833,
+      "artifacts": 3.633
+    }
+  },
+  "controls": {
+    "n": 5,
+    "style": 3.4,
+    "content": 3.1,
+    "artifacts": 3.0,
+    "style_gap_vs_generated": 0.033,
+    "sanity_check_passed": true
+  }
+}

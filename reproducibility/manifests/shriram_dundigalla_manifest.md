@@ -178,5 +178,10 @@ These exist because the numbers above would otherwise be unfalsifiable.
   statistics from the image folders under ImageNet normalization and averages the two
   directions. A FID produced by any other convention is on a different scale and is not
   comparable to the leaderboard, so none is reported here.
-- The human audit (30 fixed samples, two raters, Cohen's kappa) has not been run. Its
-  columns read `pending human audit` rather than carrying a placeholder number.
+- The human audit (30 blinded samples plus 5 real-Monet controls, two raters) is
+  complete: style 3.37, content 3.83, artifacts 3.63, with quadratic-weighted Cohen's
+  kappa 0.7925 / 0.6863 / 0.8047 and unweighted 0.2239 / 0.2975 / 0.5205. Both variants
+  are recorded because within-1-point agreement is 100% on every dimension while exact
+  agreement is 43-66%, which is what drives them apart. The controls did not separate
+  from the generated images on style (gap 0.033), so they are reported as a flat-lining
+  check rather than as evidence of realism.
