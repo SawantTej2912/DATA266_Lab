@@ -17,7 +17,11 @@ recall,B2A_photo_to_monet,0.73,NVIDIA A100 (CUDA),prdc k=5,
 density,B2A_photo_to_monet,0.3847,NVIDIA A100 (CUDA),prdc k=5,
 coverage,B2A_photo_to_monet,0.6933,NVIDIA A100 (CUDA),prdc k=5,
 cycle_reconstruction_l1,both,0.0482,NVIDIA A100 (CUDA),L1 on [-11] tensors,A->B->A and B->A->B averaged
+cycle_reconstruction_l1,A2B2A_monet_round_trip,0.0471,NVIDIA A100 (CUDA),"notebook cell 42 (metrics environment), n=300 per direction",Monet -> photo -> Monet; mean per-pixel L1 over 300 images
+cycle_reconstruction_l1,B2A2B_photo_round_trip,0.0493,NVIDIA A100 (CUDA),"notebook cell 42 (metrics environment), n=300 per direction","photo -> Monet -> photo; the harder round trip, as the asymmetry in FID predicts"
 content_cosine_input_vs_translation,both,0.7756,NVIDIA A100 (CUDA),Inception 2048-d cosine similarity,
+content_cosine_input_vs_translation,A2B_monet_to_photo,0.8259,NVIDIA A100 (CUDA),"notebook cell 42 (metrics environment), n=300 per direction","Inception-v3 pooled features, input vs its translation"
+content_cosine_input_vs_translation,B2A_photo_to_monet,0.7253,NVIDIA A100 (CUDA),"notebook cell 42 (metrics environment), n=300 per direction","lower than A2B, i.e. more of the input is restyled in this direction"
 lpips,A2B_monet_to_photo,0.1806,NVIDIA A100 (CUDA),LPIPS AlexNet,input vs translation
 lpips,B2A_photo_to_monet,0.2498,NVIDIA A100 (CUDA),LPIPS AlexNet,input vs translation
 lpips,averaged,0.2152,NVIDIA A100 (CUDA),LPIPS AlexNet,
@@ -34,10 +38,12 @@ params_per_discriminator_M,n/a,2.76,NVIDIA A100 (CUDA),count of nn.Parameter ele
 params_total_trainable_M,n/a,114.34,NVIDIA A100 (CUDA),count of nn.Parameter elements,"2 generators + 2 discriminators: 2x54,404,099 + 2x2,763,841"
 train_time_hours,n/a,2.77,NVIDIA A100 (CUDA),wall clock,100 epochs x 1000 steps
 avg_sec_per_epoch,n/a,99.6,NVIDIA A100 (CUDA),wall clock,
-throughput_img_per_sec,n/a,10.04,NVIDIA A100 (CUDA),wall clock,batch size 1
-peak_gpu_mem_MB,n/a,1882,NVIDIA A100 (CUDA),torch.cuda.max_memory_allocated,inference only; training peak was not logged
+throughput_img_per_sec,n/a,10.04,NVIDIA A100 (CUDA),wall clock,"measured over one inference pass, not split by direction; the two generators are the same architecture so the cost per image is the same"
+peak_gpu_mem_MB,n/a,1882,NVIDIA A100 (CUDA),torch.cuda.max_memory_allocated,"one inference pass; the training peak was higher, with four networks plus optimizer state and AMP, and was not logged so it is not reported"
 gpu,n/a,A100,NVIDIA A100 (CUDA),Colab,
-kaggle_rank,n/a,20,NVIDIA A100 (CUDA),class competition leaderboard,rank 11-20 band = 9 leaderboard points
+kaggle_rank,n/a,20,NVIDIA A100 (CUDA),class competition leaderboard,"team leaderboard position, rank 11-20 band = 9 leaderboard points; read at submission time and can move as more teams submit, the FID behind it does not"
+kaggle_score_my_submission,n/a,-50.93,NVIDIA A100 (CUDA),class competition leaderboard,score the leaderboard showed for my own submission when it was recorded
+kaggle_score_team_standing,n/a,-49.55,NVIDIA A100 (CUDA),class competition leaderboard,"the score behind the team's rank 20; Kaggle ranks by team and shows the better of the pair's submissions, which is Tejas's at FID 98.70 against my 101.44"
 human_audit_style,n/a,pending human audit,NVIDIA A100 (CUDA),30 fixed samples 2 raters,not yet run
 human_audit_content,n/a,pending human audit,NVIDIA A100 (CUDA),30 fixed samples 2 raters,not yet run
 human_audit_artifacts,n/a,pending human audit,NVIDIA A100 (CUDA),30 fixed samples 2 raters,not yet run
