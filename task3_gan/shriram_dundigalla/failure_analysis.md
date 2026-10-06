@@ -101,9 +101,13 @@ so this ambiguity cannot recur.
 
 ## 6. Known gaps
 
-- **Human audit not yet run.** It requires two raters and is the one required
-  metric still missing. The metrics files carry `pending human audit` rather
-  than a placeholder number.
+- **The human audit's controls are too weak to validate it.** The audit itself
+  is complete (35/35 from both raters), but the five real-Monet controls scored
+  3.40 on style against the generated samples' 3.37. A gap of 0.033 on five
+  images is not a separation, and rater 1's gap is exactly zero. The controls
+  therefore do their narrow job - confirming neither rater flat-lined - and
+  nothing more. Answering "can a rater tell real from generated" would need on
+  the order of 30 controls rather than 5.
 - **Training-time peak GPU memory was never logged.** Only the inference figure
   (1882 MB) is measured, and it is labelled as such.
 - **No seed sweep.** All three runs used seed 42, so the 0.07 FID gap between

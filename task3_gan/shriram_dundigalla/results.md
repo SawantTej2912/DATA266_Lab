@@ -167,9 +167,52 @@ positional and there is no memorization threshold, so despite the name it is not
 the memorization-penalized MiFID from the Kaggle Monet competition. It is
 reported here as defined because that is what the leaderboard scores.
 
-## Outstanding
+## Human audit
 
-- **Human audit.** 30 fixed samples, two raters, blinded, scored on style /
-  content / artifacts, with Cohen's kappa. Not yet run; it needs both team
-  members. Placeholders in the metrics files read `pending human audit` rather
-  than carrying a fabricated value.
+30 of my `pred_B2A` outputs were scored blind by two raters (rater 1 Shriram,
+rater 2 Tejas) on style, content and artifacts, 1-5 integers. Five real Monet
+paintings were mixed into the same pool as unlabelled controls, giving 35 images;
+both sheets came back 35/35 complete, so no row was dropped.
+
+| Dimension | Mean, both raters | Exact agreement | Within 1 point | kappa unweighted | kappa quadratic |
+|---|---|---|---|---|---|
+| Style | 3.37 | 42.9% | 100% | 0.2239 | 0.7925 |
+| Content | 3.83 | 51.4% | 100% | 0.2975 | 0.6863 |
+| Artifacts | 3.63 | 65.7% | 100% | 0.5205 | 0.8047 |
+
+Both kappa variants are reported because they disagree sharply and the gap is
+itself the finding. Unweighted kappa counts a 4-vs-5 disagreement exactly as
+badly as 1-vs-5, which is the wrong model for an ordinal scale; quadratic
+weights penalise by distance and are the standard choice for Likert data. The
+within-1-point column is 100% for all three dimensions, which explains both
+numbers at once: the two raters almost never landed on the identical integer but
+never differed by more than one step. Quoting 0.79 alone as "Cohen's kappa"
+would overstate the agreement, and quoting 0.22 alone would understate it.
+
+**The controls did not separate from the generated images on style, and that
+limits what the audit can claim.** Controls averaged 3.40 on style against 3.37
+for the generated samples - a gap of 0.033. Per rater it is exactly 0.000 for
+rater 1 and +0.067 for rater 2, so the direction of the gap rests on one rater
+and five control images. The honest reading is not that the output is
+indistinguishable from real Monet; five controls cannot support that. What the
+controls do establish is the thing they were planted for: both raters used the
+full 1-5 range rather than assigning everything a 4, so the ratings carry
+variance and the kappa is computed on real spread rather than on a flat sheet.
+
+The control means for content (3.10) and artifacts (3.00) came in *below* the
+generated samples, and should not be read as the generated images beating real
+paintings. Both dimensions are undefined for a control: a real Monet has no
+source photograph, so "was the original scene preserved" has no answer, and a
+real painting's visible brushwork reads as texture that the artifacts scale was
+not written to describe. Both raters defaulted near the midpoint. Style is the
+only control dimension that carries information here.
+
+These figures are not comparable with the audit of Tejas's outputs reported in
+the team report. That audit used a 0/1 artifact-presence flag where this one
+uses a 1-5 cleanliness score, covered both translation directions where this one
+covers photo to Monet only, and included no real-Monet controls. The clearest
+evidence that the two sit on different effective scales is that the real Monet
+paintings used as controls here scored 3.40 on style, below the 4.57 his
+photo-to-Monet outputs scored on his sheet - and no generator output is more
+Monet-like than an actual Monet. Each audit is internally valid; the two are
+separate instruments and only the within-audit comparisons mean anything.
