@@ -437,11 +437,25 @@ def part3(d: dict) -> list:
              "MiFID averaged (submitted)", fmt(f, "mifid", 4)],
             ["KID averaged", fmt(f, "kid", 4),
              "LPIPS averaged", fmt(f, "lpips", 4)],
-            ["Cycle reconstruction L1", fmt(f, "cycle_reconstruction_l1", 4),
-             "Content cosine", fmt(f, "content_cosine_input_vs_translation", 4)],
+            ["Cycle L1, Monet round trip", fmt(f, "cycle_reconstruction_l1_A2B2A", 4),
+             "Cycle L1, photo round trip", fmt(f, "cycle_reconstruction_l1_B2A2B", 4)],
+            ["Content cosine A\u2192B", fmt(f, "content_cosine_input_vs_translation_A2B", 4),
+             "Content cosine B\u2192A", fmt(f, "content_cosine_input_vs_translation_B2A", 4)],
             ["Leaderboard rank", fmt(f, "kaggle_rank", 0),
              "Peak GPU memory", f'{fmt(f, "peak_gpu_mem_MB", 0)} MB'],
+            ["Leaderboard score, mine", fmt(f, "kaggle_score_my_submission", 2),
+             "Leaderboard score, team", fmt(f, "kaggle_score_team_standing", 2)],
         ], [1.6 * inch, 1.1 * inch, 1.8 * inch, 1.1 * inch], header=False),
+        p("Kaggle ranks by team and shows the better of a pair\u2019s two submissions, so the "
+          "team score is Tejas\u2019s at FID 98.70 rather than this model\u2019s 101.44. My own "
+          "submission scored \u221250.93.", SMALL),
+        p("The leaderboard rank is the position shown when the submission was made and "
+          "recorded. It is a place in a list that is still growing, so it can move either "
+          "way as the rest of the class submits, without anything about this model "
+          "changing. Every other figure in this section is fixed: they are properties of "
+          "the images in <font face='Courier'>outputs/pred_A2B/</font> and "
+          "<font face='Courier'>outputs/pred_B2A/</font>, and re-scoring those folders "
+          "reproduces them on any day.", SMALL),
         p("The two directions are not symmetric and the asymmetry is informative. "
           "Photograph → Monet scores better on FID, which is the easier direction: the "
           "target is a 300-image distribution with a narrow, consistent style, so a "
@@ -696,7 +710,7 @@ def evidence(d: dict) -> list:
 
 # ------------------------------------------------------------------------------ main
 
-def build(repo_url: str) -> Path:
+def build(repo_url: str, out: Path = OUT) -> Path:
     d = load()
     story: list = []
     story += cover(d, repo_url)
@@ -709,8 +723,8 @@ def build(repo_url: str) -> Path:
     story += joint()
     story += evidence(d)
 
-    OUT.parent.mkdir(parents=True, exist_ok=True)
-    doc = BaseDocTemplate(str(OUT), pagesize=LETTER,
+    out.parent.mkdir(parents=True, exist_ok=True)
+    doc = BaseDocTemplate(str(out), pagesize=LETTER,
                           leftMargin=0.85 * inch, rightMargin=0.85 * inch,
                           topMargin=0.8 * inch, bottomMargin=0.75 * inch,
                           title="DATA266 Lab 1 — Team 33", author="Lab Pair 33")
@@ -729,7 +743,7 @@ def build(repo_url: str) -> Path:
 
     doc.addPageTemplates([PageTemplate(id="all", frames=[frame], onPage=footer)])
     doc.build(story)
-    return OUT
+    return out
 
 
 def main() -> None:
@@ -737,10 +751,18 @@ def main() -> None:
                                  formatter_class=argparse.RawDescriptionHelpFormatter)
     ap.add_argument("--repo-url", default="REPOSITORY URL NOT YET SET",
                     help="the GitHub repository link Canvas requires in the report")
+    ap.add_argument("--out", type=Path, default=OUT,
+                    help="where to write the PDF; defaults to the official team path, so pass "
+                         "this when rebuilding one member's draft and the official report is "
+                         "someone else's build")
     args = ap.parse_args()
-    path = build(args.repo_url)
+    path = build(args.repo_url, args.out.resolve())
     size = path.stat().st_size / 1024
-    print(f"wrote {path.relative_to(REPO_ROOT)} ({size:.0f} KB)")
+    try:
+        shown = path.relative_to(REPO_ROOT)
+    except ValueError:
+        shown = path
+    print(f"wrote {shown} ({size:.0f} KB)")
     if not args.repo_url.startswith("http"):
         print("\nWARNING: no repository URL was supplied, and Canvas requires the report "
               "to carry the GitHub link.\n         Rebuild with "
