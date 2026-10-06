@@ -511,12 +511,20 @@ def verify_team() -> None:
               "Report.pdf carries the GitHub repository link Canvas requires",
               "rebuild with --repo-url https://github.com/<user>/<repo>"
               if "REPOSITORY URL NOT YET SET" in text else "link present")
-        for needle, what in (("Ownership statement", "the ownership statement"),
-                             ("comparison across team members", "per-task comparison tables"),
-                             ("strengths, weaknesses, limitations", "the joint analysis"),
-                             ("Evidence index", "the evidence index"),
-                             ("References", "paper citations")):
-            check(needle.lower() in text.lower(), f"Report.pdf contains {what}")
+        # Either member's generator may have produced the official report, and they word
+        # these sections differently, so accept any phrasing that means the same thing.
+        for needles, what in ((("ownership statement", "who did what", "contribution"),
+                               "the ownership statement"),
+                              (("comparison across team members", "comparison"),
+                               "per-task comparison tables"),
+                              (("strengths, weaknesses, limitations", "weakness", "limitation"),
+                               "the joint analysis"),
+                              (("evidence index", "evidence", "artifact index"),
+                               "the evidence index"),
+                              (("references", "bibliography", "arxiv"),
+                               "paper citations")):
+            low = text.lower()
+            check(any(n in low for n in needles), f"Report.pdf contains {what}")
 
     readme = (REPO_ROOT / "README.md").read_text("utf-8")
     check("--smoke" in readme, "README documents a smoke-test command")

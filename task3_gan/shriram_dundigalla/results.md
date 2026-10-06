@@ -11,7 +11,18 @@ Scoring: `evaluate_local.py` (the official evaluation script, paths parameterize
 | Submitted FID (averaged over both directions) | **101.44** |
 | Submitted MiFID | **0.4172** |
 | Kaggle class competition rank | **20** (leaderboard band 11-20 = 9 points) |
+| Kaggle public score, my submission | **-50.93** |
+| Kaggle public score, team standing | **-49.55** |
 | Selected checkpoint | `ckpt_epoch060.pth` |
+
+Two things about the leaderboard figures, both of which are public-leaderboard scores. Kaggle
+ranks by team, so rank 20 is the pair's position rather than this model's on its own, and the
+score behind it, -49.55, is the better of our two submissions — Tejas's, at FID 98.70 against my
+101.44. My own submission scored -50.93. And the rank is a position in a list that is still
+growing, so it can move either way as the rest of the class submits, without anything about this
+model changing. The FID and MiFID above are the fixed quantities: they are properties of the
+images in `outputs/pred_A2B/` and `outputs/pred_B2A/`, and re-scoring those folders reproduces
+them on any day.
 
 ## Architecture
 
@@ -82,13 +93,20 @@ should be made on total steps or wall clock, not on epoch number.
 | Density | 0.8627 | 0.3847 |
 | Coverage | 0.7900 | 0.6933 |
 | LPIPS (input vs translation) | 0.1806 | 0.2498 |
+| Cycle-reconstruction L1 (round trip starting in this domain) | 0.0471 | 0.0493 |
+| Content-preservation cosine (input vs translation) | 0.8259 | 0.7253 |
+
+The photo round trip is the worse of the two, 0.0493 against 0.0471, and the photo direction also
+restyles more of its input, 0.7253 content cosine against 0.8259. Both point the same way as the FID
+split: Monet is the easier target because it is one narrow style, while photographs are a far wider
+distribution to land in and to come back from.
 
 ### Cycle and content
 
 | | |
 |---|---|
-| Cycle-reconstruction L1 | 0.0482 |
-| Content-preservation cosine (input vs translation) | 0.7756 |
+| Cycle-reconstruction L1, mean of both round trips | 0.0482 |
+| Content-preservation cosine, mean of both directions | 0.7756 |
 | Cycle loss, final epoch | 0.093547 |
 | Identity loss, final epoch | 0.048619 |
 | Adversarial loss, final epoch | 1.140634 |
